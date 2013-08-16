@@ -103,7 +103,7 @@ var SampleApp = function() {
 
         self.routes['/auth/login'] = function(req, res) {
 
-         res.json({'status':true});
+         res.json({'status' : true});
         /*
           var assertion = req.body.assertion;
 
