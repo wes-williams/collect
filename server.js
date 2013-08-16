@@ -2,8 +2,8 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
-//var https = require('https');
-//var qs = require('qs');
+var https = require('https');
+var qs = require('qs');
 
 
 /**
