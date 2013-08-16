@@ -118,7 +118,24 @@ var SampleApp = function() {
               'content-type': 'application/x-www-form-urlencoded',
               'content-length': body.length
             }
-          }, function(data) { res.json(data); });
+          }, function(bidRes) { 
+             var data = "";
+             bidRes.setEncoding('utf8');
+             bidRes.on('data', function (chunk) {
+               data += chunk;
+             });
+             bidRes.on('end', function () {
+               var verified = JSON.parse(data);
+               if (verified.status == 'okay') {
+                 res.json(verified};
+               } else {
+                 res.writeHead(403);
+               }
+              resp.write(data);
+              resp.end();
+            });
+          });
+
           request.write(body);
           request.end();
         };
