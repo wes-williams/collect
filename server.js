@@ -97,6 +97,10 @@ var SampleApp = function() {
     self.createRoutes = function() {
         self.routes = { };
 
+        self.routes['/ok'] = function(req, res) {
+          res.send(1);
+        };
+
         self.routes['/auth/login'] = function(req, res) {
 
          res.json({'status':true});
