@@ -21,7 +21,7 @@
        alert('login : ' + assertion);
        ///*
                $.ajax({ 
-                  type: 'GET',
+                  type: 'POST',
                   url: '/auth/login', 
                   data: {assertion: assertion},
                   success: function(res, status, xhr) { alert('login success'); },
