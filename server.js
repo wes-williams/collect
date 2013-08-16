@@ -98,7 +98,7 @@ var SampleApp = function() {
         self.routes = { };
 
         self.routes['/ok'] = function(req, res) {
-          res.send(1);
+          res.send('1');
         };
 
         self.routes['/auth/login'] = function(req, res) {
