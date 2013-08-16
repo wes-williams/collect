@@ -131,8 +131,8 @@ var SampleApp = function() {
                } else {
                  res.writeHead(403);
                }
-              resp.write(data);
-              resp.end();
+              res.write(data);
+              res.end();
             });
           });
 
