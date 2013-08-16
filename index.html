@@ -4,7 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width">
     <title>Data Up!</title>
-    <link rel="stylesheet" href="css/style.css" />
     <script>
   function setup() {
      var signinLink = document.getElementById('signin');
@@ -29,6 +28,7 @@
                     alert("Login failure: " + err);
                    }
                });
+       },
        onlogout : function(assertion) {
                 $.ajax({
                   type: 'POST',
@@ -44,17 +44,6 @@
    <div clsass="v-outer-div"> 
      <a id="signin" href="#">Sign In</a>
      <a id="signout" href="#">Sign Out</a>
-      <div class="h-outer-div">
-        <div class="center-div">
-          <img src="images/data_up_co.png" />
-          <div class="social-div">
-            <a href="http://data.opencolorado.org/en/group/dataup-co" target="_blank">Data</a> |  
-            <a href="https://github.com/dataupco" target="_blank">Code</a> |  
-            <a href="https://twitter.com/dataupco" target="_blank">News</a> | 
-            <a href="http://www.meetup.com/Castle-Rock-Open-Data-Wranglers" target="_blank">Group</a> &nbsp; &nbsp;
-          </div>
-        </div>
-      </div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>

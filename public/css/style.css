@@ -1,6 +1,0 @@
-.v-outer-div { position:relative; }
-.h-outer-div { position:absolute;top:50%;margin-top:-90px;left:0;width:100%; }
-.center-div { margin:0 auto; width:250px; }
-.center-div img { margin-bottom:10px; }
-.social-div { width:100%; text-align:center; font-size:13pt; font-weight:bold; }
-.social-div a { text-decoration:none; color:gray; }
