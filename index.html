@@ -18,8 +18,7 @@
 
      navigator.id.watch({
        onlogin : function(assertion) { 
-       alert('login : ' + assertion);
-       ///*
+       //alert('login');
                $.ajax({ 
                   type: 'POST',
                   url: '/auth/login', 
@@ -30,18 +29,15 @@
                     alert("Login failure: " + err);
                    }
                });
-       //*/
        },
        onlogout : function(assertion) {
        alert('logout');
-       /*
                 $.ajax({
                   type: 'POST',
                   url: '/auth/logout', 
                   success: function(res, status, xhr) { alert('logout success'); },
                   error: function(xhr, status, err) { alert("Logout failure: " + err); }
                 });
-       */
        }
      });
   }
