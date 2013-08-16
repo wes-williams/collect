@@ -142,6 +142,7 @@ var SampleApp = function() {
         self.createRoutes();
         self.app = express.createServer();
         self.app.configure(function() {
+          self.app.use(express.bodyParser());
           self.app.use(express.static(__dirname + '/public'));
         });
 
