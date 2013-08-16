@@ -98,6 +98,9 @@ var SampleApp = function() {
         self.routes = { };
 
         self.routes['/auth/login'] = function(req, res) {
+
+         res.json({'status':true});
+        /*
           var assertion = req.body.assertion;
 
           var body = qs.stringify({
@@ -116,6 +119,7 @@ var SampleApp = function() {
           }, function() { res.send( res.content); });
           request.write(body);
           request.end();
+          */
         };
 
         self.routes['/auth/logout'] = function(req, res) {
