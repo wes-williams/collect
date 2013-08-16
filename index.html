@@ -23,7 +23,7 @@
                   type: 'POST',
                   url: '/auth/login', 
                   data: {assertion: assertion},
-                  success: function(res, status, xhr) { alert('login success : ' + res.content); },
+                  success: function(res, status, xhr) { alert('login success : ' + JSON.stringify(res)); },
                   error: function(xhr, status, err) {
                     navigator.id.logout();
                     alert("Login failure: " + err);
