@@ -121,13 +121,13 @@ var SampleApp = function() {
           }, function(bidRes) { 
              var data = "";
              bidRes.setEncoding('utf8');
-             bidRes.on('data', function (chunk) {
+             bidRes.on('data', function(chunk) {
                data += chunk;
              });
-             bidRes.on('end', function () {
+             bidRes.on('end', function(){
                var verified = JSON.parse(data);
                if (verified.status == 'okay') {
-                 res.json(verified};
+                 res.json(verified);
                } else {
                  res.writeHead(403);
                }
