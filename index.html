@@ -18,10 +18,10 @@
 
      navigator.id.watch({
        onlogin : function(assertion) { 
-       //alert('login');
+       alert('login : ' + assertion);
        ///*
                $.ajax({ 
-                  type: 'POST',
+                  type: 'GET',
                   url: '/auth/login', 
                   data: {assertion: assertion},
                   success: function(res, status, xhr) { alert('login success'); },
