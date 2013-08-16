@@ -18,8 +18,8 @@
      }
 
      navigator.id.watch({
-       onlogin : function(assertion) { alert('login' + assertion); },
-       onlogout : function(assertion) { alert('logout' + assertion); }
+       onlogin : function(assertion) { if(assertion) alert('login' + assertion); },
+       onlogout : function(assertion) { if(assertion) alert('logout' + assertion); }
      });
   }
     </script>
