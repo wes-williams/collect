@@ -118,7 +118,7 @@ var SampleApp = function() {
               'content-type': 'application/x-www-form-urlencoded',
               'content-length': body.length
             }
-          }, function(data) { res.send(data); });
+          }, function(data) { res.json(data); });
           request.write(body);
           request.end();
         };
