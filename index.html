@@ -18,8 +18,24 @@
      }
 
      navigator.id.watch({
-       onlogin : function(assertion) { if(assertion) alert('login' + assertion); },
-       onlogout : function(assertion) { if(assertion) alert('logout' + assertion); }
+       onlogin : function(assertion) { 
+               $.ajax({ 
+                  type: 'POST',
+                  url: '/auth/login', 
+                  data: {assertion: assertion},
+                  success: function(res, status, xhr) { alert('login success'); },
+                  error: function(xhr, status, err) {
+                    navigator.id.logout();
+                    alert("Login failure: " + err);
+                   }
+               });
+       onlogout : function(assertion) {
+                $.ajax({
+                  type: 'POST',
+                  url: '/auth/logout', 
+                  success: function(res, status, xhr) { alert('logout success'); },
+                  error: function(xhr, status, err) { alert("Logout failure: " + err); }
+                });
      });
   }
     </script>
@@ -40,6 +56,7 @@
         </div>
       </div>
     </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>
   </body>
 </html>

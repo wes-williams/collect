@@ -2,6 +2,8 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var https = require('https');
+var qs = require('qs');
 
 
 /**
@@ -95,14 +97,29 @@ var SampleApp = function() {
     self.createRoutes = function() {
         self.routes = { };
 
-        // Routes for /health, /asciimo and /
-        self.routes['/health'] = function(req, res) {
-            res.send('1');
+        self.routes['/auth/login'] = function(req, res) {
+          var assertion = req.body.assertion;
+
+          var body = qs.stringify({
+            assertion: assertion,
+            audience: 'http://proxy-dataupco.rhcloud.com' 
+          });
+
+          var request = https.request({
+            host: 'verifier.login.persona.org',
+            path: '/verify',
+            method: 'POST',
+            headers: {
+              'content-type': 'application/x-www-form-urlencoded',
+              'content-length': body.length
+            }
+          }, function() { res.send( res.content); });
+          request.write(body);
+          request.end();
         };
 
-        self.routes['/asciimo'] = function(req, res) {
-            var link = "http://i.imgur.com/kmbjB.png";
-            res.send("<html><body><img src='" + link + "'></body></html>");
+        self.routes['/auth/logout'] = function(req, res) {
+            res.json({'status' : true});
         };
 
         self.routes['/'] = function(req, res) {
