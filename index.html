@@ -6,12 +6,14 @@
     <title>Data Up!</title>
     <script>
   function setup() {
-     var signinLink = $('#signin');
+     //var signinLink = $('#signin');
+     var signinLink = Document.getElementById('signin');
      if (signinLink) {
        signinLink.onclick = function() { navigator.id.request(); };
      }
 
-     var signoutLink = $('#signout');
+     //var signoutLink = $('#signout');
+     var signoutLink = Document.getElementById('signout');
      if (signoutLink) {
        signoutLink.onclick = function() { alert('fire'); navigator.id.logout(); };
      }
