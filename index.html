@@ -44,9 +44,9 @@
               toggleLoginLinks(res.email.substring(0,res.email.indexOf('@')));
             },
             error: function(xhr, status, err) {
+              //toggleLoginLinks(null);
               navigator.id.logout();
               //alert("Login failure: " + err);
-              toggleLoginLinks(null);
              }
          });
        },
@@ -59,8 +59,8 @@
              toggleLoginLinks(null);
            },
            error: function(xhr, status, err) { 
-             //alert("Logout failure: " + err); 
              toggleLoginLinks(null);
+             //alert("Logout failure: " + err); 
            }
          });
        }
