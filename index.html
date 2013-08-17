@@ -17,6 +17,7 @@
      }
 
      var toggleLoginLinks = function(email) {
+     alert('testing ' + email);
 
        var hideLink = '#signin';
        var showLink = '#signout';
@@ -40,7 +41,7 @@
             url: '/auth/login', 
             data: {assertion: assertion},
             success: function(res, status, xhr) { 
-              //alert('login success : ' + JSON.stringify(res)); 
+              alert('login success : ' + JSON.stringify(res)); 
               toggleLoginLinks(res.email.substring(0,res.email.indexOf('@')));
             },
             error: function(xhr, status, err) {
