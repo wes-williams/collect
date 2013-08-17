@@ -26,7 +26,7 @@
               //alert('login success : ' + JSON.stringify(res)); 
               $('#signin').hide();
               $('#signout').show();
-              $('#usergreeting').html('Welcome ' + res.email + '!');
+              $('#usergreeting').html('Welcome ' + res.email.substring(0,res.email.indexOf('@')) + '!');
             },
             error: function(xhr, status, err) {
               navigator.id.logout();
