@@ -18,13 +18,12 @@
 
      navigator.id.watch({
        onlogin : function(assertion) { 
-       alert('login');
          $.ajax({ 
             type: 'POST',
             url: '/auth/login', 
             data: {assertion: assertion},
             success: function(res, status, xhr) { 
-              alert('login success : ' + JSON.stringify(res)); 
+              //alert('login success : ' + JSON.stringify(res)); 
               $('#signin').hide();
               $('#signout').show();
             },
@@ -35,12 +34,10 @@
          });
        },
        onlogout : function(assertion) {
-       alert('logout');
          $.ajax({
            type: 'POST',
            url: '/auth/logout', 
            success: function(res, status, xhr) { 
-             alert('logout success'); 
              $('#signout').hide();
              $('#signin').show();
            },
