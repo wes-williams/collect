@@ -26,7 +26,7 @@
               //alert('login success : ' + JSON.stringify(res)); 
               $('#signin').hide();
               $('#signout').show();
-              ${'#usergreeting').html('Welcome ' + res.email + '!');
+              $('#usergreeting').html('Welcome ' + res.email + '!');
             },
             error: function(xhr, status, err) {
               navigator.id.logout();
@@ -41,7 +41,7 @@
            success: function(res, status, xhr) { 
              $('#signout').hide();
              $('#signin').show();
-             ${'#usergreeting').html('Welcome Guest!');
+             $('#usergreeting').html('Welcome Guest!');
            },
            error: function(xhr, status, err) { 
              alert("Logout failure: " + err); 
