@@ -23,12 +23,14 @@
             type: 'POST',
             url: '/auth/login', 
             data: {assertion: assertion},
-            success: function(res, status, xhr) { alert('login success : ' + JSON.stringify(res)); },
+            success: function(res, status, xhr) { 
+              alert('login success : ' + JSON.stringify(res)); 
+              $('#signin').hide();
+              $('#signout').show();
+            },
             error: function(xhr, status, err) {
               navigator.id.logout();
               alert("Login failure: " + err);
-              $('#signin').hide();
-              $('#signout').show();
              }
          });
        },
@@ -37,11 +39,13 @@
          $.ajax({
            type: 'POST',
            url: '/auth/logout', 
-           success: function(res, status, xhr) { alert('logout success'); },
-           error: function(xhr, status, err) { 
-             alert("Logout failure: " + err); 
+           success: function(res, status, xhr) { 
+             alert('logout success'); 
              $('#signout').hide();
              $('#signin').show();
+           },
+           error: function(xhr, status, err) { 
+             alert("Logout failure: " + err); 
            }
          });
        }
