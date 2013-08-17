@@ -7,13 +7,13 @@
     <script>
   function setup() {
      //var signinLink = $('#signin');
-     var signinLink = Document.getElementById('signin');
+     var signinLink = document.getElementById('signin');
      if (signinLink) {
        signinLink.onclick = function() { navigator.id.request(); };
      }
 
      //var signoutLink = $('#signout');
-     var signoutLink = Document.getElementById('signout');
+     var signoutLink = document.getElementById('signout');
      if (signoutLink) {
        signoutLink.onclick = function() { alert('fire'); navigator.id.logout(); };
      }
