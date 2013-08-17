@@ -26,6 +26,7 @@
               //alert('login success : ' + JSON.stringify(res)); 
               $('#signin').hide();
               $('#signout').show();
+              ${'#usergreeting').html('Welcome ' + res.email + '!');
             },
             error: function(xhr, status, err) {
               navigator.id.logout();
@@ -40,6 +41,7 @@
            success: function(res, status, xhr) { 
              $('#signout').hide();
              $('#signin').show();
+             ${'#usergreeting').html('Welcome Guest!');
            },
            error: function(xhr, status, err) { 
              alert("Logout failure: " + err); 
@@ -51,9 +53,12 @@
     </script>
   </head>
   <body onLoad="setup()">
-   <div clsass="v-outer-div"> 
-     <a id="signin" style="display:none" href="#">Sign In</a>
-     <a id="signout" style="display:none" href="#">Sign Out</a>
+    <div> 
+      <span id="usergreeting">Welcome Guest!</span>
+      <span id="userlogin">
+        <a id="signin" style="display:none" href="#">Sign In</a>
+        <a id="signout" style="display:none" href="#">Sign Out</a>
+      </span>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>
