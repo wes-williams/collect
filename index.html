@@ -18,26 +18,32 @@
 
      navigator.id.watch({
        onlogin : function(assertion) { 
-       //alert('login');
-               $.ajax({ 
-                  type: 'POST',
-                  url: '/auth/login', 
-                  data: {assertion: assertion},
-                  success: function(res, status, xhr) { alert('login success : ' + JSON.stringify(res)); },
-                  error: function(xhr, status, err) {
-                    navigator.id.logout();
-                    alert("Login failure: " + err);
-                   }
-               });
+       alert('login');
+         $.ajax({ 
+            type: 'POST',
+            url: '/auth/login', 
+            data: {assertion: assertion},
+            success: function(res, status, xhr) { alert('login success : ' + JSON.stringify(res)); },
+            error: function(xhr, status, err) {
+              navigator.id.logout();
+              alert("Login failure: " + err);
+              $('#signin').hide();
+              $('#signout').show();
+             }
+         });
        },
        onlogout : function(assertion) {
        alert('logout');
-                $.ajax({
-                  type: 'POST',
-                  url: '/auth/logout', 
-                  success: function(res, status, xhr) { alert('logout success'); },
-                  error: function(xhr, status, err) { alert("Logout failure: " + err); }
-                });
+         $.ajax({
+           type: 'POST',
+           url: '/auth/logout', 
+           success: function(res, status, xhr) { alert('logout success'); },
+           error: function(xhr, status, err) { 
+             alert("Logout failure: " + err); 
+             $('#signout').hide();
+             $('#signin').show();
+           }
+         });
        }
      });
   }
