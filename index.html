@@ -18,13 +18,13 @@
 
      var toggleLoginLinks = function(email) {
 
-       var hideLink = '#signout';
-       var showLink = '#signin';
+       var hideLink = '#signin';
+       var showLink = '#signout';
 
        if(email==null) {
          email = 'Guest';
-         hideLink = '#signin';
-         showLink = '#signout';
+         hideLink = '#signout';
+         showLink = '#signin';
        }
 
        $(hideLink).hide();
