@@ -13,7 +13,7 @@
 
      var signoutLink = document.getElementById('signout');
      if (signoutLink) {
-       signoutLink.onclick = function() { alert('fire'); navigator.id.logout(); };
+       signoutLink.onclick = function() { navigator.id.logout(); };
      }
 
      var toggleLoginLinks = function(email) {
@@ -42,7 +42,7 @@
               toggleLoginLinks(res.email.substring(0,res.email.indexOf('@')));
             },
             error: function(xhr, status, err) {
-              alert("Login failure: " + err);
+              //alert("Login failure: " + err);
               toggleLoginLinks(null);
               navigator.id.logout();
              }
@@ -56,7 +56,7 @@
              toggleLoginLinks(null);
            },
            error: function(xhr, status, err) { 
-             alert("Logout failure: " + err); 
+             //alert("Logout failure: " + err); 
              toggleLoginLinks(null);
            }
          });
