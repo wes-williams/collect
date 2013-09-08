@@ -1,3 +1,6 @@
+var https = require('https');
+var qs = require('qs');
+
 var personaPlugin = {};
 
 personaPlugin.login = function(req, res) {
