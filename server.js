@@ -95,18 +95,20 @@ var SampleApp = function() {
      */
     self.createRoutes = function() {
         self.routes = { };
+        self.routes.get = { };
+        self.routes.post = { };
 
-        self.routes['/ok'] = function(req, res) {
+        self.routes.get['/ok'] = function(req, res) {
           res.send('1');
         };
 
-        self.routes['/auth/login'] = persona.login; 
-        self.routes['/auth/logout'] = persona.logout;
-
-        self.routes['/'] = function(req, res) {
+        self.routes.get['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
+
+        self.routes.post['/auth/login'] = persona.login; 
+        self.routes.post['/auth/logout'] = persona.logout;
     };
 
 
@@ -123,8 +125,13 @@ var SampleApp = function() {
         });
 
         //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.all(r, self.routes[r]);
+        // get only
+        for (var r in self.routes.get) {
+            self.app.get(r, self.routes.get[r]);
+        }
+        //post only
+        for (var r in self.routes.post) {
+            self.app.post(r, self.routes.post[r]);
         }
     };
 
