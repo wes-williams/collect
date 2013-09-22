@@ -111,8 +111,16 @@ var SampleApp = function() {
         self.routes.post['/auth/login'] = persona.login; 
         self.routes.post['/auth/logout'] = persona.logout;
 
-        self.routes.get['/auth/fitbit'] = passport.auth;
-        self.routes.post['/auth/fitbit/callback'] = passport.authCallback('fitbit',{currentRedirect : '/?r=1', failureRedirect : '/?r=0' });
+        self.routes.get['/auth/fitbit'] = function(req,res,next) { 
+          passport.auth('fitbit',
+                        { 'req' : req, 'res' : res, 'next' : next }); 
+        };
+
+        self.routes.get['/auth/fitbit/callback'] = function(req,res,next) {
+          passport.authCallback('fitbit',
+                        { 'successUrl' : '/?r=1', 'failureUrl' : '/?r=0' },
+                        { 'req' : req, 'res' : res, 'next' : next }); 
+        };
                                                                      
     };
 

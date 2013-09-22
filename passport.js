@@ -7,38 +7,43 @@ var appConfig = require('./passport-config'),
 
 var passportPlugin = {};
 
-passportPlugin.users = [];
+users = [];
 
-passportPlugin.findUser = function(request) { 
+var findUser = function(request) { 
   return users[request.session.passport.user]; 
 };
+passportPlugin.findUser = findUser; 
 
 
-passportPlugin.init = function(app) {
+var init = function(app) {
 
   app.use(passport.initialize());
   app.use(passport.session());
 
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
+  console.log('serialize user');
     users[user.user_id] = user;
     done(null, user.user_id);
   });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
+  console.log('deserialize user');
     var user = users[id];
     done(null, user);
   });
 
   // load all app configs
   for(var apiName in appConfig) {
-    passportPlugin.register(apiName); 
+  console.log('register = ' + apiName);
+    register(apiName); 
   }
 
 };  
+passportPlugin.init = init;
 
-passportPlugin.register = function(apiName) {
+var register = function(apiName) {
 
   // setup oauth1 through passport
   passport.use(apiName, 
@@ -56,14 +61,16 @@ passportPlugin.register = function(apiName) {
       var options =  { 'method' : 'GET', 
                        'uri' : appConfig[apiName].profileUrl };
       var callback = function(user, data) {
-        var fullUser = null;
+       console.log('callback = ' + user + ', ' + data);
+        var fullUser = null; 
         if(data  && data.user_id) { 
           fullUser = data;
           fullUser.accessToken = user.accessToken;
         } 
-        done(null, fullUser);
+        fakeUser.user_id = '123'; // TODO - remote this line
+        done(null, fakeUser); // TODO - use fullUser when call works
       };
-      handleRequest(fakeUser,options,callback);  
+      handleRequest(apiName,fakeUser,options,callback);  
     }
   ));
 
@@ -89,15 +96,18 @@ passportPlugin.register = function(apiName) {
         } 
         done(null, fullUser);
       };
-      handleRequest(fakeUser,options,callback);  
+      handleRequest(apiName,fakeUser,options,callback);  
     }
   ));
 */
 
 };
+passportPlugin.register = register;
 
 // simplified request handling
-passportPlugin.handleRequest = function(apiName, options, callback) {
+var handleRequest = function(apiName, user, options, callback) {
+ console.log('handling request');
+ // Use right credential (token) https://wiki.fitbit.com/display/API/OAuth+Authentication+in+the+Fitbit+API
   var headers =  { 'Authorization': 'Basic ' + user.accessToken,
                    'Content-Type': 'application/json'};
   var method = options.method.toUpperCase(); 
@@ -107,13 +117,14 @@ passportPlugin.handleRequest = function(apiName, options, callback) {
   }
 
   request({ 
-      'uri' : appConfig.requestUrl + options.uri,
+      'uri' : options.uri,
       'body' : options.body,
       'method' : options.method,
       'headers' : headers 
     }, 
     function(error, response, body) {
       if(error) {
+    console.log('handle request error ' + JSON.stringify(error));
         callback(user,null);
         return;
       }
@@ -121,18 +132,28 @@ passportPlugin.handleRequest = function(apiName, options, callback) {
       if (response.statusCode === 200) {
         callback(user,JSON.parse(body));
       } else {
+      console.log('handle request error ' + response.statusCode);
         callback(user,response.statusCode);
     }
   });
 };
+passportPlugin.handleRequest = handleRequest;
 
-passportPlugin.auth = function(apiName) {
+var auth = function(apiName,streams) {
 console.log('auth attempt');
-  return passport.authenticate(apiName);
+  passport.authenticate(apiName)(streams.req,streams.res,streams.next);
 }
+passportPlugin.auth = auth;
 
-passportPlugin.authCallback = function(apiName, successUrl, failureUrl) {
-  passport.authenticate(apiName, { 'successRedirect' : successUrl, 'failureRedirect' : failureUrl });
+var authCallback = function(apiName,urls,streams) {
+console.log('authCallback attempt');
+  passport.authenticate(apiName, 
+                          { 
+                            'successRedirect' : urls.successUrl, 
+                            'failureRedirect' : urls.failureUrl 
+                          }
+                       )(streams.req,streams.res,streams.next);
 }
+passportPlugin.authCallback = authCallback;
 
 module.exports = passportPlugin;
