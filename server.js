@@ -3,6 +3,7 @@
 var express = require('express');
 var fs      = require('fs');
 var persona = require('./persona.js');
+var passport = require('./passport.js');
 
 
 /**
@@ -109,6 +110,9 @@ var SampleApp = function() {
 
         self.routes.post['/auth/login'] = persona.login; 
         self.routes.post['/auth/logout'] = persona.logout;
+
+        self.routes.get['/fitbit/auth'] = passport.auth;
+        self.routes.post['/fitbit/callback'] = passport.authCallback;
     };
 
 
@@ -121,7 +125,11 @@ var SampleApp = function() {
         self.app = express.createServer();
         self.app.configure(function() {
           self.app.use(express.bodyParser());
+          self.app.use(express.cookieParser());
+          self.app.use(express.session({ secret: 'keep-this-private' }));
           self.app.use(express.static(__dirname + '/public'));
+
+          passport.init(self.app);
         });
 
         //  Add handlers for the app (from the routes).
@@ -133,6 +141,7 @@ var SampleApp = function() {
         for (var r in self.routes.post) {
             self.app.post(r, self.routes.post[r]);
         }
+
     };
 
 
