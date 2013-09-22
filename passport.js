@@ -129,7 +129,7 @@ passportPlugin.auth = function(apiName) {
 }
 
 passportPlugin.authCallback = function(apiName, successUrl, failureUrl) {
-  passport.authenticate(apiName, { 'successRedirect' : successUrl, 'failureRedirect' : failureUrl }),
+  passport.authenticate(apiName, { 'successRedirect' : successUrl, 'failureRedirect' : failureUrl });
 }
 
 module.exports = passportPlugin;
