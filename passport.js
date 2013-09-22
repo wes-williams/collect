@@ -31,7 +31,7 @@ passportPlugin.init = function(app) {
   });
 
   // load all app configs
-  for(var apiName : appConfigs) {
+  for(var apiName in appConfigs) {
     register(apiName); 
   }
 
