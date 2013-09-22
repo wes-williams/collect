@@ -13,6 +13,7 @@ passportPlugin.findUser = function(request) {
   return users[request.session.passport.user]; 
 };
 
+
 passportPlugin.init = function(app) {
 
   app.use(passport.initialize());
@@ -31,8 +32,8 @@ passportPlugin.init = function(app) {
   });
 
   // load all app configs
-  for(var apiName in appConfigs) {
-    register(apiName); 
+  for(var apiName in appConfig) {
+    passportPlugin.register(apiName); 
   }
 
 };  
@@ -42,7 +43,7 @@ passportPlugin.register = function(apiName) {
   // setup oauth1 through passport
   passport.use(apiName, 
     new OAuthStrategy({
-        userAuthorizationURL: appConfig[apiName].authoriationUrl,
+        userAuthorizationURL: appConfig[apiName].authorizationUrl,
         requestTokenURL: appConfig[apiName].requestTokenUrl,
         accessTokenURL: appConfig[apiName].accessTokenUrl,
         consumerKey: appConfig[apiName].clientId,
@@ -50,6 +51,7 @@ passportPlugin.register = function(apiName) {
         callbackURL: appConfig[apiName].callbackUrl,
     },
     function(accessToken, refreshToken, profile, done) {
+    console.log('found accessToken: ' + accessToken);
       var fakeUser = { 'accessToken' : accessToken }; 
       var options =  { 'method' : 'GET', 
                        'uri' : appConfig[apiName].profileUrl };
@@ -125,6 +127,7 @@ passportPlugin.handleRequest = function(apiName, options, callback) {
 };
 
 passportPlugin.auth = function(apiName) {
+console.log('auth attempt');
   return passport.authenticate(apiName);
 }
 
