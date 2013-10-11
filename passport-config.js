@@ -10,8 +10,8 @@ appConfig.fitbit.defaultLoadUrl = 'https://api.fitbit.com/1/user/-/profile.json'
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
 appConfig.fitbit.clientId = '6b9642ee29274dd892840cf41b96510e';
 appConfig.fitbit.clientSecret = 'b82d667c14494949a84ebd548a8299bb';
-appConfig.fitbit.callbackUrl = 'http://127.0.0.1:8080/auth/fitbit/callback';
-//appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
+//appConfig.fitbit.callbackUrl = 'http://127.0.0.1:8080/auth/fitbit/callback';
+appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
 
 /*
 // oauth 2.0 (no request url)
