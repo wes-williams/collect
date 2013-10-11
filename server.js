@@ -118,7 +118,7 @@ var SampleApp = function() {
 
         self.routes.get['/auth/fitbit/callback'] = function(req,res,next) {
           passport.authCallback('fitbit',
-                        { 'successUrl' : '/?r=1', 'failureUrl' : '/?r=0' },
+                        { 'successUrl' : '/', 'failureUrl' : '/?e=1' },
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
                                                                      

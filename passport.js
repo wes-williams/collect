@@ -9,8 +9,8 @@ var passportPlugin = {};
 
 users = [];
 
-var findUser = function(request) { 
-  return users[request.session.passport.user]; 
+var findUser = function(req) { 
+  return users[req.session.passport.user]; 
 };
 passportPlugin.findUser = findUser; 
 
@@ -22,21 +22,21 @@ var init = function(app) {
 
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
-  console.log('serialize user');
-    users[user.user_id] = user;
-    done(null, user.user_id);
+    //console.log('serialize user ' + user._id);
+    users[user._id] = user;
+    done(null, user._id);
   });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
-  console.log('deserialize user');
+    //console.log('deserialize user ' + id);
     var user = users[id];
     done(null, user);
   });
 
   // load all app configs
   for(var apiName in appConfig) {
-  console.log('register = ' + apiName);
+    console.log('register = ' + apiName);
     register(apiName); 
   }
 
@@ -45,94 +45,90 @@ passportPlugin.init = init;
 
 var register = function(apiName) {
 
-  // setup oauth1 through passport
-  passport.use(apiName, 
-    new OAuthStrategy({
-        userAuthorizationURL: appConfig[apiName].authorizationUrl,
-        requestTokenURL: appConfig[apiName].requestTokenUrl,
-        accessTokenURL: appConfig[apiName].accessTokenUrl,
-        consumerKey: appConfig[apiName].clientId,
-        consumerSecret: appConfig[apiName].clientSecret,
-        callbackURL: appConfig[apiName].callbackUrl,
-    },
-    function(accessToken, refreshToken, profile, done) {
-    console.log('found accessToken: ' + accessToken);
-      var fakeUser = { 'accessToken' : accessToken }; 
-      var options =  { 'method' : 'GET', 
-                       'uri' : appConfig[apiName].profileUrl };
-      var callback = function(user, data) {
-       console.log('callback = ' + user + ', ' + data);
-        var fullUser = null; 
-        if(data  && data.user_id) { 
-          fullUser = data;
-          fullUser.accessToken = user.accessToken;
-        } 
-        fakeUser.user_id = '123'; // TODO - remote this line
-        done(null, fakeUser); // TODO - use fullUser when call works
-      };
-      handleRequest(apiName,fakeUser,options,callback);  
-    }
-  ));
+   var strategyCallback = function(token, tokenSecret, profile, done) {
+    var fakeUser = { 'token' : token,
+                     'tokenSecret' : tokenSecret }; 
+    var options =  { 'method' : 'GET', 
+                     'uri' : appConfig[apiName].defaultLoadUrl };
+    var callback = function(user, data) {
+      var fullUser = null; 
 
-/*
-  // setup oauth2 through passport
-  passport.use(apiName, 
-    new OAuth2Strategy({
-        authorizationURL: appConfig[apiName].authorizationUrl,
-        tokenURL: appConfig[apiName].accessTokenUrl,
-        clientID: appConfig[apiName].clientId,
-        clientSecret: appConfig[apiName].clientSecret,
-        callbackURL: appConfig[apiName].callbackUrl 
-    },
-    function(accessToken, refreshToken, profile, done) {
-      var fakeUser = { 'accessToken' : accessToken }; 
-      var options =  { 'method' : 'GET', 
-                       'uri' : appConfig[apiName].profileUrl };
-      var callback = function(user, data) {
-        var fullUser = null;
-        if(data  && data.user_id) { 
-          fullUser = data;
-          fullUser.accessToken = user.accessToken;
-        } 
-        done(null, fullUser);
-      };
-      handleRequest(apiName,fakeUser,options,callback);  
-    }
-  ));
-*/
+      //var profileUser = appConfig[apiName].userElementName?data[appConfig[apiName].userElementName]:data;
+      var profileUserId = null;
+      if(data) {
+        var userIdPath = appConfig[apiName].userIdPath.split('.'); 
+        var profileUser = data;
+        for(var i=0;i<userIdPath.length;i++) {
+          if(i==userIdPath.length-1) {
+            profileUserId = profileUser[userIdPath[i]];
+          }
+          else {
+            profileUser = profileUser[userIdPath[i]];
+          }
+        }
+      }
 
+      if(profileUserId) { 
+        fullUser = {};
+        fullUser.profile = data;
+        fullUser._id = apiName + "~" + profileUserId; 
+        fullUser.token = fakeUser.token;
+        fullUser.tokenSecret = fakeUser.tokenSecret;
+      } 
+      done(null, fullUser);
+    };
+    handleRequest(apiName,fakeUser,options,callback);  
+  };
+
+  if(appConfig[apiName].type == 'oauth-1.0') {
+    // setup oauth1 through passport
+    passport.use(apiName, 
+      new OAuthStrategy({
+          userAuthorizationURL: appConfig[apiName].authorizationUrl,
+          requestTokenURL: appConfig[apiName].requestTokenUrl,
+          accessTokenURL: appConfig[apiName].accessTokenUrl,
+          consumerKey: appConfig[apiName].clientId,
+          consumerSecret: appConfig[apiName].clientSecret,
+          callbackURL: appConfig[apiName].callbackUrl,
+      }, strategyCallback
+    ));
+  }
+  else if(appConfig[apiName].type == 'oauth-2.0') {
+    /* TODO LATER
+    // setup oauth2 through passport
+    passport.use(apiName, 
+      new OAuth2Strategy({
+          authorizationURL: appConfig[apiName].authorizationUrl,
+          tokenURL: appConfig[apiName].accessTokenUrl,
+          clientID: appConfig[apiName].clientId,
+          clientSecret: appConfig[apiName].clientSecret,
+          callbackURL: appConfig[apiName].callbackUrl 
+      }, strategyCallback
+    ));
+    */
+  }
+  else {
+    console.log(apiName + " has unknown auth type of " + appConfig[apiName].type);
+  }
 };
 passportPlugin.register = register;
 
 // simplified request handling
 var handleRequest = function(apiName, user, options, callback) {
- console.log('handling request');
- // Use right credential (token) https://wiki.fitbit.com/display/API/OAuth+Authentication+in+the+Fitbit+API
-  var headers =  { 'Authorization': 'Basic ' + user.accessToken,
-                   'Content-Type': 'application/json'};
-  var method = options.method.toUpperCase(); 
-  if(method=='PUT' || method=='POST') {
-    options.body = JSON.stringify(options.body);
-    headers['Content-Length'] = options.body.length; 
-  }
+  console.log('handling request to ' + options.uri);
 
-  request({ 
-      'uri' : options.uri,
-      'body' : options.body,
-      'method' : options.method,
-      'headers' : headers 
-    }, 
-    function(error, response, body) {
+  passport._strategy(apiName)._oauth.get(options.uri, user.token, user.tokenSecret, function (error, body, response) {
       if(error) {
-    console.log('handle request error ' + JSON.stringify(error));
+        console.log('handle request error ' + JSON.stringify(error));
         callback(user,null);
         return;
       }
 
       if (response.statusCode === 200) {
+        //console.log("RESULT=" + body);
         callback(user,JSON.parse(body));
       } else {
-      console.log('handle request error ' + response.statusCode);
+        console.log('handle request error ' + response.statusCode);
         callback(user,response.statusCode);
     }
   });
@@ -140,13 +136,13 @@ var handleRequest = function(apiName, user, options, callback) {
 passportPlugin.handleRequest = handleRequest;
 
 var auth = function(apiName,streams) {
-console.log('auth attempt');
+  //console.log('auth attempt');
   passport.authenticate(apiName)(streams.req,streams.res,streams.next);
 }
 passportPlugin.auth = auth;
 
 var authCallback = function(apiName,urls,streams) {
-console.log('authCallback attempt');
+  //console.log('authCallback attempt');
   passport.authenticate(apiName, 
                           { 
                             'successRedirect' : urls.successUrl, 
