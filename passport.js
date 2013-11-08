@@ -90,7 +90,7 @@ var register = function(apiName) {
         fullUser.tokenSecret = fakeUser.tokenSecret;
         console.log('test.id='+req.session.user.id);
         req.session.user.api[apiName] = fullUser._id;
-        console.log('test.api='+stringify(req.session.user.api));
+        console.log('test.api='+JSON.stringify(req.session.user.api));
       } 
       done(null, fullUser);
     };
