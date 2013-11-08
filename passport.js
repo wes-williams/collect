@@ -18,9 +18,11 @@ var findUser = function(apiName,req) {
 
   if(req.session.user == undefined 
      || req.session.user.api[apiName] == undefined) {
+     console.log("test1");
     return undefined;
   }
 
+    console.log("test2");
   return users[req.session.user.api[apiName]]; 
 };
 passportPlugin.findUser = findUser; 
