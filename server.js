@@ -147,7 +147,6 @@ var SampleApp = function() {
         };
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
-        console.log(req.session.userid);
           var user = passport.findUser(req);
           if(user==undefined) {
             res.json({'error' : 'no user found'})

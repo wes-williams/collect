@@ -15,6 +15,7 @@ var hasApi = function(apiName) {
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(req) { 
+  console.log(req.session.passport.user); 
   return users[req.session.passport.user]; 
 };
 passportPlugin.findUser = findUser; 
