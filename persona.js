@@ -29,7 +29,7 @@ personaPlugin.login = function(req, res) {
      bidRes.on('end', function(){
        var verified = JSON.parse(data);
        if (verified.status == 'okay') {
-         req.session.user =  { 'id' : verified.email , api: {} };
+         req.session.user =  { 'id' : verified.email , api: [] };
          res.json(verified);
        } else {
          res.writeHead(403);
