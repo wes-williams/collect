@@ -91,7 +91,7 @@ var register = function(apiName) {
 
         if(logins[req.session.user.id]==undefined) {
           console.log("test 1: " + req.session.user.id);
-          logins[req.session.user.id]={apiName : fullUser._id};
+          logins['test']={apiName : fullUser._id};
         }
         else {
           console.log("test 2: " + req.session.user.id);
