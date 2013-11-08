@@ -112,13 +112,6 @@ var SampleApp = function() {
         self.routes.post['/logout'] = persona.logout;
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
-        /*
-          var user = passport.findUser(req);
-          if(user==undefined) {
-            res.json({'error' : 'no user found'})
-            return;
-          }
-        */
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
@@ -131,13 +124,6 @@ var SampleApp = function() {
         };
 
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
-        /*
-          var user = passport.findUser(req);
-          if(user==undefined) {
-            res.json({'error' : 'no user found'})
-            return;
-          }
-        */
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
@@ -151,6 +137,7 @@ var SampleApp = function() {
         };
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
+
           var user = passport.findUser(req);
           if(user==undefined) {
             res.json({'error' : 'no user found'})
