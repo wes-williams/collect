@@ -9,6 +9,11 @@ var passportPlugin = {};
 
 users = [];
 
+var hasApi = function(apiName) {
+  return appConfig[apiName] != undefined;
+};
+passportPlugin.hasApi = hasApi;
+
 var findUser = function(req) { 
   return users[req.session.passport.user]; 
 };

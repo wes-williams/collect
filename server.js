@@ -113,12 +113,22 @@ var SampleApp = function() {
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
           var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json({'error' : 'api not found'})
+            return;
+          }
+
           passport.auth(apiName,
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
 
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
           var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json({'error' : 'api not found'})
+            return;
+          }
+
           passport.authCallback(apiName,
                         { 'successUrl' : '/', 'failureUrl' : '/?e=1' },
                         { 'req' : req, 'res' : res, 'next' : next }); 
@@ -127,11 +137,16 @@ var SampleApp = function() {
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
           var user = passport.findUser(req);
           if(user==undefined) {
-            res.json({'error' : 'not logged in'})
+            res.json({'error' : 'no user found'})
             return;
           }
 
           var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json({'error' : 'api not found'})
+            return;
+          }
+
           var options = {};
           options.method = 'GET';
           options.uri = req.url.substring(5+apiName.length);
