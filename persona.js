@@ -29,6 +29,7 @@ personaPlugin.login = function(req, res) {
      bidRes.on('end', function(){
        var verified = JSON.parse(data);
        if (verified.status == 'okay') {
+         req.session.userid = verified.email;
          res.json(verified);
        } else {
          res.writeHead(403);
@@ -43,6 +44,7 @@ personaPlugin.login = function(req, res) {
 };
 
 personaPlugin.logout = function(req, res) {
+    req.session.destroy();
     res.json({'status' : true});
 };
 
