@@ -17,6 +17,8 @@ passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req) { 
 
+console.log(JSON.stringify(logins));
+
   if(req.session.user == undefined 
      || logins[req.session.user.id] == undefined) {
     return undefined;
