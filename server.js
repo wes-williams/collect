@@ -112,24 +112,32 @@ var SampleApp = function() {
         self.routes.post['/auth/logout'] = persona.logout;
 
         self.routes.get['/auth/fitbit'] = function(req,res,next) { 
-          passport.auth('fitbit',
+          var apiName = req.param('apiName');
+          passport.auth(apiName,
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
 
-        self.routes.get['/auth/fitbit/callback'] = function(req,res,next) {
-          passport.authCallback('fitbit',
+        self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
+          var apiName = req.param('apiName');
+          passport.authCallback(apiName,
                         { 'successUrl' : '/', 'failureUrl' : '/?e=1' },
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
-           var apiName = req.param('apiName');
-           var options = {};
-           options.method = 'GET';
-           options.uri = req.url.substring(5+apiName.length);
-           passport.handleRequest(apiName,passport.findUser(req),options, function(user,data) {
-             res.json(data); 
-           });  
+          var user passport.findUser(req);
+          if(user==undefined) {
+            res.json({'error' : 'not logged in'})
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          var options = {};
+          options.method = 'GET';
+          options.uri = req.url.substring(5+apiName.length);
+          passport.handleRequest(apiName,passport.findUser(req),options, function(user,data) {
+            res.json(data); 
+          });  
 
         };
     };
