@@ -148,6 +148,7 @@ var SampleApp = function() {
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
 
+          var apiName = req.param('apiName');
           var user = passport.findUser(apiName,req);
           if(user==undefined) {
             res.json({'error' : 'no auth found'})
