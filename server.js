@@ -122,6 +122,16 @@ var SampleApp = function() {
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
                                                                      
+        self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
+           var apiName = req.param('apiName');
+           var options = {};
+           options.method = 'GET';
+           options.uri = req.url.substring(5+apiName.length);
+           passport.handleRequest(apiName,passport.findUser(req),options, function(user,data) {
+             res.json(data); 
+           });  
+
+        };
     };
 
 

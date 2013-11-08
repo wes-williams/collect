@@ -117,7 +117,7 @@ passportPlugin.register = register;
 var handleRequest = function(apiName, user, options, callback) {
   console.log('handling request to ' + options.uri);
 
-  passport._strategy(apiName)._oauth.get(options.uri, user.token, user.tokenSecret, function (error, body, response) {
+  passport._strategy(apiName)._oauth.get(appConfig[apiName].baseUrl+options.uri, user.token, user.tokenSecret, function (error, body, response) {
       if(error) {
         console.log('handle request error ' + JSON.stringify(error));
         callback(user,null);
