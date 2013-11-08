@@ -90,9 +90,11 @@ var register = function(apiName) {
         fullUser.tokenSecret = fakeUser.tokenSecret;
 
         if(logins[req.session.user.id]==undefined) {
+          console.log("test 1");
           logins[req.session.user.id]={apiName : fullUser._id};
         }
         else {
+          console.log("test 2");
           logins[req.session.user.id][apiName] = fullUser._id;
         }
       } 
