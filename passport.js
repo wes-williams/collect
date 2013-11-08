@@ -82,13 +82,15 @@ var register = function(apiName) {
       }
 
       if(profileUserId) { 
+      console.log("test3");
         fullUser = {};
         fullUser.profile = data;
         fullUser._id = apiName + "~" + profileUserId; 
         fullUser.token = fakeUser.token;
         fullUser.tokenSecret = fakeUser.tokenSecret;
-        console.log('test='+req.session.user.id);
+        console.log('test.id='+req.session.user.id);
         req.session.user.api[apiName] = fullUser._id;
+        console.log('test.api='+req.session.user.api);
       } 
       done(null, fullUser);
     };
