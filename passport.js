@@ -33,14 +33,14 @@ var init = function(app) {
 
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
-    //console.log('serialize user ' + user._id);
+    console.log('serialize user ' + user._id);
     users[user._id] = user;
     done(null, user._id);
   });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
-    //console.log('deserialize user ' + id);
+    console.log('deserialize user ' + id);
     var user = users[id];
     done(null, user);
   });
@@ -85,7 +85,7 @@ var register = function(apiName) {
         fullUser._id = apiName + "~" + profileUserId; 
         fullUser.token = fakeUser.token;
         fullUser.tokenSecret = fakeUser.tokenSecret;
-        console.log(req.session.user.id);
+        console.log('test='+req.session.user.id);
         req.session.user.api[apiName] = fullUser._id;
       } 
       done(null, fullUser);
