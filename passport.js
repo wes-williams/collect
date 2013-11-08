@@ -14,9 +14,14 @@ var hasApi = function(apiName) {
 };
 passportPlugin.hasApi = hasApi;
 
-var findUser = function(req) { 
-  console.log(req.session.passport.user); 
-  return users[req.session.passport.user]; 
+var findUser = function(apiName,req) { 
+
+  if(req.session.user == undefined 
+     || req.session.user.api[apiName] == undefined) {
+    return undefined;
+  }
+
+  return users[req.session.user.api[apiName]]; 
 };
 passportPlugin.findUser = findUser; 
 
@@ -51,7 +56,7 @@ passportPlugin.init = init;
 
 var register = function(apiName) {
 
-   var strategyCallback = function(token, tokenSecret, profile, done) {
+   var strategyCallback = function(req, token, tokenSecret, profile, done) {
     var fakeUser = { 'token' : token,
                      'tokenSecret' : tokenSecret }; 
     var options =  { 'method' : 'GET', 
@@ -80,6 +85,7 @@ var register = function(apiName) {
         fullUser._id = apiName + "~" + profileUserId; 
         fullUser.token = fakeUser.token;
         fullUser.tokenSecret = fakeUser.tokenSecret;
+        req.session.user.api[apiName] = fullUser._id;
       } 
       done(null, fullUser);
     };
@@ -96,6 +102,7 @@ var register = function(apiName) {
           consumerKey: appConfig[apiName].clientId,
           consumerSecret: appConfig[apiName].clientSecret,
           callbackURL: appConfig[apiName].callbackUrl,
+          passReqToCallback: true
       }, strategyCallback
     ));
   }

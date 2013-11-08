@@ -113,6 +113,11 @@ var SampleApp = function() {
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
+
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
             res.json({'error' : 'api not found'})
@@ -124,6 +129,11 @@ var SampleApp = function() {
         };
 
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
@@ -138,22 +148,16 @@ var SampleApp = function() {
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
 
-          var user = passport.findUser(req);
+          var user = passport.findUser(apiName,req);
           if(user==undefined) {
-            res.json({'error' : 'no user found'})
-            return;
-          }
-
-          var apiName = req.param('apiName');
-          if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'})
+            res.json({'error' : 'no auth found'})
             return;
           }
 
           var options = {};
           options.method = 'GET';
           options.uri = req.url.substring(5+apiName.length);
-          passport.handleRequest(apiName,passport.findUser(req),options, function(user,data) {
+          passport.handleRequest(apiName,user,options, function(user,data) {
             res.json(data); 
           });  
 
