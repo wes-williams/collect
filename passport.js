@@ -7,7 +7,8 @@ var appConfig = require('./passport-config'),
 
 var passportPlugin = {};
 
-users = [];
+var logins = []
+var users = [];
 
 var hasApi = function(apiName) {
   return appConfig[apiName] != undefined;
@@ -17,13 +18,11 @@ passportPlugin.hasApi = hasApi;
 var findUser = function(apiName,req) { 
 
   if(req.session.user == undefined 
-     || req.session.user.api[apiName] == undefined) {
-     console.log("test1");
+     || logins[req.session.user.id] == undefined) {
     return undefined;
   }
 
-    console.log("test2");
-  return users[req.session.user.api[apiName]]; 
+  return users[logins[req.session.user.id][apiName]]; 
 };
 passportPlugin.findUser = findUser; 
 
@@ -35,14 +34,14 @@ var init = function(app) {
 
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
-    console.log('serialize user ' + user._id);
+    //console.log('serialize user ' + user._id);
     users[user._id] = user;
     done(null, user._id);
   });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
-    console.log('deserialize user ' + id);
+    //console.log('deserialize user ' + id);
     var user = users[id];
     done(null, user);
   });
@@ -82,15 +81,18 @@ var register = function(apiName) {
       }
 
       if(profileUserId) { 
-      console.log("test3");
         fullUser = {};
         fullUser.profile = data;
         fullUser._id = apiName + "~" + profileUserId; 
         fullUser.token = fakeUser.token;
         fullUser.tokenSecret = fakeUser.tokenSecret;
-        console.log('test.id='+req.session.user.id);
-        req.session.user.api[apiName] = fullUser._id;
-        console.log('test.api='+JSON.stringify(req.session.user.api));
+
+        if(logins[req.session.user.id]==undefined) {
+          logins[req.session.user.id]={apiName : fullUser._id};
+        }
+        else {
+          logins[req.session.user.id][apiName] = fullUser._id;
+        }
       } 
       done(null, fullUser);
     };

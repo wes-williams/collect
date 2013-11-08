@@ -147,7 +147,7 @@ var SampleApp = function() {
         };
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
-console.log(JSON.stringify(req.session.user));
+
           var apiName = req.param('apiName');
           var user = passport.findUser(apiName,req);
           if(user==undefined) {
