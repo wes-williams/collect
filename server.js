@@ -111,7 +111,7 @@ var SampleApp = function() {
         self.routes.post['/auth/login'] = persona.login; 
         self.routes.post['/auth/logout'] = persona.logout;
 
-        self.routes.get['/auth/fitbit'] = function(req,res,next) { 
+        self.routes.get['/auth/:apiName'] = function(req,res,next) { 
           var apiName = req.param('apiName');
           passport.auth(apiName,
                         { 'req' : req, 'res' : res, 'next' : next }); 
