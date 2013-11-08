@@ -85,6 +85,7 @@ var register = function(apiName) {
         fullUser._id = apiName + "~" + profileUserId; 
         fullUser.token = fakeUser.token;
         fullUser.tokenSecret = fakeUser.tokenSecret;
+        console.log(req.session.user.id);
         req.session.user.api[apiName] = fullUser._id;
       } 
       done(null, fullUser);
