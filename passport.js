@@ -7,7 +7,7 @@ var appConfig = require('./passport-config'),
 
 var passportPlugin = {};
 
-var logins = []
+var logins = [];
 var users = [];
 
 var hasApi = function(apiName) {
@@ -90,11 +90,11 @@ var register = function(apiName) {
         fullUser.tokenSecret = fakeUser.tokenSecret;
 
         if(logins[req.session.user.id]==undefined) {
-          console.log("test 1");
+          console.log("test 1: " + req.session.user.id);
           logins[req.session.user.id]={apiName : fullUser._id};
         }
         else {
-          console.log("test 2");
+          console.log("test 2: " + req.session.user.id);
           logins[req.session.user.id][apiName] = fullUser._id;
         }
       } 
