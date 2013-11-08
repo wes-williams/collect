@@ -108,8 +108,8 @@ var SampleApp = function() {
             res.send(self.cache_get('index.html') );
         };
 
-        self.routes.post['/auth/login'] = persona.login; 
-        self.routes.post['/auth/logout'] = persona.logout;
+        self.routes.post['/login'] = persona.login; 
+        self.routes.post['/logout'] = persona.logout;
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
           var apiName = req.param('apiName');

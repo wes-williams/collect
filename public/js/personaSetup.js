@@ -28,7 +28,7 @@ function personaSetup() {
      onlogin : function(assertion) { 
        $.ajax({ 
           type: 'POST',
-          url: '/auth/login', 
+          url: '/login', 
           data: {assertion: assertion},
           success: function(res, status, xhr) { 
             //alert('login success : ' + JSON.stringify(res)); 
@@ -44,7 +44,7 @@ function personaSetup() {
      onlogout : function(assertion) {
        $.ajax({
          type: 'POST',
-         url: '/auth/logout', 
+         url: '/logout', 
          success: function(res, status, xhr) { 
            toggleLoginLinks(null);
          },
