@@ -125,7 +125,7 @@ var SampleApp = function() {
         };
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
-          var user passport.findUser(req);
+          var user = passport.findUser(req);
           if(user==undefined) {
             res.json({'error' : 'not logged in'})
             return;
