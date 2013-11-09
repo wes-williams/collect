@@ -9,9 +9,8 @@ appConfig.fitbit.accessTokenUrl = 'http://www.fitbit.com/oauth/access_token';
 appConfig.fitbit.baseUrl = 'https://api.fitbit.com/1'; 
 appConfig.fitbit.defaultLoadUrl = '/user/-/profile.json'; 
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
-appConfig.fitbit.clientId = '3f9ee2e269be43d397cd98acf7c53853';
-appConfig.fitbit.clientSecret = '58d8fd9bb9ed491c9ca7a26681141ba6'; 
-//appConfig.fitbit.callbackUrl = 'http://127.0.0.1:8080/auth/fitbit/callback';
+appConfig.fitbit.clientId = '1cf532fb0592432a9f66debe91704023';
+appConfig.fitbit.clientSecret = '9e8964f700a84755a9d1522c1adcab52'; 
 appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
 
 /*
