@@ -159,7 +159,7 @@ var SampleApp = function() {
           options.method = 'GET';
           options.uri = req.url.substring(5+apiName.length);
 
-          if(options.uri=='') {
+          if(options.uri == '/') {
             res.json(user.profile);
           } else {
             passport.handleRequest(apiName,user,options, function(user,data) {
