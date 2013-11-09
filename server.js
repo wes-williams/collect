@@ -158,9 +158,14 @@ var SampleApp = function() {
           var options = {};
           options.method = 'GET';
           options.uri = req.url.substring(5+apiName.length);
-          passport.handleRequest(apiName,user,options, function(user,data) {
-            res.json(data); 
-          });  
+
+          if(options.uri=='') {
+            res.json(user.profile);
+          } else {
+            passport.handleRequest(apiName,user,options, function(user,data) {
+              res.json(data); 
+            });  
+          }
 
         };
     };
