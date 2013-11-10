@@ -142,10 +142,10 @@ var handleRequest = function(apiName, user, options, callback) {
 
   var _oauth = undefined; 
   if(appConfig[apiName].type == 'oauth-1.0') {
-    _oauth =passport._strategy(apiName)._oauth;
+    _oauth = passport._strategy(apiName)._oauth;
   }
   else if(appConfig[apiName].type == 'oauth-2.0') {
-    _oauth =passport._strategy(apiName)._oauth2;
+    _oauth = passport._strategy(apiName)._oauth2;
   }
   else {
     console.log('No request handling for ' + appConfig[apiName].type);
@@ -160,7 +160,7 @@ var handleRequest = function(apiName, user, options, callback) {
     }
 
     if (response.statusCode === 200) {
-      //console.log("RESULT=" + body);
+      console.log("RESULT=" + body);
       callback(user,JSON.parse(body));
     } else {
       console.log('handle request error ' + response.statusCode);
