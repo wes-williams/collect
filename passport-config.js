@@ -4,6 +4,7 @@ var appConfig = {};
 // oauth 1.0
 ///////////////
 
+/*
 // fitbit - https://wiki.fitbit.com/display/API/Fitbit+API
 
 appConfig.fitbit = {};
@@ -31,12 +32,12 @@ appConfig.twitter.userIdPath = 'screen_name';
 appConfig.twitter.clientId = '';
 appConfig.twitter.clientSecret = '';
 appConfig.twitter.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/twitter/callback';
+*/
 
 ///////////////
 // oauth 2.0  (no request url)
 ///////////////
 
-/*
 // github - http://developer.github.com/
 
 appConfig.github = {};
@@ -46,10 +47,9 @@ appConfig.github.accessTokenUrl = 'https://github.com/login/oauth/access_token';
 appConfig.github.baseUrl = 'https://api.github.com'; 
 appConfig.github.defaultLoadUrl = '/user'; 
 appConfig.github.userIdPath = 'login'; 
-appConfig.github.clientId = '';
-appConfig.github.clientSecret = '';
+appConfig.github.clientId = '33721be5ae51c848759f';
+appConfig.github.clientSecret = '10d9810ed0157bc7a1152a38d6f4654b3190e203';
 appConfig.github.callbackUrl = 'https://proxy-dataupco.rhcloud.com/github/callback';
 
-*/
 
 module.exports = appConfig;

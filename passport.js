@@ -118,7 +118,6 @@ var register = function(apiName) {
     ));
   }
   else if(appConfig[apiName].type == 'oauth-2.0') {
-    /* TODO LATER
     // setup oauth2 through passport
     passport.use(apiName, 
       new OAuth2Strategy({
@@ -126,10 +125,10 @@ var register = function(apiName) {
           tokenURL: appConfig[apiName].accessTokenUrl,
           clientID: appConfig[apiName].clientId,
           clientSecret: appConfig[apiName].clientSecret,
-          callbackURL: appConfig[apiName].callbackUrl 
+          callbackURL: appConfig[apiName].callbackUrl, 
+          passReqToCallback: true
       }, strategyCallback
     ));
-    */
   }
   else {
     console.log(apiName + " has unknown auth type of " + appConfig[apiName].type);
