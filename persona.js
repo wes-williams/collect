@@ -9,7 +9,7 @@ personaPlugin.login = function(req, res) {
 
   var body = qs.stringify({
     assertion: assertion,
-    audience: 'https://proxy-dataupco.rhcloud.com'
+    audience: 'http://proxy-dataupco.rhcloud.com'
   });
 
   var request = https.request({
