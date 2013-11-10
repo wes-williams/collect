@@ -8,9 +8,9 @@ var appConfig = {};
 
 appConfig.fitbit = {};
 appConfig.fitbit.type='oauth-1.0';
-appConfig.fitbit.authorizationUrl = 'http://www.fitbit.com/oauth/authorize';
-appConfig.fitbit.requestTokenUrl = 'http://api.fitbit.com/oauth/request_token';
-appConfig.fitbit.accessTokenUrl = 'http://www.fitbit.com/oauth/access_token';
+appConfig.fitbit.authorizationUrl = 'https://www.fitbit.com/oauth/authorize';
+appConfig.fitbit.requestTokenUrl = 'https://api.fitbit.com/oauth/request_token';
+appConfig.fitbit.accessTokenUrl = 'https://www.fitbit.com/oauth/access_token';
 appConfig.fitbit.baseUrl = 'https://api.fitbit.com/1'; 
 appConfig.fitbit.defaultLoadUrl = '/user/-/profile.json'; 
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
