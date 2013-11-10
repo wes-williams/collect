@@ -4,7 +4,6 @@ var appConfig = {};
 // oauth 1.0
 ///////////////
 
-/*
 // fitbit - https://wiki.fitbit.com/display/API/Fitbit+API
 
 appConfig.fitbit = {};
@@ -15,10 +14,11 @@ appConfig.fitbit.accessTokenUrl = 'http://www.fitbit.com/oauth/access_token';
 appConfig.fitbit.baseUrl = 'https://api.fitbit.com/1'; 
 appConfig.fitbit.defaultLoadUrl = '/user/-/profile.json'; 
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
-appConfig.fitbit.clientId = '';
-appConfig.fitbit.clientSecret = '';
+appConfig.fitbit.clientId = '520f163533784d8eb7bd0400b0dd7321';
+appConfig.fitbit.clientSecret = '7617c70b12ee4282b37079cee1caea8c';
 appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
 
+/*
 // twitter - https://dev.twitter.com/docs/api/1.1
 
 appConfig.twitter = {};
