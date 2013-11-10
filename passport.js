@@ -144,9 +144,12 @@ var handleRequest = function(apiName, user, options, callback) {
   if(appConfig[apiName].type == 'oauth-1.0') {
     _oauth =passport._strategy(apiName)._oauth;
   }
-
-  if(appConfig[apiName].type == 'oauth-1.0') {
+  else if(appConfig[apiName].type == 'oauth-2.0') {
     _oauth =passport._strategy(apiName)._oauth2;
+  }
+  else {
+    console.log('No request handling for ' + appConfig[apiName].type]);
+    return;
   }
 
   _oauth.get(appConfig[apiName].baseUrl+options.uri, user.token, user.tokenSecret, function (error, body, response) {
