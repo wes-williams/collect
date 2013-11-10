@@ -1,5 +1,6 @@
-var https = require('https');
-var qs = require('qs');
+var appConfig = require('./persona-config'),
+    https = require('https'),
+    qs = require('qs');
 
 var personaPlugin = {};
 
@@ -9,7 +10,7 @@ personaPlugin.login = function(req, res) {
 
   var body = qs.stringify({
     assertion: assertion,
-    audience: 'https://proxy-dataupco.rhcloud.com'
+    audience: appConfig.hostUrl
   });
 
   var request = https.request({
