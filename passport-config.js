@@ -49,7 +49,7 @@ appConfig.github.defaultLoadUrl = '/user';
 appConfig.github.userIdPath = 'login'; 
 appConfig.github.clientId = '33721be5ae51c848759f';
 appConfig.github.clientSecret = '10d9810ed0157bc7a1152a38d6f4654b3190e203';
-appConfig.github.callbackUrl = 'https://proxy-dataupco.rhcloud.com/github/callback';
+appConfig.github.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/github/callback';
 
 
 module.exports = appConfig;
