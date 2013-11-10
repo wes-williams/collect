@@ -140,19 +140,28 @@ passportPlugin.register = register;
 var handleRequest = function(apiName, user, options, callback) {
   console.log('handling request to ' + options.uri);
 
-  passport._strategy(apiName)._oauth.get(appConfig[apiName].baseUrl+options.uri, user.token, user.tokenSecret, function (error, body, response) {
-      if(error) {
-        console.log('handle request error ' + JSON.stringify(error));
-        callback(user,null);
-        return;
-      }
+  var _oauth = undefined; 
+  if(appConfig[apiName].type == 'oauth-1.0') {
+    _oauth =passport._strategy(apiName)._oauth;
+  }
 
-      if (response.statusCode === 200) {
-        //console.log("RESULT=" + body);
-        callback(user,JSON.parse(body));
-      } else {
-        console.log('handle request error ' + response.statusCode);
-        callback(user,response.statusCode);
+  if(appConfig[apiName].type == 'oauth-1.0') {
+    _oauth =passport._strategy(apiName)._oauth2;
+  }
+
+  _oauth.get(appConfig[apiName].baseUrl+options.uri, user.token, user.tokenSecret, function (error, body, response) {
+    if(error) {
+      console.log('handle request error ' + JSON.stringify(error));
+      callback(user,null);
+      return;
+    }
+
+    if (response.statusCode === 200) {
+      //console.log("RESULT=" + body);
+      callback(user,JSON.parse(body));
+    } else {
+      console.log('handle request error ' + response.statusCode);
+      callback(user,response.statusCode);
     }
   });
 };
