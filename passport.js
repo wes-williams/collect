@@ -148,7 +148,7 @@ var handleRequest = function(apiName, user, options, callback) {
     _oauth =passport._strategy(apiName)._oauth2;
   }
   else {
-    console.log('No request handling for ' + appConfig[apiName].type]);
+    console.log('No request handling for ' + appConfig[apiName].type);
     return;
   }
 
