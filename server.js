@@ -170,6 +170,15 @@ var SampleApp = function() {
         };
     };
 
+    // PERSONA CAN'T SWITCH BETWEEN HTTP AND HTTPS
+    // https://www.openshift.com/kb/kb-e1044-how-to-redirect-traffic-to-https
+    function redirectSec(req, res, next) {
+      if (req.headers['x-forwarded-proto'] == 'http') { 
+        res.redirect('https://' + req.headers.host + req.path);
+      } else {
+        return next();
+      }
+    }
 
     /**
      *  Initialize the server (express) and create the routes and register
@@ -190,7 +199,7 @@ var SampleApp = function() {
         //  Add handlers for the app (from the routes).
         // get only
         for (var r in self.routes.get) {
-            self.app.get(r, self.routes.get[r]);
+            self.app.get(r, redirectSec, self.routes.get[r]);
         }
         //post only
         for (var r in self.routes.post) {
