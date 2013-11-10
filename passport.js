@@ -140,19 +140,7 @@ passportPlugin.register = register;
 var handleRequest = function(apiName, user, options, callback) {
   console.log('handling request to ' + options.uri);
 
-  var _oauth = undefined; 
-  if(appConfig[apiName].type == 'oauth-1.0') {
-    _oauth = passport._strategy(apiName)._oauth;
-  }
-  else if(appConfig[apiName].type == 'oauth-2.0') {
-    _oauth = passport._strategy(apiName)._oauth2;
-  }
-  else {
-    console.log('No request handling for ' + appConfig[apiName].type);
-    return;
-  }
-
-  _oauth.get(appConfig[apiName].baseUrl+options.uri, user.token, user.tokenSecret, function (error, body, response) {
+  var getCallback = function (error, body, response) {
     if(error) {
       console.log('handle request error ' + JSON.stringify(error));
       callback(user,null);
@@ -160,13 +148,25 @@ var handleRequest = function(apiName, user, options, callback) {
     }
 
     if (response.statusCode === 200) {
-      console.log("RESULT=" + body);
+      //console.log("RESULT=" + body);
       callback(user,JSON.parse(body));
     } else {
       console.log('handle request error ' + response.statusCode);
       callback(user,response.statusCode);
     }
-  });
+  };
+
+  var uri = appConfig[apiName].baseUrl + options.uri;
+  if(appConfig[apiName].type == 'oauth-1.0') {
+    _oauth = passport._strategy(apiName)._oauth.get(uri, user.token, user.tokenSecret, getCallback);
+  }
+  else if(appConfig[apiName].type == 'oauth-2.0') {
+    _oauth = passport._strategy(apiName)._oauth2.get(uri, user.token, getCallback);
+  }
+  else {
+    console.log('No request handling for ' + appConfig[apiName].type);
+    return;
+  }
 };
 passportPlugin.handleRequest = handleRequest;
 
