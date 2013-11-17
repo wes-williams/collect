@@ -49,4 +49,15 @@ appConfig.github.clientId = 'KEY_GOES_HERE';
 appConfig.github.clientSecret = 'PASS_GOES_HERE';
 appConfig.github.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/github/callback';
 
+///////////////
+// api key
+///////////////
+
+appConfig.pearson = {};
+appConfig.pearson.type='api-key';
+appConfig.pearson.baseUrl = 'https://api.pearson.com'; 
+appConfig.pearson.keyName = 'apikey'; 
+appConfig.pearson.keyValue = 'KEY_GOES_HERE'; 
+appConfig.pearson.isKeyInUrl = true; 
+
 module.exports = appConfig;

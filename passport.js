@@ -130,6 +130,9 @@ var register = function(apiName) {
       }, strategyCallback
     ));
   }
+  else if(appConfig[apiName].type == 'api-key') {
+    // no registration action necessary
+  } 
   else {
     console.log(apiName + " has unknown auth type of " + appConfig[apiName].type);
   }
@@ -138,7 +141,7 @@ passportPlugin.register = register;
 
 // simplified request handling
 var handleRequest = function(apiName, user, options, callback) {
-  console.log('handling request to ' + options.uri);
+  console.log('handling request to '  + apiName + ': ' + options.uri);
 
   var getCallback = function (error, body, response) {
     if(error) {
@@ -158,10 +161,22 @@ var handleRequest = function(apiName, user, options, callback) {
 
   var uri = appConfig[apiName].baseUrl + options.uri;
   if(appConfig[apiName].type == 'oauth-1.0') {
-    _oauth = passport._strategy(apiName)._oauth.get(uri, user.token, user.tokenSecret, getCallback);
+    passport._strategy(apiName)._oauth.get(uri, user.token, user.tokenSecret, getCallback);
   }
   else if(appConfig[apiName].type == 'oauth-2.0') {
-    _oauth = passport._strategy(apiName)._oauth2.get(uri, user.token, getCallback);
+    passport._strategy(apiName)._oauth2.get(uri, user.token, getCallback);
+  }
+  else if(appConfig[apiName].type == 'api-key') {
+    var headers =  {'Content-Type': 'application/json'};
+    if(appConfig[apiName].isKeyInUrl === true) {
+      uri += uri.indexOf('?')==-1 ? '?' : '&';
+      uri += appConfig[apiName].keyName + '=' + appConfig[apiName].keyValue;
+    }
+    else {
+      headers[appConfig[apiName].keyName] = appConfig[apiName].keyValue;
+    }
+    var requestOptions = { 'uri' : uri, 'method' : 'GET', 'headers' : headers };
+    request(requestOptions,function (error, body, response) { getCallback(error,response,body) });
   }
   else {
     console.log('No request handling for ' + appConfig[apiName].type);
