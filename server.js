@@ -159,11 +159,34 @@ var SampleApp = function() {
           options.method = 'GET';
           options.uri = req.url.substring(5+apiName.length);
 
+          var jsonp = req.query.jsonp;
+          var jsonpResponse = null;
+          if(jsonp) {
+            var paramString = passport.findParamStringInUri('jsonp', jsonp, options.uri);
+            options.uri = options.uri.replace(paramString,'');
+
+            jsonpResponse = function(data) {
+                res.header('Content-Type','application/javascript');
+                res.header('charset','utf-8');
+                res.send(jsonp + '(' + JSON.stringify(data) + ');'); 
+            };
+          }
+
           if(options.uri == '/') {
-            res.json(user.profile);
+            if(jsonp) {
+              jsonpResponse(user.profile);
+            }
+            else {
+              res.json(user.profile);
+            }
           } else {
             passport.handleRequest(apiName,user,options, function(user,data) {
-              res.json(data); 
+              if(jsonp) {
+                jsonpResponse(data);
+              }
+              else {
+                res.json(data); 
+              }
             });  
           }
 

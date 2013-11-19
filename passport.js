@@ -202,4 +202,31 @@ var authCallback = function(apiName,urls,streams) {
 }
 passportPlugin.authCallback = authCallback;
 
+var findParamStringInUri = function(paramName, paramValue, uri) {
+  var paramString = paramName + '=' + paramValue;
+  var paramIndex = uri.indexOf(paramString);
+
+  if(paramIndex == -1) {
+    return '';
+  }
+  else {
+    paramIndex--;
+  }
+
+  var paramPrefix = uri.charAt(paramIndex);
+  if(paramPrefix == '&') {
+    paramString = '&' + paramString;
+  }
+  else {
+    if(paramPrefix == '?' && paramIndex+paramString.length == uri.length-1) {
+      paramString = '?' + paramString; 
+    }
+    else {
+      paramString = paramString + '&'; 
+    }
+  }
+  return paramString;
+};
+passportPlugin.findParamStringInUri=findParamStringInUri;
+
 module.exports = passportPlugin;
