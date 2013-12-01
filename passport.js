@@ -33,7 +33,8 @@ var findUser = function(apiName,req,callback) {
 passportPlugin.findUser = findUser; 
 
 
-var init = function(app, db) {
+var init = function(app, dbConn) {
+  db = dbConn;
 
   app.use(passport.initialize());
   app.use(passport.session());

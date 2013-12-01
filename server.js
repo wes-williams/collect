@@ -32,7 +32,7 @@ var SampleApp = function() {
 
         if(typeof self.dbHost === "undefined") {
           console.warn('No OPENSHIFT_MONGO_DB_HOST var, using 127.0.0.1');
-          self.dbHost = '127.0.0.1'
+          self.dbHost = '127.0.0.1';
           self.dbPort = '27017';
         }
 
@@ -233,7 +233,9 @@ var SampleApp = function() {
           self.app.use(express.session({ secret: 'keep-this-private' }));
           self.app.use(express.static(__dirname + '/public'));
 
+console.log('test7');
           passport.init(self.app, self.db);
+console.log('test8');
         });
 
         //  Add handlers for the app (from the routes).
@@ -257,13 +259,19 @@ var SampleApp = function() {
         self.populateCache();
         self.setupTerminationHandlers();
 
+console.log('test1');
         self.db.open(function(err, db){
+console.log('test2');
           if(err){ throw err };
+console.log('test3');
           self.db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
+console.log('test4');
             if(err){ throw err };
+console.log('test5');
           });
         });
 
+console.log('test6');
         // Create the express server and routes.
         self.initializeServer();
     };
