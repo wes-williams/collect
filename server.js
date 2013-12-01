@@ -33,10 +33,10 @@ var SampleApp = function() {
         if(typeof self.dbHost === "undefined") {
           console.warn('No OPENSHIFT_MONGO_DB_HOST var, using 127.0.0.1');
           self.dbHost = '127.0.0.1'
-          self.dbPort = 8080;
+          self.dbPort = '27017';
         }
 
-        self.dbServer = new mongodb.Server(self.dbHost, self.dbPort);
+        self.dbServer = new mongodb.Server(self.dbHost, parseInt(self.dbPort));
         self.db = new mongodb.Db('nodews', self.dbServer, {auto_reconnect: true});
         self.dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
         self.dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
