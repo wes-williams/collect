@@ -143,7 +143,7 @@ var SampleApp = function() {
         };
 
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
-
+console.log('USER=' + req.session.user);
           if(req.session.user == undefined) {
             res.json({'error' : 'user not found'})
             return;
