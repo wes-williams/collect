@@ -8,9 +8,6 @@ var appConfig = require('./passport-config'),
 var passportPlugin = {};
 
 var db = undefined;
-// REPLACE THESE WITH DB
-//var logins = [];
-//var users = [];
 
 var hasApi = function(apiName) {
   return appConfig[apiName] != undefined;
@@ -18,16 +15,14 @@ var hasApi = function(apiName) {
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req,callback) { 
-  if(req.session.user == undefined 
-    // || logins[req.session.user.id] == undefined
-     ) {
+  if(req.session.user == undefined) {
     callback(undefined);
   }
   else {
     db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+      // todo - error handling
       callback(user);
     });
-    //return users[logins[req.session.user.id][apiName]]; 
   }
 };
 passportPlugin.findUser = findUser; 
@@ -42,30 +37,16 @@ var init = function(app, dbConn) {
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
     //console.log('serialize user ' + user._id);
-    //users[user._id] = user;
+
     db.collection('useraccounts').save(user, {safe:true}, function(err,doc) {
       // todo - error handling
       done(null, user._id);
     });
-
-    /*
-    if(logins[user._login] == undefined) {
-      logins[user._login] = [];
-      logins[user._login][user._api] = user._id;
-    }
-    else {
-      logins[user._login][user._api] = user._id;
-    }
-
-    done(null, user._id);
-    */
   });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
     //console.log('deserialize user ' + id);
-    //var user = users[id];
-    //done(null, user);
 
     db.collection('useraccounts').findOne({'_id' : id}, function(err,user){
       // todo - error handling
