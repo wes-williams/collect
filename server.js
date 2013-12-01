@@ -37,7 +37,7 @@ var SampleApp = function() {
         }
 
         self.dbServer = new mongodb.Server(self.dbHost, parseInt(self.dbPort));
-        self.db = new mongodb.Db('nodews', self.dbServer, {auto_reconnect: true});
+        self.db = new mongodb.Db('proxy', self.dbServer, {auto_reconnect: true});
         self.dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
         self.dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
 
