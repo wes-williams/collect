@@ -264,7 +264,7 @@ console.log('test1');
 console.log('test2');
           if(err){ throw err };
 console.log('test3');
-          self.db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
+          self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
 console.log('test4');
             if(err){ throw err };
 console.log('test5');
