@@ -23,11 +23,12 @@ var findUser = function(apiName,req,callback) {
      ) {
     callback(undefined);
   }
-
-  db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
-    callback(user);
-  });
-  //return users[logins[req.session.user.id][apiName]]; 
+  else {
+    db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+      callback(user);
+    });
+    //return users[logins[req.session.user.id][apiName]]; 
+  }
 };
 passportPlugin.findUser = findUser; 
 
