@@ -18,11 +18,10 @@ var hasApi = function(apiName) {
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req,callback) { 
-
   if(req.session.user == undefined 
     // || logins[req.session.user.id] == undefined
      ) {
-    return undefined;
+    callback(undefined);
   }
 
   db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
