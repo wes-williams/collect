@@ -43,7 +43,7 @@ var init = function(app, dbConn) {
   passport.serializeUser(function(user, done) {
     //console.log('serialize user ' + user._id);
     //users[user._id] = user;
-    db.collections('useraccounts').save(user, {safe:true}, function(err,doc) {
+    db.collection('useraccounts').save(user, {safe:true}, function(err,doc) {
       // todo - error handling
       done(null, user._id);
     });

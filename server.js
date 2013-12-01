@@ -233,9 +233,7 @@ var SampleApp = function() {
           self.app.use(express.session({ secret: 'keep-this-private' }));
           self.app.use(express.static(__dirname + '/public'));
 
-console.log('test7');
           passport.init(self.app, self.db);
-console.log('test8');
         });
 
         //  Add handlers for the app (from the routes).
@@ -259,19 +257,13 @@ console.log('test8');
         self.populateCache();
         self.setupTerminationHandlers();
 
-console.log('test1');
         self.db.open(function(err, db){
-console.log('test2');
           if(err){ throw err };
-console.log('test3');
           self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
-console.log('test4');
             if(err){ throw err };
-console.log('test5');
           });
         });
 
-console.log('test6');
         // Create the express server and routes.
         self.initializeServer();
     };
