@@ -2,6 +2,7 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var mongodb = require('mongodb');
 var persona = require('./persona.js');
 var passport = require('./passport.js');
 
@@ -14,7 +15,6 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
 
-
     /*  ================================================================  */
     /*  Helper functions.                                                 */
     /*  ================================================================  */
@@ -26,6 +26,20 @@ var SampleApp = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP;
         self.port      = process.env.OPENSHIFT_INTERNAL_PORT || 8080;
+
+        self.dbHost = process.env.OPENSHIFT_MONGODB_DB_HOST;
+        self.dbPort = process.env.OPENSHIFT_MONGODB_DB_PORT;
+
+        if(typeof self.dbHost === "undefined") {
+          console.warn('No OPENSHIFT_MONGO_DB_HOST var, using 127.0.0.1');
+          self.dbHost = '127.0.0.1'
+          self.dbPort = 8080;
+        }
+
+        self.dbServer = new mongodb.Server(self.dbHost, self.dbPort);
+        self.db = new mongodb.Db('nodews', self.dbServer, {auto_reconnect: true});
+        self.dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
+        self.dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
 
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
@@ -149,47 +163,50 @@ var SampleApp = function() {
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
 
           var apiName = req.param('apiName');
-          var user = passport.findUser(apiName,req);
-          if(user==undefined) {
-            res.json({'error' : 'no auth found'})
-            return;
-          }
 
-          var options = {};
-          options.method = 'GET';
-          options.uri = req.url.substring(5+apiName.length);
+          var findUserCallback = function(user) {
+            if(user==undefined) {
+              res.json({'error' : 'no auth found'})
+              return;
+            }
 
-          var jsonp = req.query.jsonp;
-          var jsonpResponse = null;
-          if(jsonp) {
-            var paramString = passport.findParamStringInUri('jsonp', jsonp, options.uri);
-            options.uri = options.uri.replace(paramString,'');
+            var options = {};
+            options.method = 'GET';
+            options.uri = req.url.substring(5+apiName.length);
 
-            jsonpResponse = function(data) {
-                res.header('Content-Type','application/javascript');
-                res.header('charset','utf-8');
-                res.send(jsonp + '(' + JSON.stringify(data) + ');'); 
-            };
-          }
-
-          if(options.uri == '/') {
+            var jsonp = req.query.jsonp;
+            var jsonpResponse = null;
             if(jsonp) {
-              jsonpResponse(user.profile);
+              var paramString = passport.findParamStringInUri('jsonp', jsonp, options.uri);
+              options.uri = options.uri.replace(paramString,'');
+
+              jsonpResponse = function(data) {
+                  res.header('Content-Type','application/javascript');
+                  res.header('charset','utf-8');
+                  res.send(jsonp + '(' + JSON.stringify(data) + ');'); 
+              };
             }
-            else {
-              res.json(user.profile);
-            }
-          } else {
-            passport.handleRequest(apiName,user,options, function(user,data) {
+
+            if(options.uri == '/') {
               if(jsonp) {
-                jsonpResponse(data);
+                jsonpResponse(user.profile);
               }
               else {
-                res.json(data); 
+                res.json(user.profile);
               }
-            });  
-          }
+            } else {
+              passport.handleRequest(apiName,user,options, function(user,data) {
+                if(jsonp) {
+                  jsonpResponse(data);
+                }
+                else {
+                  res.json(data); 
+                }
+              });  
+            }
+          };
 
+          passport.findUser(apiName,req,findUserCallback);
         };
     };
 
@@ -216,7 +233,7 @@ var SampleApp = function() {
           self.app.use(express.session({ secret: 'keep-this-private' }));
           self.app.use(express.static(__dirname + '/public'));
 
-          passport.init(self.app);
+          passport.init(self.app, self.db);
         });
 
         //  Add handlers for the app (from the routes).
@@ -240,6 +257,13 @@ var SampleApp = function() {
         self.populateCache();
         self.setupTerminationHandlers();
 
+        self.db.open(function(err, db){
+          if(err){ throw err };
+          self.db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
+            if(err){ throw err };
+          });
+        });
+
         // Create the express server and routes.
         self.initializeServer();
     };
@@ -255,6 +279,7 @@ var SampleApp = function() {
                         Date(Date.now() ), self.ipaddress, self.port);
         });
     };
+
 
 };   /*  Sample Application.  */
 

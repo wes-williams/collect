@@ -7,27 +7,33 @@ var appConfig = require('./passport-config'),
 
 var passportPlugin = {};
 
-var logins = [];
-var users = [];
+var db = undefined;
+// REPLACE THESE WITH DB
+//var logins = [];
+//var users = [];
 
 var hasApi = function(apiName) {
   return appConfig[apiName] != undefined;
 };
 passportPlugin.hasApi = hasApi;
 
-var findUser = function(apiName,req) { 
+var findUser = function(apiName,req,callback) { 
 
   if(req.session.user == undefined 
-     || logins[req.session.user.id] == undefined) {
+    // || logins[req.session.user.id] == undefined
+     ) {
     return undefined;
   }
 
-  return users[logins[req.session.user.id][apiName]]; 
+  db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+    callback(user);
+  });
+  //return users[logins[req.session.user.id][apiName]]; 
 };
 passportPlugin.findUser = findUser; 
 
 
-var init = function(app) {
+var init = function(app, db) {
 
   app.use(passport.initialize());
   app.use(passport.session());
@@ -35,8 +41,13 @@ var init = function(app) {
   // store user in persistent storage for passport
   passport.serializeUser(function(user, done) {
     //console.log('serialize user ' + user._id);
-    users[user._id] = user;
+    //users[user._id] = user;
+    db.collections('useraccounts').save(user, {safe:true}, function(err,doc) {
+      // todo - error handling
+      done(null, user._id);
+    });
 
+    /*
     if(logins[user._login] == undefined) {
       logins[user._login] = [];
       logins[user._login][user._api] = user._id;
@@ -46,13 +57,19 @@ var init = function(app) {
     }
 
     done(null, user._id);
-});
+    */
+  });
 
   // retrieve user from persistent store for passport 
   passport.deserializeUser(function(id, done) {
     //console.log('deserialize user ' + id);
-    var user = users[id];
-    done(null, user);
+    //var user = users[id];
+    //done(null, user);
+
+    db.collection('useraccounts').findOne({'_id' : id}, function(err,user){
+      // todo - error handling
+      done(null, user);
+    });
   });
 
   // load all app configs

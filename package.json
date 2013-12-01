@@ -29,7 +29,8 @@
     "qs" : "0.4.2",
     "passport" : "0.1.15",
     "passport-oauth" : "0.1.13",
-    "request" : "2.12.0"
+    "request" : "2.12.0",
+    "mongodb" : "0.9.9-1" 
 
   },
   "devDependencies": {},
