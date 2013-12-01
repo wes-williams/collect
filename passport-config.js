@@ -14,8 +14,8 @@ appConfig.fitbit.accessTokenUrl = 'https://www.fitbit.com/oauth/access_token';
 appConfig.fitbit.baseUrl = 'https://api.fitbit.com/1'; 
 appConfig.fitbit.defaultLoadUrl = '/user/-/profile.json'; 
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
-appConfig.fitbit.clientId = '30e8c9a044f945d5807ceb4037490ab0';
-appConfig.fitbit.clientSecret = 'ffc6ec99b1bf4feab0b3af63f5993b81';
+appConfig.fitbit.clientId = 'KEY_GOES_HERE';
+appConfig.fitbit.clientSecret = 'SECRET_GOES_HERE';
 appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
 
 // twitter - https://dev.twitter.com/docs/api/1.1
