@@ -60,4 +60,31 @@ appConfig.pearson.keyName = 'apikey';
 appConfig.pearson.keyValue = 'KEY_GOES_HERE'; 
 appConfig.pearson.isKeyInUrl = true; 
 
+
+///////////////
+// composite (mashup) 
+///////////////
+
+appConfig.mashup1 = {};
+appConfig.mashup1.type = 'composite';
+appConfig.mashup1.buildComposite = function(access, options, done) {
+  console.log('execute mashup1 with uri: ' + options.uri);
+
+  var body = {};
+  body.reader = 'me';
+  body.books = [];
+
+  access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
+    body.books.push(book1);
+
+    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
+      body.books.push(book2);
+
+      // error, body
+      done(null,body);
+    });
+  });
+
+};
+
 module.exports = appConfig;

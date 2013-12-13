@@ -187,7 +187,16 @@ var SampleApp = function() {
               };
             }
 
-            if(options.uri == '/') {
+            if(user.isComposite === true && user._id == undefined) {
+              passport.handleComposite(apiName,options,req, function(data) {
+                if(jsonp) {
+                  jsonpResponse(data);
+                }
+                else {
+                  res.json(data); 
+                }
+              });  
+            } else if(user._id && options.uri == '/') {
               if(jsonp) {
                 jsonpResponse(user.profile);
               }
@@ -263,7 +272,6 @@ var SampleApp = function() {
             if(err){ throw err };
           });
         });
-
         // Create the express server and routes.
         self.initializeServer();
     };

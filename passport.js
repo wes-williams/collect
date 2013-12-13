@@ -19,10 +19,18 @@ var findUser = function(apiName,req,callback) {
     callback(undefined);
   }
   else {
-    db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
-      // todo - error handling
-      callback(user);
-    });
+    if(appConfig[apiName].type == 'api-key') {
+      callback({ api : apiName });
+    }
+    else if(appConfig[apiName].type == 'composite') {
+      callback({ isComposite : true, api : apiName });
+    }
+    else {
+      db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+        // todo - error handling
+        callback(user);
+      });
+    }
   }
 };
 passportPlugin.findUser = findUser; 
@@ -65,7 +73,7 @@ passportPlugin.init = init;
 
 var register = function(apiName) {
 
-   var strategyCallback = function(req, token, tokenSecret, profile, done) {
+  var strategyCallback = function(req, token, tokenSecret, profile, done) {
     var fakeUser = { 'token' : token,
                      'tokenSecret' : tokenSecret }; 
     var options =  { 'method' : 'GET', 
@@ -132,6 +140,9 @@ var register = function(apiName) {
   else if(appConfig[apiName].type == 'api-key') {
     // no registration action necessary
   } 
+  else if(appConfig[apiName].type == 'composite') {
+    // no registration action necessary
+  } 
   else {
     console.log(apiName + " has unknown auth type of " + appConfig[apiName].type);
   }
@@ -140,9 +151,15 @@ passportPlugin.register = register;
 
 // simplified request handling
 var handleRequest = function(apiName, user, options, callback) {
-  console.log('handling request to '  + apiName + ': ' + options.uri);
+  console.log('handling ' + options.method + ' request to '  + apiName + ': ' + options.uri);
 
-  var getCallback = function (error, body, response) {
+  if(options.method != 'GET') {
+    console.log('Only handling GET request right now');
+    callback(user,null);
+    return;
+  }
+
+  var getCallback = function(error, body, response) {
     if(error) {
       console.log('handle request error ' + JSON.stringify(error));
       callback(user,null);
@@ -183,6 +200,33 @@ var handleRequest = function(apiName, user, options, callback) {
   }
 };
 passportPlugin.handleRequest = handleRequest;
+
+var handleComposite = function(apiName,options,req,done) {
+  var getCallback = function(error, body) {
+    if(error) {
+      console.log('handle request error ' + JSON.stringify(error));
+      done(null);
+      return;
+    }
+
+    done(body);
+  };
+
+  var compositeAccess = {
+    params : req.query,
+    api : function(accessApiName,accessOptions, accessCallback) {
+      var compositeAccessCallback = function(user) {
+        handleRequest(accessApiName, user, accessOptions, function (user,data) {
+         accessCallback(data); 
+        });
+      };
+      findUser(accessApiName,req,compositeAccessCallback);
+    }
+  };
+
+  appConfig[apiName].buildComposite(compositeAccess, options, getCallback);
+};
+passportPlugin.handleComposite = handleComposite;
 
 var auth = function(apiName,streams) {
   //console.log('auth attempt');
