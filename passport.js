@@ -194,6 +194,10 @@ var handleRequest = function(apiName, user, options, callback) {
     var requestOptions = { 'uri' : uri, 'method' : 'GET', 'headers' : headers };
     request(requestOptions,function (error, body, response) { getCallback(error,response,body) });
   }
+  else if(appConfig[apiName].type == 'public') {
+    var requestOptions = { 'uri' : uri, 'method' : 'GET', 'headers' : headers };
+    request(requestOptions,function (error, body, response) { getCallback(error,response,body) });
+  }
   else {
     console.log('No request handling for ' + appConfig[apiName].type);
     return;

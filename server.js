@@ -217,6 +217,34 @@ var SampleApp = function() {
 
           passport.findUser(apiName,req,findUserCallback);
         };
+
+        self.routes.get['/ingest/:apiName/*'] = function(req,res,next) { 
+
+          var apiName = req.param('apiName');
+
+          var findUserCallback = function(user) {
+            if(user==undefined) {
+              res.json({'error' : 'no auth found'})
+              return;
+            }
+
+            var options = {};
+            options.method = 'GET';
+            options.uri = req.url.substring(5+apiName.length);
+
+            if(user.isComposite === true && user._id == undefined) {
+              passport.handleComposite(apiName,options,req, function(data) {
+                // TODO ingest
+              });  
+            } else {
+              passport.handleRequest(apiName,user,options, function(user,data) {
+                // TODO ingest
+              });  
+            }
+          };
+
+          passport.findUser(apiName,req,findUserCallback);
+        };
     };
 
     // PERSONA CAN'T SWITCH BETWEEN HTTP AND HTTPS

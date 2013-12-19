@@ -60,6 +60,13 @@ appConfig.pearson.keyName = 'apikey';
 appConfig.pearson.keyValue = 'KEY_GOES_HERE'; 
 appConfig.pearson.isKeyInUrl = true; 
 
+///////////////
+// public 
+///////////////
+
+appConfig.opencolorado = {};
+appConfig.opencolorado.type='public';
+appConfig.opencolorado.baseUrl = 'https://data.opencolorado.org/group/dataup-co'; 
 
 ///////////////
 // composite (mashup) 
