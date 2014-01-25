@@ -1,0 +1,56 @@
+{
+  "apiVersion" : "0.1",
+  "swaggerVersion" : "1.2",
+  "basePath":"http://proxy-dataupco.rhcloud.com",
+  "resourcePath" : "/auth",
+  "apis" : [
+    {
+      "path" : "/auth/{api}",
+      "description" : "Initiates authentication",
+      "operations" : [
+        {
+          "method" : "GET",
+          "nickname" : "getAuthByApi",
+          "type" : "void",
+          "parameters" : [
+            {
+              "paramType" : "path",
+              "name"  : "api",
+              "description" : "Identifer of the api for auth",
+              "dataType" : "string",
+              "required" : true
+            }
+          ],
+          "summary" : "Initiates auth with api by redirecting to api provider for auth",
+          "notes" : "Expect redirect to /auth/{api}/callback by api provider",
+          "errorResponses" : [
+          ]
+        }
+      ]
+    },
+    {
+      "path" : "/auth/{api}/callback",
+      "description" : "Callback URL used for OAuth",
+      "operations" : [
+        {
+          "method" : "GET",
+          "nickname" : "getAuthCallbackByApi",
+          "type" : "void",
+          "parameters" : [
+            {
+              "paramType" : "path",
+              "name"  : "api",
+              "description" : "Identifer of the api for auth",
+              "dataType" : "string",
+              "required" : true
+            }
+          ],
+          "summary" : "Finalizes auth with api provider",
+          "notes" : "Redirects to user. Expect 'e' parameter in redirect on failure",
+          "errorResponses" : [
+          ]
+        }
+      ]
+    }
+  ]
+}
