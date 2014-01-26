@@ -19,7 +19,8 @@ var findUser = function(apiName,req,callback) {
     callback(undefined);
   }
   else {
-    if(appConfig[apiName].type == 'api-key') {
+    if(appConfig[apiName].type == 'api-key' ||
+       appConfig[apiName].type == 'public') {
       callback({ api : apiName });
     }
     else if(appConfig[apiName].type == 'composite') {

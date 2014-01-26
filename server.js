@@ -5,6 +5,7 @@ var fs      = require('fs');
 var mongodb = require('mongodb');
 var persona = require('./persona.js');
 var passport = require('./passport.js');
+var ingestion = require('./ingest.js');
 
 
 /**
@@ -224,7 +225,7 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json({'error' : 'no auth found'})
+              res.json({'error' : 'no auth found'});
               return;
             }
 
@@ -232,13 +233,36 @@ var SampleApp = function() {
             options.method = 'GET';
             options.uri = req.url.substring(5+apiName.length);
 
+            var ingestionCallback = function(data) {
+              if(!data) {
+                res.json({'error' : 'failed to find data'});
+                return;
+              }
+
+              // ways to group the ingestion
+              var groups = { 
+                'api' : user._api, 
+                'user' : req.session.user,
+                'url' : options.uri
+              };
+
+              ingestion.ingest(groups,data, function(docs) {
+                if(typeof docs === "array") {
+                  res.json({ 'refs' : docs}); 
+                }
+                else {
+                  res.json({'error' : 'failed to save data'});
+                }
+              });
+            };
+
             if(user.isComposite === true && user._id == undefined) {
               passport.handleComposite(apiName,options,req, function(data) {
-                // TODO ingest
+                ingestionCallback(data);
               });  
             } else {
               passport.handleRequest(apiName,user,options, function(user,data) {
-                // TODO ingest
+                ingestionCallback(data);
               });  
             }
           };
