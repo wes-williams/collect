@@ -295,6 +295,7 @@ var SampleApp = function() {
           self.app.use(express.static(__dirname + '/public'));
 
           passport.init(self.app, self.db);
+          ingest.init(self.app, self.db);
         });
 
         //  Add handlers for the app (from the routes).

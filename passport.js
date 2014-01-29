@@ -138,6 +138,9 @@ var register = function(apiName) {
       }, strategyCallback
     ));
   }
+  else if(appConfig[apiName].type == 'public') {
+    // no registration action necessary
+  } 
   else if(appConfig[apiName].type == 'api-key') {
     // no registration action necessary
   } 
