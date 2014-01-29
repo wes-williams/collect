@@ -6,7 +6,7 @@
   "apis" : [
     {
       "path" : "/api/{api}/{relativeUrl}",
-      "description" : "Initiates authentication",
+      "description" : "Performs call to API as requested",
       "operations" : [
         {
           "method" : "GET",
@@ -30,12 +30,12 @@
             {
               "paramType" : "query",
               "name"  : "jsonp",
-              "description" : "Funtion to use for callback",
+              "description" : "Function to use for callback",
               "dataType" : "string",
               "required" : false
             }
           ],
-          "summary" : " api provider for auth",
+          "summary" : "Performs call to API as requested",
           "notes" : "Errors will have an error parameter",
           "errorResponses" : [
           ]
