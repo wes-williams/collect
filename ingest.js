@@ -20,7 +20,7 @@ var ingest = function(groups,data, done) {
                    
   db.collection('temporary').save(data, function(err,doc){
      if(err) {
-       console.log('Failed to save temp data: ' JSON.stringify(err));
+       console.log('Failed to save temp data: ' + JSON.stringify(err));
        done(undefined);
      } else {
        if(typeof doc === "array") {
