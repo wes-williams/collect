@@ -239,14 +239,14 @@ var SampleApp = function() {
                 return;
               }
 
-              // ways to group the ingestion
-              var groups = { 
+              // metadata to group ingestions with later
+              var meta = { 
                 'api' : user.api, 
-                'user' : req.session.user,
+                'user' : req.session.user.id,
                 'url' : options.uri
               };
 
-              ingestion.ingest(groups,data, function(docs) {
+              ingestion.ingest(meta,data, function(docs) {
                 if(Array.isArray(docs)) {
                   res.json({ 'refs' : docs}); 
                 }

@@ -10,11 +10,11 @@ var init = function(app, dbConn) {
 };  
 ingestPlugin.init = init;
 
-var ingest = function(groups,data, done) {
-  data._groups = { 
-    '_user' : groups.user.id,
-    '_api' : groups.api,
-    'url' : groups.url,
+var ingest = function(meta,data, done) {
+  data._meta = { 
+    'user' : meta.user,
+    'api' : meta.api,
+    'url' : meta.url,
     'createTime' : new Date().getTime()
   };
                    
