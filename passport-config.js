@@ -66,7 +66,7 @@ appConfig.pearson.isKeyInUrl = true;
 
 appConfig.opencolorado = {};
 appConfig.opencolorado.type='public';
-appConfig.opencolorado.baseUrl = 'https://data.opencolorado.org/group/dataup-co'; 
+appConfig.opencolorado.baseUrl = 'https://data.opencolorado.org/storage'; 
 
 ///////////////
 // composite (mashup) 
