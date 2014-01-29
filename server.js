@@ -241,13 +241,13 @@ var SampleApp = function() {
 
               // ways to group the ingestion
               var groups = { 
-                'api' : user._api, 
+                'api' : user.api, 
                 'user' : req.session.user,
                 'url' : options.uri
               };
 
               ingestion.ingest(groups,data, function(docs) {
-                if(typeof docs === "array") {
+                if(Array.isArray(docs)) {
                   res.json({ 'refs' : docs}); 
                 }
                 else {
