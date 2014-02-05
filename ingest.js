@@ -54,7 +54,7 @@ var query = function(meta,query,done) {
     if(typeof key === "string"            // key is string
        && typeof value  === "string"      // value is string
        && key.trim().length > 0           // key must not be empty
-       && key.match(/^[a-zA-Z0-9._-]$/)   // key only alpha, numeric, dot, underscore, dash
+       && key.match(/^[a-zA-Z0-9._-]+$/)   // key only alpha, numeric, dot, underscore, dash
        && value.trim().length > 0) {      // value must not be empty
       data[key] = query[key];
     }
