@@ -70,7 +70,6 @@ var query = function(meta,query,done) {
      } 
      else {
        if(typeof docs === "array") {
-       console.log("!!!ARRAY OF " + docs.length);
          if(docs.length>20) { // limit this to 20 records
            console.log("Limiting to 20 records instead of " + docs.length);
            done(docs.splice(0,20));
@@ -80,7 +79,7 @@ var query = function(meta,query,done) {
          }
        } 
        else if(docs) {
-       console.log('!!!NOT ARRAY');
+       console.log('!!!NOT ARRAY : ' + Object.keys(docs));
          done([docs]);
        }
        else {
