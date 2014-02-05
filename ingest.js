@@ -48,9 +48,7 @@ var query = function(meta,query,done) {
 
   var data = {};
 
-  var queryKeys = query.keys(); 
-  for(var i=0;i<queryKeys.length;i++) {
-    var key = queryKeys[i];
+  for(var key in query) {
     var value = query[key];
     // make sure the data is clean
     if(typeof key === "string"            // key is string
