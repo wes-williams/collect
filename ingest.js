@@ -65,11 +65,12 @@ var query = function(meta,query,done) {
                    
   db.collection('temporary').find(data, function(err,docs){
      if(err) {
-       console.log('Failed to find matching data: '); // + JSON.stringify(err));
+       console.log('Failed to find matching data: ' + JSON.stringify(err));
        done(undefined);
      } 
      else {
        if(typeof docs === "array") {
+       console.log("!!!ARRAY OF " + docs.length);
          if(docs.length>20) { // limit this to 20 records
            console.log("Limiting to 20 records instead of " + docs.length);
            done(docs.splice(0,20));
@@ -79,6 +80,7 @@ var query = function(meta,query,done) {
          }
        } 
        else if(docs) {
+       console.log('!!!NOT ARRAY');
          done([docs]);
        }
        else {
