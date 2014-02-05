@@ -219,6 +219,27 @@ var SampleApp = function() {
           passport.findUser(apiName,req,findUserCallback);
         };
 
+        self.routes.get['/query'] = function(req,res,next) { 
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
+
+          var meta = { 
+            'user' : req.session.user.id
+          };
+
+          ingestion.query(meta,req.query, function(docs) {
+            if(docs) {
+              res.json({ 'refs' : docs}); 
+            }
+            else {
+              res.json({'error' : 'failed to query data'});
+            }
+          });
+        };
+
         self.routes.get['/ingest/:apiName/*'] = function(req,res,next) { 
 
           var apiName = req.param('apiName');

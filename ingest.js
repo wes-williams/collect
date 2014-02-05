@@ -38,4 +38,43 @@ var ingest = function(meta,data, done) {
 };
 ingestPlugin.ingest = ingest;
 
+var query = function(meta,query,done) {
+
+  if(!meta || !meta.user || meta.user.trim().length==0) {
+     console.log('Queries must have user');
+     done(undefined);
+     return;
+  }
+
+  var data = {};
+
+  var queryKeys = query.keys(); 
+  for(var i=0;i<queryKeys.length;i++) {
+    var key = queryKeys[i];
+    var value = query[key];
+    // make sure the data is clean
+    if(typeof key === "string"            // key is string
+       && typeof value  === "string"      // value is string
+       && key.trim().length > 0           // key must not be empty
+       && key.match(/^[a-zA-Z0-9._-]$/)   // key only alpha, numeric, dot, underscore, dash
+       && value.trim().length > 0) {      // value must not be empty
+      data[key] = query[key];
+    }
+  }
+
+  // this must be last
+  data['_meta.user'] = meta.user;
+                   
+  db.collection('temporary').find(data, function(err,doc){
+     if(err) {
+       console.log('Failed to find matching data: ' + JSON.stringify(err));
+       done(undefined);
+     } else {
+       done(docs);
+     }
+  });
+
+};
+ingestPlugin.query = query;
+
 module.exports = ingestPlugin;
