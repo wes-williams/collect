@@ -63,8 +63,6 @@ var query = function(meta,query,done) {
   // this must be last
   data['_meta.user'] = meta.user;
   
-  console.log('!!!! DATA ' + JSON.stringify(data));
-
   var options = {
     "limit": 20
   };
