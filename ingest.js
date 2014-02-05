@@ -67,7 +67,8 @@ var query = function(meta,query,done) {
      if(err) {
        console.log('Failed to find matching data: '); // + JSON.stringify(err));
        done(undefined);
-     } else {
+     } 
+     else {
        if(typeof docs === "array") {
          if(docs.length>20) { // limit this to 20 records
            console.log("Limiting to 20 records instead of " + docs.length);
@@ -80,7 +81,7 @@ var query = function(meta,query,done) {
        else if(docs) {
          done([docs]);
        }
-       else
+       else {
          done([]);
        }
      }
