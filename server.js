@@ -232,7 +232,7 @@ var SampleApp = function() {
 
           ingestion.query(meta,req.query, function(docs) {
             if(docs) {
-              res.json({ 'refs' : docs}); 
+              res.json({ 'count' : docs.length, 'data' : docs}); 
             }
             else {
               res.json({'error' : 'failed to query data'});
