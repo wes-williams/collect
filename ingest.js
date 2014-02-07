@@ -57,7 +57,7 @@ var query = function(meta,query,done) {
        && key.match(/^[a-zA-Z0-9._-]+$/)   // key only alpha, numeric, dot, underscore, dash
        && value.trim().length > 0) {      // value must not be empty
       // handle casting
-      if(value.match(/^[0-9]+$/) {
+      if(value.match(/^[0-9]+$/)) {
         value = parseInt(value); 
       }
       else if(value.match(/^[0-9]\.[0-9]+$/) {
