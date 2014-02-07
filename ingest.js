@@ -56,7 +56,15 @@ var query = function(meta,query,done) {
        && key.trim().length > 0           // key must not be empty
        && key.match(/^[a-zA-Z0-9._-]+$/)   // key only alpha, numeric, dot, underscore, dash
        && value.trim().length > 0) {      // value must not be empty
-      data[key] = query[key];
+      // handle casting
+      if(value.match(/^[0-9]+$/) {
+        value = parseInt(value); 
+      }
+      else if(value.match(/^[0-9]\.[0-9]+$/) {
+        value = parseFloat(value); 
+      }
+
+      data[key] = value;
     }
   }
 
