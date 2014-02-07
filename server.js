@@ -262,7 +262,7 @@ var SampleApp = function() {
 
               // metadata to group ingestions with later
               var meta = { 
-                'api' : user.api, 
+                'api' : user._api ? user._api : user.api, 
                 'user' : req.session.user.id,
                 'url' : options.uri
               };
