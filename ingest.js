@@ -60,7 +60,7 @@ var query = function(meta,query,done) {
       if(value.match(/^[0-9]+$/)) {
         value = parseInt(value); 
       }
-      else if(value.match(/^[0-9]\.[0-9]+$/) {
+      else if(value.match(/^[0-9]\.[0-9]+$/)) {
         value = parseFloat(value); 
       }
 
