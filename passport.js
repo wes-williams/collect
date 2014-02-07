@@ -134,7 +134,8 @@ var register = function(apiName) {
           clientID: appConfig[apiName].clientId,
           clientSecret: appConfig[apiName].clientSecret,
           callbackURL: appConfig[apiName].callbackUrl, 
-          passReqToCallback: true
+          passReqToCallback: true,
+          customHeaders: { 'User-Agent' : 'node-oauth' }
       }, strategyCallback
     ));
   }
