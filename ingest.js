@@ -55,8 +55,8 @@ var query = function(meta,query,done) {
     // key~op indicates which operator should be used.
     if(key.match(/^.+\~(eq|lt|lte|gt|ne|in|nin|re)$/i)) { // NOTE: case insensitive here
       var delimPosition = key.lastIndexOf('~');
-      key = key.substring(0,delimPosition);
       operator = key.substring(delimPosition+1).toLowerCase();
+      key = key.substring(0,delimPosition);
     }
 
     // make sure the data is clean
