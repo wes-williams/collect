@@ -55,7 +55,7 @@ var query = function(meta,query,done) {
       var operator = 'eq'; // equal is the default operator
 
       // key~op indicates which operator should be used.
-      if(key.match(/^.+\~(eq|lt|lte|gt|ne|in|nin|re|rei)$/i)) { // NOTE: case insensitive here
+      if(key.match(/^.+\~(eq|lt|lte|gt|gte|ne|in|nin|re|rei)$/i)) { // NOTE: case insensitive here
         var delimPosition = key.lastIndexOf('~');
         operator = key.substring(delimPosition+1).toLowerCase();
         key = key.substring(0,delimPosition);
