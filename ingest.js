@@ -23,7 +23,7 @@ var ingest = function(meta,data, done) {
        console.log('Failed to save temp data: ' + JSON.stringify(err));
        done(undefined);
      } else {
-       if(typeof doc === "array") {
+       if(Array.isArray(doc)) {
          var docs = []; // should use _ here
          for(var i=0;i<doc.length;i++) {
            docs.push(doc[i]._id); 
