@@ -67,8 +67,17 @@ var query = function(meta,query,done) {
          && key.trim().length > 0           // key must not be empty
          && key.match(/^[a-zA-Z0-9._-]+$/)   // key only alpha, numeric, dot, underscore, dash
          && value.trim().length > 0)) {      // value must not be empty
-        throw ('invalid parameter: ' + key + ' = ' + value);
 
+        throw ('invalid parameter: ' + key + ' = ' + value);
+      }
+
+      // error if similar condition already defined or not compatible
+      if(data[key] && 
+         (operator.match(/^(eq|re|rei)$/)
+          || (typeof(data[key]) === "string" 
+          || data[key] instanceof Regexp)) {
+
+          throw  'not handling compound conditions for eq, re, or rei operators';
       }
 
       // cast values. take into account that value may need to be split
@@ -123,23 +132,10 @@ var query = function(meta,query,done) {
         }
         
         //account for multiple conditions
-        // only doing AND conditions right now
-        // in and not in exist for OR conditions
-        if(data[key]) {
-          // only use condition if an equal or regex condition not present
-          // equal conditions will be string values
-          if(typeof(data[key]) === "string" 
-             || data[key] instanceof Regexp) {
-            throw  'not handling compound conditions for eq, re, or rei operators';
-          }
-          else {
-            data[key][conditionKey] = conditionValue;
-          }
-        }
-        else {
+        if(!data[key]) {
           data[key] = {};
-          data[key][conditionKey] = conditionValue;
         }
+        data[key][conditionKey] = conditionValue;
       }
     }
     console.log("QUERY = " + JSON.stringify(data));
