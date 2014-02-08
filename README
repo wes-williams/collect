@@ -1,8 +1,0 @@
-Server supports:
-
-1. Persona Login
-2. OAuth 1.0
-3. OAuth 2.0
-4. API Key (QueryString & Header)
-5. Public Data
-6. Ingested Data
