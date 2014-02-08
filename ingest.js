@@ -86,6 +86,9 @@ var query = function(meta,query,done) {
       if(operator === "eq") {
         data[key] = value;
       }
+      if(operator === "re") {
+        data[key] = value.match(/^\/.*\/$/) ? value : ('/'+value+'/');
+      }
       else {
         var conditionKey = '$' + operator;
         var conditionValue;
