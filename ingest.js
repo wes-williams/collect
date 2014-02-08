@@ -65,14 +65,24 @@ var query = function(meta,query,done) {
        && key.trim().length > 0           // key must not be empty
        && key.match(/^[a-zA-Z0-9._-]+$/)   // key only alpha, numeric, dot, underscore, dash
        && value.trim().length > 0) {      // value must not be empty
-      // handle casting
-      if(value.match(/^[0-9]+$/)) {
-        value = parseInt(value); 
+
+      // cast values. take into account that value may need to be split
+      var castValues = operator.match(/^(in|nin)$/) ? value.split('~') : [value];
+      for(var v=0;v<castValues.length;v++) { 
+        var castValue = castValues[v];
+
+        // handle casting
+        if(castValue.match(/^[+-]?[0-9]+$/)) {
+          castValue = parseInt(castValue); 
+        }
+        else if(castValue.match(/^[+-]?[0-9]+\.[0-9]+$/)) {
+          castValue = parseFloat(castValue); 
+        }
+
+        castValues[v] = castValue;
       }
-      else if(value.match(/^[0-9]+\.[0-9]+$/)) {
-        value = parseFloat(value); 
-      }
-      
+      value = castValues.length==1 ? castValues[0] : castValues; 
+
       if(operator === "eq") {
         data[key] = value;
       }
@@ -81,7 +91,12 @@ var query = function(meta,query,done) {
         var conditionValue;
         // account for array values for IN and NOT IN
         if(operator.match(/^(in|nin)$/)) {
-          conditionValue = value.split('~');
+          if(typeof(value) === "array") {
+            conditionValue = value;
+          }
+          else { // it needs to be an array
+            conditionValue = [value];
+          }
         }
         else {
           conditionValue = value;
@@ -92,6 +107,7 @@ var query = function(meta,query,done) {
         // in and not in exist for OR conditions
         if(data[key]) {
           // only use condition if an equal condition not present
+          // equal conditions will be string values
           if(typeof(data[key]) !== "string") {
             data[key][conditionKey] = conditionValue;
           }
