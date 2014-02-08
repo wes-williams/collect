@@ -87,9 +87,14 @@ var query = function(meta,query,done) {
         data[key] = value;
       }
       if(operator === "re") {
-        value = value.match(/^\/.*\/i?$/) ? value : ('/'+value+'/');
-        value = new Regex(value);
-        data[key] = value;
+        try {
+          var regex = new RegEx(value);
+          regex.test('abc');
+          data[key] = regex;
+        }
+        catch(e) {
+          console.log('invalid regex in query: ' + value);
+        }
       }
       else {
         var conditionKey = '$' + operator;
