@@ -91,7 +91,7 @@ var query = function(meta,query,done) {
       if(operator === "eq") {
         data[key] = value;
       }
-      if(operator === "re" || operator === "rei") {
+      else if(operator === "re" || operator === "rei") {
         try {
           var regex;
           if(operator === "rei") {
