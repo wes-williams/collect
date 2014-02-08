@@ -97,7 +97,8 @@ var query = function(meta,query,done) {
           }
         }
         else {
-          data[key] = { conditionKey : conditionValue };
+          data[key] = {};
+          data[key][conditionKey] = conditionValue;
         }
       }
       console.log("QUERY = " + JSON.stringify(data));
