@@ -87,7 +87,9 @@ var query = function(meta,query,done) {
         data[key] = value;
       }
       if(operator === "re") {
-        data[key] = value.match(/^\/.*\/$/) ? value : ('/'+value+'/');
+        value = value.match(/^\/.*\/i?$/) ? value : ('/'+value+'/');
+        value = new Regex(value);
+        data[key] = value;
       }
       else {
         var conditionKey = '$' + operator;
