@@ -74,7 +74,7 @@ var query = function(meta,query,done) {
       // error if similar condition already defined or not compatible
       if(data[key] && 
          (operator.match(/^(eq|re|rei)$/)
-          || (typeof(data[key]) === "string" 
+          || typeof(data[key]) === "string" 
           || data[key] instanceof Regexp)) {
 
           throw  'not handling compound conditions for eq, re, or rei operators';
