@@ -88,7 +88,7 @@ var query = function(meta,query,done) {
       }
       if(operator === "re") {
         try {
-          var regex = new RegEx(value);
+          var regex = new RegExp(value);
           regex.test('abc');
           data[key] = regex;
         }
