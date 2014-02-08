@@ -100,7 +100,7 @@ var query = function(meta,query,done) {
           data[key] = { conditionKey : conditionValue };
         }
       }
-      console.log(QUERY = " +JSON.stringify(data));
+      console.log("QUERY = " + JSON.stringify(data));
     }
   }
 
