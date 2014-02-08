@@ -50,6 +50,15 @@ var query = function(meta,query,done) {
 
   for(var key in query) {
     var value = query[key];
+    var operator = 'eq'; // equal is the default operator
+
+    // key~op indicates which operator should be used.
+    if(key.match(/^.+\~(eq|lt|lte|gt|ne|in|nin|re)$/i)) { // NOTE: case insensitive here
+      var delimPosition = key.lastIndexOf('~');
+      key = key.substring(0,delimPosition);
+      operator = key.substring(delimPosition+1).toLowerCase();
+    }
+
     // make sure the data is clean
     if(typeof key === "string"            // key is string
        && typeof value  === "string"      // value is string
@@ -63,8 +72,34 @@ var query = function(meta,query,done) {
       else if(value.match(/^[0-9]\.[0-9]+$/)) {
         value = parseFloat(value); 
       }
-
-      data[key] = value;
+      
+      if(operator === "eq") {
+        data[key] = value;
+      }
+      else {
+        var conditionKey = '$' + operator;
+        var conditionValue;
+        // account for array values for IN and NOT IN
+        if(operator.match(/^(in|nin)$/)) {
+          conditionValue = value.split('~');
+        }
+        else {
+          conditionValue = value;
+        }
+        
+        //account for multiple conditions
+        // only doing AND conditions right now
+        // in and not in exist for OR conditions
+        if(data[key]) {
+          // only use condition if an equal condition not present
+          if(typeof(data[key]) !== "string") {
+            data[key][conditionKey] = conditionValue;
+          }
+        }
+        else {
+          data[key] = { conditionKey : conditionValue };
+        }
+      }
     }
   }
 
