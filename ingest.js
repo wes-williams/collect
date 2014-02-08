@@ -91,7 +91,7 @@ var query = function(meta,query,done) {
         var conditionValue;
         // account for array values for IN and NOT IN
         if(operator.match(/^(in|nin)$/)) {
-          if(typeof(value) === "array") {
+          if(Array.isArray(value)) {
             conditionValue = value;
           }
           else { // it needs to be an array
