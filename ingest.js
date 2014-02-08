@@ -145,7 +145,7 @@ var query = function(meta,query,done) {
     console.log("QUERY = " + JSON.stringify(data));
   }
   catch(ex) {
-    console.log('INVALID QUERY');
+    console.log('INVALID QUERY: ' + ex);
     done(undefined);
     return;
   }
