@@ -25,8 +25,9 @@ var SampleApp = function() {
      */
     self.setupVariables = function() {
         //  Set the environment variables we need.
-        self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP;
-        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || 8080;
+        // OPENSHIFT_INTERNAL_ is and old convention. OPENSHIFT_NODEJS_ is the new one
+        self.ipaddress = process.env.OPENSHIFT_INTERNAL_IP || process.env.OPENSHIFT_NODEJS_IP;
+        self.port      = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
         self.dbHost = process.env.OPENSHIFT_MONGODB_DB_HOST;
         self.dbPort = process.env.OPENSHIFT_MONGODB_DB_PORT;

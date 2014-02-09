@@ -56,26 +56,19 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   vi server.js // change proxy in db setup to your app name
   git commit -am "changed proxy-dataupco references"
 
-  5. Account for change in [OPENSHIFT conventions](https://www.openshift.com/page/openshift-environment-variables) since this project was started
-  ~~~~~~~~~
-  find . -name "*.*" -exec grep "OPENSHIFT_INTERNAL_IP" {} \; -print
-  vi server.js // change OPENSHIFT_INTERNAL_IP to OPENSHIFT_NODEJS_IP
-  git commit -am "changed OPENSHIFT_INTERNAL_IP to OPENSHIFFT_NODEJS_IP"
-  ~~~~~~~~~
-
-  6. Make a branch of develop that will remain private
+  5. Make a branch of develop that will remain private
   ~~~~~~~~~~
   git branch secret
   git checkout secret
   ~~~~~~~~~~
 
-  7. Edit config and credentials for your data sources.
+  6. Edit config and credentials for your data sources.
   ~~~~~~~~~~~
   vi passport-config.js
   git commit -am "Edited accounts. KEEP SECRET."
   ~~~~~~~~~~~
 
-  8. Deploy secret branch to openshift
+  7. Deploy secret branch to openshift
   ~~~~~~~~~~~~~
   git push origin secret:master
   ~~~~~~~~~~~~~
