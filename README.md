@@ -93,9 +93,9 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 ### Use Data Sources <a name="how-access"></a>
 
  1. Login with Persona at https://<YOUR-APP>.rhcloud.com
- 2. Change url to https://<YOUR-APP>.rhcloud.com/auth/`{dataSource}` (Oauth only)
+ 2. Change url to https://<YOUR-APP>.rhcloud.com/auth/`{dataSource}` __(Oauth only)__
    * Authorize application to access data
- 3. Change url to https://<YOUR-APP>.rhcloud.com/api/`{dataSource}`/ (Default Path)
+ 3. Change url to https://<YOUR-APP>.rhcloud.com/api/`{dataSource}`/ __(Default Path)__
  4. Change url to https://<YOUR-APP>.rhcloud.com/api/`{dataSource}`/`any/valid/get/path`
 
 ### Ingest Data Sources <a name="how-ingest"></a>
@@ -110,6 +110,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
    * /query?_meta.api=`{dataSourceName}`&`{some.path.to.match}`=`{value}`
  2. Experiment with operators (~op) after the query parameter names
    * /query?_meta.api=`{dataSourceName}`&`{some.path.to.match}`~`{operator}`=`{value}`
+
        | Operator | Description | Example |
        | -------- | ----------- | ------- |
        | ~eq | Equal (Default) | name~eq=abc |
