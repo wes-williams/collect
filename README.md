@@ -35,13 +35,13 @@ A non-intimidating, personal sandbox with the following features.
     * Query ingested data on request
     * Purge on a schedule
 
-## Where? {#where}
+## Where? <a name="where"></a>
 
 Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS 
 
-## How? {#how}
+## How? <a name="how"></a>
 
-### Get setup on OpenShift {#how-openshift}
+### Get setup on OpenShift <a name="how-openshift"></a>
 
   1. Make a fork of this repository
 
@@ -82,14 +82,14 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   git push origin secret:master
   ~~~~~~~~~~~~~
 
-### Configure Data Sources {#how-configure}
+### Configure Data Sources <a name="how-configure"></a>
 
   1. Configure applications at data source as applicable
     * Creation applications to use
     * Provide callback url for Oauth 
   2. See examples in passport-config.js for each auth type
 
-### Use Data Sources {#how-access}
+### Use Data Sources <a name="how-access"></a>
 
  1. Login with Persona at https://<YOUR-APP>.rhcloud.com
  2. Change url to https://<YOUR-APP>.rhcloud.com/auth/`{dataSource}` (Oauth only)
@@ -97,11 +97,11 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
  3. Change url to https://<YOUR-APP>.rhcloud.com/api/`{dataSource}`/ (Default Path)
  4. Change url to https://<YOUR-APP>.rhcloud.com/api/`{dataSource}`/`any/valid/get/path`
 
-### Ingest Data Sources {#how-ingest}
+### Ingest Data Sources <a name="how-ingest"></a>
 
  1. Change url to https://<YOUR-APP>.rhcloud.com/ingest/`{dataSource}`/`any/valid/get/path`
 
-### Query Data Sources {#how-query}
+### Query Data Sources <a name="how-query"></a>
 
  1. Experiment with the url after https://<YOUR-APP>.rhcloud.com
    * /query
