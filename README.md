@@ -44,40 +44,36 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 ### Get setup on OpenShift <a name="how-openshift"></a>
 
   1. Make a fork of this repository
-
-  2. Create an application on openshift
+  2. Get [**setup**](https://www.openshift.com/blogs/using-rhc-to-manage-paas-apps) on OpenShift
+  3. Create an application on OpenShift
   ~~~~~~~~~~
   rhc app create <APPNAME> nodejs-0.6 mongodb-2.2
   ~~~~~~~~~
-
-  3. Pull your fork into this application
+  4. Pull your fork into this application
   ~~~~~~~~~
   cd <APPNAME>
   git remote add github -m master git@github.com:<YOUR-FORK-OF-THIS-REPO>.git
   git pull -s recursive -X theirs github master
   ~~~~~~~~~
-
-  4. Change references from proxy on dataupco to match your app and domain
+  5. Change references from proxy on dataupco to match your app and domain
   ~~~~~~~~~
   find . -name "*.*" -exec grep "proxy" {} \; -print
   vi persona-config.js // change proxy-dataupco
   vi passport-config.js // change proxy-dataupco
   vi server.js // change proxy in db setup to your app name
   git commit -am "changed proxy-dataupco references"
-
-  5. Make a branch of develop that will remain private
+  ~~~~~~~~~
+  6. Make a branch of develop that will remain private
   ~~~~~~~~~~
   git branch secret
   git checkout secret
   ~~~~~~~~~~
-
-  6. Edit config and credentials for your data sources. See how [**here**](#how-configure).
+  7. Edit config and credentials for your data sources. See how [**here**](#how-configure).
   ~~~~~~~~~~~
   vi passport-config.js
   git commit -am "Edited accounts. KEEP SECRET."
   ~~~~~~~~~~~
-
-  7. Deploy secret branch to openshift
+  8. Deploy secret branch to openshift
   ~~~~~~~~~~~~~
   git push origin secret:master
   ~~~~~~~~~~~~~
