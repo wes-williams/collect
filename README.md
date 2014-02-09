@@ -11,7 +11,7 @@ Remove barriers to experimenting with new data sources.
    * [**Ingest**](#how-ingest) data sources
    * [**Query**](#how-query) data sources
 
-## What?  {#what}
+## What? ## {#what}
 
 A non-intimidating, personal sandbox with the following features.
 
