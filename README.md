@@ -2,14 +2,16 @@
 
 Remove barriers to experimenting with new data sources.
 
- * [**What**](#what) are the intentions of this project?
- * [**Where**](#where) will I use it?
- * [**How**](#how) can I get started?
-   * [**Setup**](#how-openshift) on Openshift
-   * [**Configure**](#how-configure) data sources
-   * [**Access**](#how-access) data sources
-   * [**Ingest**](#how-ingest) data sources
-   * [**Query**](#how-query) ingested data
+  * [**What**](#what) are the intentions of this project?
+  * [**Where**](#where) will I use it?
+  * [**How**](#how) can I get started?
+    * [**Setup**](#how-openshift) on Openshift
+    * [**Configure**](#how-configure) data sources
+    * [**Access**](#how-access) data sources
+    * [**Ingest**](#how-ingest) data sources
+    * [**Query**](#how-query) ingested data
+
+  __Disclaimer__: This project is MIT licensed. Use at your own risk.
 
 ## What? <a name="what"></a>
 
