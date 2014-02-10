@@ -68,7 +68,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   git commit -am "changed proxy-dataupco references"
   ~~~~~~~~~
 
-  6. Create and switch to a branch that will remain private
+  6. Create and switch to a branch that __must remain private__
   ~~~~~~~~~~
   git branch secret
   git checkout secret
