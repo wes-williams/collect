@@ -90,39 +90,40 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
     * Provide callback url for Oauth 
   2. See examples in passport-config.js for each auth type
 
-### Use Data Sources <a name="how-access"></a>
+### Access Data Sources <a name="how-access"></a>
 
- 1. Login with Persona at `https://<YOUR-APP>.rhcloud.com`
- 2. Authorize data source at `https://<YOUR-APP>.rhcloud.com/auth/{dataSource}` __(OAuth Only)__
- 3. Access default path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/`
- 4. Access any path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/any/valid/get/path`
+  1. Login with Persona at `https://<YOUR-APP>.rhcloud.com`
+  2. Authorize data source at `https://<YOUR-APP>.rhcloud.com/auth/{dataSource}` __(OAuth Only)__
+  3. Access default path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/`
+  4. Access any path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/any/valid/get/path`
 
 ### Ingest Data Sources <a name="how-ingest"></a>
 
- 1. Change url to `https://<YOUR-APP>.rhcloud.com/ingest/{dataSource}/{any/valid/get/path}`
+  1. Change url to `https://<YOUR-APP>.rhcloud.com/ingest/{dataSource}/{any/valid/get/path}`
 
 ### Query Ingested Data <a name="how-query"></a>
 
- 1. Experiment with the url after `https://<YOUR-APP>.rhcloud.com`
- ~~~~~~~~~
- /query
- /query?_meta.api={dataSourceName}
- /query?_meta.api={dataSourceName}&{some.path.to.match}={value}
- ~~~~~~~~~
+  1. Experiment with the url after `https://<YOUR-APP>.rhcloud.com/query`
+  ~~~~~~~~~
+  /query?_meta.api={dataSourceName}
+  /query?_meta.api={dataSourceName}&{some.path.to.match}={value}
+  ~~~~~~~~~
 
- 2. Experiment with operators (~op) after the query parameter names
-   * `/query?_meta.api=`{dataSourceName}&{some.path.to.match}~{operator}={value}`
+  2. Experiment with operators after the query parameter names
+  ~~~~~~~~
+  /query?_meta.api=`{dataSourceName}&{some.path.to.match}~{operator}={value}
+  ~~~~~~~~
 
-       | Operator | Description | Example |
-       | -------- | ----------- | ------- |
-       | ~eq | Equal (Default) | `name~eq=abc` |
-       | ~ne | Not Equal | `name~ne=abc` |
-       | ~gt | Greater Than | `name~gt=123` |
-       | ~gte | Greater Than or Equal | `name~gte=123` |
-       | ~lt | Less Than | `name~lt=123` |
-       | ~lte | Less Than or Equal | `name~lte=123` |
-       | ~re | Regular Expression | `name~re=[abc]+` |
-       | ~rei | Regular Expression (Case Insensitive) | `name~rei=[abc]+` |
-       | ~in | In list separated by ~ | `name~in=abc~cde~fgh` |
-       | ~nin | Not In list separted by ~ | `name~nin=abc~cde~fgh` |
+  | Operator | Description | Example |
+  | -------- | ----------- | ------- |
+  | ~eq | Equal (Default) | `name~eq=abc` |
+  | ~ne | Not Equal | `name~ne=abc` |
+  | ~gt | Greater Than | `name~gt=123` |
+  | ~gte | Greater Than or Equal | `name~gte=123` |
+  | ~lt | Less Than | `name~lt=123` |
+  | ~lte | Less Than or Equal | `name~lte=123` |
+  | ~re | Regular Expression | `name~re=[abc]+` |
+  | ~rei | Regular Expression (Case Insensitive) | `name~rei=[abc]+` |
+  | ~in | In list separated by ~ | `name~in=abc~cde~fgh` |
+  | ~nin | Not In list separted by ~ | `name~nin=abc~cde~fgh` |
 
