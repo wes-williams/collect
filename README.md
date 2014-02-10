@@ -43,10 +43,10 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 
 ## How? <a name="how"></a>
 
-### Get setup on OpenShift <a name="how-openshift"></a>
+### Setup Application on OpenShift <a name="how-openshift"></a>
 
   1. Make a fork of this repository
-  2. Get [**setup**](https://www.openshift.com/blogs/using-rhc-to-manage-paas-apps) on OpenShift
+  2. Get [**prepared**](https://www.openshift.com/blogs/using-rhc-to-manage-paas-apps) on OpenShift
   3. Create an application on OpenShift
   ~~~~~~~~~~
   rhc app create <APPNAME> nodejs-0.6 mongodb-2.2
