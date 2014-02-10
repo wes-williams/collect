@@ -9,7 +9,7 @@ Remove barriers to experimenting with new data sources.
    * [**Configure**](#how-configure) data sources
    * [**Access**](#how-access) data sources
    * [**Ingest**](#how-ingest) data sources
-   * [**Query**](#how-query) data sources
+   * [**Query**](#how-query) ingested data
 
 ## What? <a name="what"></a>
 
@@ -93,16 +93,15 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 ### Use Data Sources <a name="how-access"></a>
 
  1. Login with Persona at `https://<YOUR-APP>.rhcloud.com`
- 2. Change url to `https://<YOUR-APP>.rhcloud.com/auth/{dataSource}` __(Oauth only)__
-   * Authorize application to access data
- 3. Change url to `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/` __(Default Path)__
- 4. Change url to `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/any/valid/get/path`
+ 2. Authorize data source at `https://<YOUR-APP>.rhcloud.com/auth/{dataSource}` __(OAuth Only)__
+ 3. Access default path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/`
+ 4. Access any path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/any/valid/get/path`
 
 ### Ingest Data Sources <a name="how-ingest"></a>
 
  1. Change url to `https://<YOUR-APP>.rhcloud.com/ingest/{dataSource}/{any/valid/get/path}`
 
-### Query Data Sources <a name="how-query"></a>
+### Query Ingested Data <a name="how-query"></a>
 
  1. Experiment with the url after `https://<YOUR-APP>.rhcloud.com`
  ~~~~~~~~~
