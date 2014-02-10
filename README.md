@@ -11,7 +11,7 @@ Remove barriers to experimenting with new data sources.
     * [**Ingest**](#how-ingest) data sources
     * [**Query**](#how-query) ingested data
 
-  __Disclaimer__: This project is MIT licensed. Use at your own risk.
+__Disclaimer__: This project is MIT licensed. Use at your own risk.
 
 ## What? <a name="what"></a>
 
