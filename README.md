@@ -68,7 +68,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   git commit -am "changed proxy-dataupco references"
   ~~~~~~~~~
 
-  6. Make a branch of develop that will remain private
+  6. Create and switch to a branch that will remain private
   ~~~~~~~~~~
   git branch secret
   git checkout secret
@@ -87,7 +87,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 
 ### Configure Data Sources <a name="how-configure"></a>
 
-  1. Configure applications at data source as applicable
+  1. Configure applications at data source provider as applicable
     * Creation applications to use
     * Provide callback url for Oauth 
   2. See examples in passport-config.js for each auth type
