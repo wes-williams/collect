@@ -123,7 +123,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   | ~lt | Less Than | `name~lt=123` |
   | ~lte | Less Than or Equal | `name~lte=123` |
   | ~re | Regular Expression | `name~re=[abc]+` |
-  | ~rei | Regular Expression (Case Insensitive) | `name~rei=[abc]+` |
+  | ~rei | Case Insensitive Regular Expression | `name~rei=[abc]+` |
   | ~in | In list separated by ~ | `name~in=abc~cde~fgh` |
   | ~nin | Not In list separted by ~ | `name~nin=abc~cde~fgh` |
 
