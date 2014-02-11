@@ -5,7 +5,7 @@ var fs      = require('fs');
 var mongodb = require('mongodb');
 var persona = require('./persona.js');
 var passport = require('./passport.js');
-var ingestion = require('./ingest.js');
+var storage = require('./storage.js');
 
 
 /**
@@ -231,7 +231,7 @@ var SampleApp = function() {
             'user' : req.session.user.id
           };
 
-          ingestion.query(meta,req.query, function(docs) {
+          storage.query(meta,req.query, function(docs) {
             if(docs) {
               res.json({ 'count' : docs.length, 'data' : docs}); 
             }
@@ -268,7 +268,7 @@ var SampleApp = function() {
                 'url' : options.uri
               };
 
-              ingestion.ingest(meta,data, function(docs) {
+              storage.ingest(meta,data, function(docs) {
                 if(Array.isArray(docs)) {
                   res.json({ 'refs' : docs}); 
                 }
@@ -317,7 +317,7 @@ var SampleApp = function() {
           self.app.use(express.static(__dirname + '/public'));
 
           passport.init(self.app, self.db);
-          ingestion.init(self.app, self.db);
+          storage.init(self.app, self.db);
         });
 
         //  Add handlers for the app (from the routes).
