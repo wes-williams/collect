@@ -1,14 +1,14 @@
-var appConfig = require('./ingest-config'),
+var appConfig = require('./storage-config'),
     request = require('request');
 
-var ingestPlugin = {};
+var storagePlugin = {};
 
 var db = undefined;
 
 var init = function(app, dbConn) {
   db = dbConn;
 };  
-ingestPlugin.init = init;
+storagePlugin.init = init;
 
 var ingest = function(meta,data, done) {
   data._meta = { 
@@ -36,7 +36,7 @@ var ingest = function(meta,data, done) {
      }
   });
 };
-ingestPlugin.ingest = ingest;
+storagePlugin.ingest = ingest;
 
 var query = function(meta,query,done) {
 
@@ -164,6 +164,6 @@ db.collection('temporary').find(data,options).toArray(function(err,docs){
 });
 
 };
-ingestPlugin.query = query;
+storagePlugin.query = query;
 
-module.exports = ingestPlugin;
+module.exports = storagePlugin;
