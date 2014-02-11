@@ -1,4 +1,5 @@
 var appConfig = {};
+appConfig._host = 'https://proxy-dataupco.rhcloud.com';
 
 ///////////////
 // oauth 1.0
@@ -16,7 +17,6 @@ appConfig.fitbit.defaultLoadUrl = '/user/-/profile.json';
 appConfig.fitbit.userIdPath = 'user.encodedId'; 
 appConfig.fitbit.clientId = 'KEY_GOES_HERE';
 appConfig.fitbit.clientSecret = 'SECRET_GOES_HERE';
-appConfig.fitbit.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/fitbit/callback';
 
 // twitter - https://dev.twitter.com/docs/api/1.1
 
@@ -30,7 +30,6 @@ appConfig.twitter.defaultLoadUrl = '/account/verify_credentials.json';
 appConfig.twitter.userIdPath = 'screen_name'; 
 appConfig.twitter.clientId = 'KEY_GOES_HERE';
 appConfig.twitter.clientSecret = 'PASS_GOES_HERE';
-appConfig.twitter.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/twitter/callback';
 
 ///////////////
 // oauth 2.0  (no request url)
@@ -47,7 +46,6 @@ appConfig.github.defaultLoadUrl = '/user';
 appConfig.github.userIdPath = 'login'; 
 appConfig.github.clientId = 'KEY_GOES_HERE';
 appConfig.github.clientSecret = 'PASS_GOES_HERE';
-appConfig.github.callbackUrl = 'https://proxy-dataupco.rhcloud.com/auth/github/callback';
 
 ///////////////
 // api key

@@ -111,6 +111,7 @@ var register = function(apiName) {
     handleRequest(apiName,fakeUser,options,callback);  
   };
 
+  var apiCallbackUrl = appConfig[apiName]._host + '/auth/' + apiName  + '/callback';
   if(appConfig[apiName].type == 'oauth-1.0') {
     // setup oauth1 through passport
     passport.use(apiName, 
@@ -120,7 +121,7 @@ var register = function(apiName) {
           accessTokenURL: appConfig[apiName].accessTokenUrl,
           consumerKey: appConfig[apiName].clientId,
           consumerSecret: appConfig[apiName].clientSecret,
-          callbackURL: appConfig[apiName].callbackUrl,
+          callbackURL: apiCallbackUrl,
           passReqToCallback: true
       }, strategyCallback
     ));
@@ -133,7 +134,7 @@ var register = function(apiName) {
           tokenURL: appConfig[apiName].accessTokenUrl,
           clientID: appConfig[apiName].clientId,
           clientSecret: appConfig[apiName].clientSecret,
-          callbackURL: appConfig[apiName].callbackUrl, 
+          callbackURL: apiCallbackUrl, 
           passReqToCallback: true,
           customHeaders: { 'User-Agent' : 'node-oauth' }
       }, strategyCallback
