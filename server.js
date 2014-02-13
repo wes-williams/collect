@@ -255,7 +255,7 @@ var SampleApp = function() {
 
             var options = {};
             options.method = 'GET';
-            options.uri = req.url.substring(8+apiName.length);
+            options.uri = req.url.substring(6+apiName.length);
 
             var ingestionCallback = function(data) {
               if(!data) {
