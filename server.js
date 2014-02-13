@@ -115,9 +115,10 @@ var SampleApp = function() {
         self.routes = { };
         self.routes.get = { };
         self.routes.post = { };
+        self.routes.del = { };
 
-        self.routes.get['/ok'] = function(req, res) {
-          res.send('1');
+        self.routes.get['/status'] = function(req, res) {
+          res.send('ok');
         };
 
         self.routes.get['/'] = function(req, res) {
@@ -125,8 +126,8 @@ var SampleApp = function() {
             res.send(self.cache_get('index.html') );
         };
 
-        self.routes.post['/login'] = persona.login; 
-        self.routes.post['/logout'] = persona.logout;
+        self.routes.post['/session'] = persona.login; 
+        self.routes.del['/session'] = persona.logout;
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
@@ -221,7 +222,7 @@ var SampleApp = function() {
           passport.findUser(apiName,req,findUserCallback);
         };
 
-        self.routes.get['/query'] = function(req,res,next) { 
+        self.routes.get['/data'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
             res.json({'error' : 'user not found'})
@@ -242,7 +243,7 @@ var SampleApp = function() {
           });
         };
 
-        self.routes.get['/ingest/:apiName/*'] = function(req,res,next) { 
+        self.routes.post['/data/:apiName/*'] = function(req,res,next) { 
 
           var apiName = req.param('apiName');
 
@@ -329,6 +330,10 @@ var SampleApp = function() {
         //post only
         for (var r in self.routes.post) {
             self.app.post(r, self.routes.post[r]);
+        }
+        //del only
+        for (var r in self.routes.del) {
+            self.app.del(r, self.routes.del[r]);
         }
 
     };
