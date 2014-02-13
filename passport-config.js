@@ -1,5 +1,7 @@
+var commonConfig = require('./common-config.js');
+
 var appConfig = {};
-appConfig._host = 'https://proxy-dataupco.rhcloud.com';
+appConfig._host = commonConfig.host;
 
 ///////////////
 // oauth 1.0

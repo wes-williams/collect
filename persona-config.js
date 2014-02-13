@@ -1,5 +1,6 @@
+var commonConfig = require('./common-config.js');
 var appConfig = {};
 
-appConfig.hostUrl = 'https://proxy-dataupco.rhcloud.com';
+appConfig.hostUrl = commonConfig.host;
 
 module.exports = appConfig;

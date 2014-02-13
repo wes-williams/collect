@@ -6,6 +6,7 @@ var mongodb = require('mongodb');
 var persona = require('./persona.js');
 var passport = require('./passport.js');
 var storage = require('./storage.js');
+var commonConfig = require('./common-config.js');
 
 
 /**
@@ -39,7 +40,7 @@ var SampleApp = function() {
         }
 
         self.dbServer = new mongodb.Server(self.dbHost, parseInt(self.dbPort));
-        self.db = new mongodb.Db('proxy', self.dbServer, {auto_reconnect: true});
+        self.db = new mongodb.Db(commonConfig.db, self.dbServer, {auto_reconnect: true});
         self.dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME;
         self.dbPass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD;
 
