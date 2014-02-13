@@ -111,7 +111,7 @@ var register = function(apiName) {
     handleRequest(apiName,fakeUser,options,callback);  
   };
 
-  var apiCallbackUrl = appConfig[apiName]._host + '/auth/' + apiName  + '/callback';
+  var apiCallbackUrl = appConfig._host + '/auth/' + apiName  + '/callback';
   if(appConfig[apiName].type == 'oauth-1.0') {
     // setup oauth1 through passport
     passport.use(apiName, 
