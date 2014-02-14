@@ -1,0 +1,58 @@
+{
+  "apiVersion" : "0.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : "https://proxy-dataupco.rhcloud.com",
+  "resourcePath" : "/session",
+  "apis" : [
+    {
+      "path" : "/session",
+      "description" : "Manages persona session",
+      "operations" : [
+        {
+          "method" : "POST",
+          "nickname" : "createSession",
+          "type" : "NewSession",
+          "parameters" : [],
+          "summary" : "Establishes identity of user",
+          "notes" : "Utilizes Apache Persona",
+          "errorResponses" : [
+            {
+              "code" : 403,
+              "message" : "Login failed"
+            }
+          ]
+        },
+        {
+          "method" : "DELETE",
+          "nickname" : "destroySession",
+          "type" : "NoSession",
+          "parameters" : [],
+          "summary" : "Removes identity of user",
+          "notes" : "Doesn't remove auth",
+          "errorResponses" : [
+          ]
+        }
+      ]
+    }
+  ],
+  "models" : {
+    "NewSession" : {
+      "id" : "NewSession",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identifier for the user"
+        }
+      }
+    },
+    "NoSession" : {
+      "id" : "NoSession",
+      "properties" : {
+        "status" : {
+          "type" : "boolean",
+          "description" : "Indicates whether logout succeeded. Always will if response was 200...."
+        }
+      }
+    }
+  }
+}
