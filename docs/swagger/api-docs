@@ -4,28 +4,24 @@
   "basePath":"http://proxy-dataupco.rhcloud.com",
   "apis":[
     {
-      "path":"/../ok",
-      "description":"Check Health"
+      "path":"/../status",
+      "description":"Check system health"
     },
     {
-      "path":"/../login",
-      "description":"Start Session"
-    },
-    {
-      "path":"/../logout",
-      "description":"End Session"
+      "path":"/../session",
+      "description":"Manage user session"
     },
     {
       "path":"/../auth",
-      "description":"Auth with Services"
+      "description":"Manage auth with services"
     },
     {
       "path":"/../api",
-      "description":"Interact with Services"
+      "description":"Interact with services"
     },
     {
-      "path":"/../ingest",
-      "description":"Ingest data from Services"
+      "path":"/../data",
+      "description":"Manage data from services"
     }
   ]
 }

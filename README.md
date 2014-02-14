@@ -98,19 +98,19 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 
 ### Ingest Data Sources <a name="how-ingest"></a>
 
-  1. Change url to `https://<YOUR-APP>.rhcloud.com/ingest/{dataSource}/{any/valid/get/path}`
+  1. POST to `https://<YOUR-APP>.rhcloud.com/data/{dataSource}/{any/valid/get/path}`
 
 ### Query Ingested Data <a name="how-query"></a>
 
-  1. Experiment with the url after `https://<YOUR-APP>.rhcloud.com/query`
+  1. Experiment with parameters after `https://<YOUR-APP>.rhcloud.com/data`
   ~~~~~~~~~
-  /query?_meta.api={dataSourceName}
-  /query?_meta.api={dataSourceName}&{some.path.to.match}={value}
+  GET /data?_meta.api={dataSourceName}
+  GET /data?_meta.api={dataSourceName}&{some.path.to.match}={value}
   ~~~~~~~~~
 
   2. Experiment with operators after the query parameter names
   ~~~~~~~~
-  /query?_meta.api=`{dataSourceName}&{some.path.to.match}~{operator}={value}
+  GET /data?_meta.api=`{dataSourceName}&{some.path.to.match}~{operator}={value}
   ~~~~~~~~
 
   | Operator | Description | Example |
