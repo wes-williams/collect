@@ -132,7 +132,7 @@ var SampleApp = function() {
           res.json({ 'user' : req.session.user });
         };
 
-        self.routes.get['/auth/:apiName'] = function(req,res,next) { 
+        self.routes.post['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
             res.json({'error' : 'user not found'})
@@ -147,6 +147,25 @@ var SampleApp = function() {
 
           passport.auth(apiName,
                         { 'req' : req, 'res' : res, 'next' : next }); 
+        };
+
+        self.routes.get['/auth/:apiName'] = function(req,res,next) { 
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          res!passport.hasApi(apiName)) {
+            res.json({'error' : 'api not found'})
+            return;
+          }
+
+          var findUserCallback = function(user) {
+            res.json('api' : { 'name' : apiName, enabled : user===undefined });
+          };
+          passport.findUser(apiName,req,findUserCallback);
         };
 
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
