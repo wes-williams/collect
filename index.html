@@ -18,6 +18,12 @@
         <a id="signout" style="display:none" href="#">Sign Out</a>
       </span>
     </div>
+    <div>
+      <form name="auth" method="post">
+        <input type="text" name="url" value="/auth/{api}" />
+        <button type="button" value="Authenticate" onclick="this.form.action=document.auth.url.value;this.form.submit();" />
+      </form>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>
     <script src="js/personaSetup.js"></script>
