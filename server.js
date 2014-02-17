@@ -157,13 +157,13 @@ var SampleApp = function() {
           }
 
           var apiName = req.param('apiName');
-          res!passport.hasApi(apiName)) {
+          if(res.passport.hasApi(apiName)) {
             res.json({'error' : 'api not found'})
             return;
           }
 
           var findUserCallback = function(user) {
-            res.json('api' : { 'name' : apiName, enabled : user===undefined });
+            res.json({'api' : { 'name' : apiName, enabled : user===undefined } });
           };
           passport.findUser(apiName,req,findUserCallback);
         };
