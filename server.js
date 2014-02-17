@@ -171,7 +171,7 @@ var SampleApp = function() {
           }
 
           var findUserCallback = function(user) {
-            res.json({'api' : { 'name' : apiName, enabled : user == undefined } });
+            res.json({'api' : { 'name' : apiName, enabled : user != undefined } });
           };
           passport.findUser(apiName,req,findUserCallback);
         };
