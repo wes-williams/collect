@@ -20,10 +20,9 @@
     </div>
     <div>
       <form name="test" method="post">
-        <input type="text" name="verb" placeholder="verb" />
-        <input type="text" name="resource" placeholder="resource" />
+        <input type="text" name="resource" placeholder="/auth/{api}" />
         <input type="button" value="Authenticate" 
-          onclick="this.form.method=document.test.verb.value;this.form.action=document.test.resource.value;this.form.submit();" />
+          onclick="this.form.action=document.test.resource.value;this.form.submit();" />
       </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

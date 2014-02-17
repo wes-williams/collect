@@ -31,11 +31,11 @@ function personaSetup() {
           url: '/session', 
           data: {assertion: assertion},
           success: function(res, status, xhr) { 
-            alert('login success : ' + JSON.stringify(res)); 
+            //alert('login success : ' + JSON.stringify(res)); 
             toggleLoginLinks(res.email.substring(0,res.email.indexOf('@')));
           },
           error: function(xhr, status, err) {
-            alert("Login failure: " + err);
+            //alert("Login failure: " + err);
             toggleLoginLinks(null);
             navigator.id.logout();
            }
@@ -46,11 +46,11 @@ function personaSetup() {
          type: 'DELETE',
          url: '/session', 
          success: function(res, status, xhr) { 
-           alert("Logout success: " + JSON.stringify(res)); 
+           //alert("Logout success: " + JSON.stringify(res)); 
            toggleLoginLinks(null);
          },
          error: function(xhr, status, err) { 
-           alert("Logout failure: " + err); 
+           //alert("Logout failure: " + err); 
            toggleLoginLinks(null);
          }
        });
