@@ -128,6 +128,9 @@ var SampleApp = function() {
 
         self.routes.post['/session'] = persona.login; 
         self.routes.del['/session'] = persona.logout;
+        self.routes.get['/session'] = function(req,res) {
+          res.json({ 'user' : req.session.user });
+        };
 
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
