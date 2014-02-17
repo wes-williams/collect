@@ -126,7 +126,15 @@ var SampleApp = function() {
             res.send(self.cache_get('index.html') );
         };
 
-        self.routes.post['/session'] = persona.login; 
+        self.routes.post['/session'] = function(req,res) { 
+          if(req.session.user) {
+            res.json({ email : req.session.user.id });
+          }
+          else {
+            persona.login(req,res); 
+          }
+        }
+
         self.routes.del['/session'] = persona.logout;
         self.routes.get['/session'] = function(req,res) {
           res.json({ 'user' : req.session.user });
