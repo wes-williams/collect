@@ -157,7 +157,7 @@ var SampleApp = function() {
           }
 
           var apiName = req.param('apiName');
-          if(res.passport.hasApi(apiName)) {
+          if(!passport.hasApi(apiName)) {
             res.json({'error' : 'api not found'})
             return;
           }
