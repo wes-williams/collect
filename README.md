@@ -92,7 +92,7 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 ### Access Data Sources <a name="how-access"></a>
 
   1. Login with Persona at `https://<YOUR-APP>.rhcloud.com`
-  2. Authorize data source at `https://<YOUR-APP>.rhcloud.com/auth/{dataSource}` __(OAuth Only)__
+  2. Use form to authorize data source at `/auth/{dataSource}` __(OAuth Only)__
   3. Access default path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/`
   4. Access any path at `https://<YOUR-APP>.rhcloud.com/api/{dataSource}/any/valid/get/path`
 
