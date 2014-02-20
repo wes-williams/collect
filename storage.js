@@ -10,6 +10,16 @@ var init = function(app, dbConn) {
 };  
 storagePlugin.init = init;
 
+var findUserAccount = function(params,done) {
+  db.collection('useraccounts').findOne(params, done); 
+};
+storagePlugin.findUserAccount = findUserAccount;
+
+var saveUserAccount = function(user,done) {
+  db.collection('useraccounts').save(user, {safe:true},done); 
+};
+storagePlugin.saveUserAccount = saveUserAccount;
+
 var ingest = function(meta,data, done) {
   data._meta = { 
     'user' : meta.user,

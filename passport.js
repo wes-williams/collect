@@ -7,7 +7,7 @@ var appConfig = require('./passport-config'),
 
 var passportPlugin = {};
 
-var db = undefined;
+var storage = undefined;
 
 var hasApi = function(apiName) {
   return appConfig[apiName] != undefined;
@@ -27,7 +27,7 @@ var findUser = function(apiName,req,callback) {
       callback({ isComposite : true, api : apiName });
     }
     else {
-      db.collection('useraccounts').findOne({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+      storage.findUserAccount({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
         // todo - error handling
         callback(user);
       });
@@ -37,8 +37,8 @@ var findUser = function(apiName,req,callback) {
 passportPlugin.findUser = findUser; 
 
 
-var init = function(app, dbConn) {
-  db = dbConn;
+var init = function(app, dataStorage) {
+  storage = dataStorage;
 
   app.use(passport.initialize());
   app.use(passport.session());
@@ -47,7 +47,7 @@ var init = function(app, dbConn) {
   passport.serializeUser(function(user, done) {
     //console.log('serialize user ' + user._id);
 
-    db.collection('useraccounts').save(user, {safe:true}, function(err,doc) {
+    storage.saveUserAccount(user, function(err,doc) {
       // todo - error handling
       done(null, user._id);
     });
@@ -57,7 +57,7 @@ var init = function(app, dbConn) {
   passport.deserializeUser(function(id, done) {
     //console.log('deserialize user ' + id);
 
-    db.collection('useraccounts').findOne({'_id' : id}, function(err,user){
+    storage.findUserAccount({'_id' : id}, function(err,user){
       // todo - error handling
       done(null, user);
     });

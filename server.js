@@ -348,8 +348,8 @@ var SampleApp = function() {
           self.app.use(express.session({ secret: 'keep-this-private' }));
           self.app.use(express.static(__dirname + '/public'));
 
-          passport.init(self.app, self.db);
           storage.init(self.app, self.db);
+          passport.init(self.app, storage);
         });
 
         //  Add handlers for the app (from the routes).
