@@ -20,7 +20,7 @@ var saveUserAccount = function(user,done) {
 };
 storagePlugin.saveUserAccount = saveUserAccount;
 
-var ingest = function(meta,data, done) {
+var ingestUserData = function(meta,data, done) {
   data._meta = { 
     'user' : meta.user,
     'api' : meta.api,
@@ -46,9 +46,9 @@ var ingest = function(meta,data, done) {
      }
   });
 };
-storagePlugin.ingest = ingest;
+storagePlugin.ingestUserData = ingestUserData;
 
-var query = function(meta,query,done) {
+var queryUserData = function(meta,query,done) {
 
   if(!meta || !meta.user || meta.user.trim().length==0) {
      console.log('Queries must have user');
@@ -174,6 +174,6 @@ db.collection('temporary').find(data,options).toArray(function(err,docs){
 });
 
 };
-storagePlugin.query = query;
+storagePlugin.queryUserData = queryUserData;
 
 module.exports = storagePlugin;

@@ -263,7 +263,7 @@ var SampleApp = function() {
             'user' : req.session.user.id
           };
 
-          storage.query(meta,req.query, function(docs) {
+          storage.queryUserData(meta,req.query, function(docs) {
             if(docs) {
               res.json({ 'count' : docs.length, 'data' : docs}); 
             }
@@ -300,7 +300,7 @@ var SampleApp = function() {
                 'url' : options.uri
               };
 
-              storage.ingest(meta,data, function(docs) {
+              storage.ingestUserData(meta,data, function(docs) {
                 if(Array.isArray(docs)) {
                   res.json({ 'refs' : docs}); 
                 }

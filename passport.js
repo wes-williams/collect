@@ -236,7 +236,7 @@ var handleComposite = function(apiName,options,req,done) {
       var meta = { 
         'user' : req.session.user.id
       };
-      storage.query(meta, queryParams,queryCallback);
+      storage.queryUserData(meta, queryParams,queryCallback);
     }
   };
 
