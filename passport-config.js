@@ -68,11 +68,6 @@ appConfig.opencolorado = {};
 appConfig.opencolorado.type='public';
 appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage'; 
 
-// access ingested data like any other api
-appConfig.dataupco = {};
-appConfig.dataupco.type='public';
-appConfig.dataupco.baseUrl = appConfig._host + '/data';
-
 ///////////////
 // composite (mashup) 
 ///////////////
@@ -95,24 +90,6 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
       // error, body
       done(null,body);
     });
-  });
-
-};
-
-appConfig.mashup2 = {};
-appConfig.mashup2.type = 'composite';
-appConfig.mashup2.buildComposite = function(access, options, done) {
-  console.log('execute mashup2 with params: ' + access.params);
-
-  var body = {};
-  access.api('dataupco',{ method : 'GET', uri : '?_meta.api=' + access.params.api },function(data) {
-
-    var limit = access.params.limit ? parseInt(access.params.limit) : 5;
-    body.params = access.params;
-    body.data = data && data.length>limit ? data.slice(0,limit) : data;
-
-    // error, body
-    done(null, body);
   });
 
 };
