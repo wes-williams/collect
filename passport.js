@@ -231,6 +231,12 @@ var handleComposite = function(apiName,options,req,done) {
         });
       };
       findUser(accessApiName,req,compositeAccessCallback);
+    },
+    query : function(queryParams, queryCallback) {
+      var meta = { 
+        'user' : req.session.user.id
+      };
+      storage.query(meta, queryParams,queryCallback);
     }
   };
 
