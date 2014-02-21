@@ -72,6 +72,7 @@ appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage';
 // composite (mashup) 
 ///////////////
 
+
 appConfig.mashup1 = {};
 appConfig.mashup1.type = 'composite';
 appConfig.mashup1.buildComposite = function(access, options, done) {
@@ -81,14 +82,31 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
   body.reader = 'me';
   body.books = [];
 
-  access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
-    body.books.push(book1);
+  var queryParams = { 
+    '_meta.api' : 'pearson', 
+    'title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
+  };
 
-    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
-      body.books.push(book2);
+  access.query(queryParams,function(data) {
 
-      // error, body
-      done(null,body);
+    // check to see if these books are already in storage
+    if(Array.isArray(data) && data.length>0) {
+      body.books = data;
+      if(data.length>=2) {
+        done(null,body);
+        return;
+      }
+    }
+
+    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
+      body.books.push(book1);
+
+      access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
+        body.books.push(book2);
+
+        // error, body
+        done(null,body);
+      });
     });
   });
 
