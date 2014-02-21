@@ -166,16 +166,17 @@ var SampleApp = function() {
 
           var apis = passport.apiNames();
           var response = [];
-
-          for(var i=0;i<apis.length;i++) {
-            console.log('check auth for: ' + apis[i]);
-            passport.findUser(apis[i],req,function(user) {
-              var apiName = apis[i]; 
+          var findApiUser = function(apiName) {
+            passport.findUser(apiName,req,function(user) {
               response.push({ 'api' : apiName, enabled : user != undefined });
               if(apis.length==response.length) {
                 res.json(response);
               }
             });
+          };
+
+          for(var i=0;i<apis.length;i++) {
+           findApiUser(apis[i]);
           }
         };
 
