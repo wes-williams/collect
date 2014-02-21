@@ -84,7 +84,7 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
 
   var queryParams = { 
     '_meta.api' : 'pearson', 
-    'title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
+    'books.title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
   };
 
   access.query(queryParams,function(data) {
