@@ -157,6 +157,27 @@ var SampleApp = function() {
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
 
+        self.routes.get['/auth'] = function(req,res,next) { 
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
+
+          var apis = passport.apiNames();
+          var response = [];
+          var findUserCallback = function(user) {
+            response.push({ 'api' : apiName, enabled : user != undefined });
+            if(apis.length==response.length) {
+              res.json(response);
+            }
+          };
+
+          for(var i=0;i<apis.length;i++) {
+            passport.findUser(apis[i],req,findUserCallback);
+          }
+        };
+
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {

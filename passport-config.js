@@ -10,6 +10,7 @@ appConfig._host = commonConfig.host;
 // fitbit - https://wiki.fitbit.com/display/API/Fitbit+API
 
 appConfig.fitbit = {};
+appConfig.fitbit.enabled=true;
 appConfig.fitbit.type='oauth-1.0';
 appConfig.fitbit.authorizationUrl = 'https://www.fitbit.com/oauth/authorize';
 appConfig.fitbit.requestTokenUrl = 'https://api.fitbit.com/oauth/request_token';
@@ -23,6 +24,7 @@ appConfig.fitbit.clientSecret = 'SECRET_GOES_HERE';
 // twitter - https://dev.twitter.com/docs/api/1.1
 
 appConfig.twitter = {};
+appConfig.twitter.enabled=true;
 appConfig.twitter.type='oauth-1.0';
 appConfig.twitter.authorizationUrl = 'https://api.twitter.com/oauth/authorize';
 appConfig.twitter.requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
@@ -40,6 +42,7 @@ appConfig.twitter.clientSecret = 'PASS_GOES_HERE';
 // github - http://developer.github.com/
 
 appConfig.github = {};
+appConfig.github.enabled=true;
 appConfig.github.type='oauth-2.0';
 appConfig.github.authorizationUrl = 'https://github.com/login/oauth/authorize';
 appConfig.github.accessTokenUrl = 'https://github.com/login/oauth/access_token';
@@ -54,6 +57,7 @@ appConfig.github.clientSecret = 'PASS_GOES_HERE';
 ///////////////
 
 appConfig.pearson = {};
+appConfig.pearson.enabled=true;
 appConfig.pearson.type='api-key';
 appConfig.pearson.baseUrl = 'https://api.pearson.com'; 
 appConfig.pearson.keyName = 'apikey'; 
@@ -65,6 +69,7 @@ appConfig.pearson.isKeyInUrl = true;
 ///////////////
 
 appConfig.opencolorado = {};
+appConfig.opencolorado.enabled=true;
 appConfig.opencolorado.type='public';
 appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage'; 
 
@@ -74,6 +79,7 @@ appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage';
 
 
 appConfig.mashup1 = {};
+appConfig.mashup1.enabled=true;
 appConfig.mashup1.type = 'composite';
 appConfig.mashup1.buildComposite = function(access, options, done) {
   console.log('execute mashup1 with uri: ' + options.uri);

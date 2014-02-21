@@ -10,12 +10,16 @@ var passportPlugin = {};
 var storage = undefined;
 
 var hasApi = function(apiName) {
-  return appConfig[apiName] != undefined;
+  return typeof(appConfig[apiName]) === "object" 
+         && appConfig[apiName].enabled === true;
 };
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req,callback) { 
   if(req.session.user == undefined) {
+    callback(undefined);
+  }
+  else if(!hasApi(apiName)) {
     callback(undefined);
   }
   else {
@@ -35,6 +39,18 @@ var findUser = function(apiName,req,callback) {
   }
 };
 passportPlugin.findUser = findUser; 
+
+
+var apiNames = function() { 
+  var apis = [];
+  for(var apiName in appConfig) {
+    if(hasApi(apiName)) {
+      apis.push(apiName);
+    }
+  }
+  return apis;
+};
+passportPlugin.apiNames=apiNames;
 
 
 var init = function(app, dataStorage) {
@@ -65,8 +81,10 @@ var init = function(app, dataStorage) {
 
   // load all app configs
   for(var apiName in appConfig) {
-    console.log('register = ' + apiName);
-    register(apiName); 
+    if(hasApi(apiName)) {
+      console.log('register = ' + apiName);
+      register(apiName); 
+    }
   }
 
 };  
