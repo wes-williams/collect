@@ -213,7 +213,7 @@ var SampleApp = function() {
           }
 
           passport.authCallback(apiName,
-                        { 'successUrl' : '/', 'failureUrl' : '/?e=1' },
+                        { 'successUrl' : '/#authsuccess', 'failureUrl' : '/#authfailure' },
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
                                                                      
