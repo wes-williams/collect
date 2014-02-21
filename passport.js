@@ -40,6 +40,21 @@ var findUser = function(apiName,req,callback) {
 };
 passportPlugin.findUser = findUser; 
 
+var removeUser = function(apiName,req,callback) { 
+  if(req.session.user == undefined) {
+    callback(false);
+  }
+  else if(!hasApi(apiName)) {
+    callback(false);
+  }
+  else {
+    storage.removeUserAccount({'_login' : req.session.user.id, '_api' : apiName}, function(err){
+      // todo - error handling
+      callback(!err);
+    });
+  }
+};
+passportPlugin.removeUser = removeUser; 
 
 var apiNames = function() { 
   var apis = [];

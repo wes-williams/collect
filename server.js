@@ -157,6 +157,22 @@ var SampleApp = function() {
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
 
+        self.routes.del['/auth/:apiName'] = function(req,res,next) { 
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'})
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json({'error' : 'api not found'})
+            return;
+          }
+
+          passport.destoryUser(apiName,req);
+        };
+
         self.routes.get['/auth'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {

@@ -20,6 +20,11 @@ var saveUserAccount = function(user,done) {
 };
 storagePlugin.saveUserAccount = saveUserAccount;
 
+var removeUserAccount = function(params,done) {
+  db.collection('useraccounts').remove(params, {single:true},done); 
+};
+storagePlugin.removeUserAccount = removeUserAccount;
+
 var ingestUserData = function(meta,data, done) {
   data._meta = { 
     'user' : meta.user,
