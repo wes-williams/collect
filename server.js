@@ -170,7 +170,9 @@ var SampleApp = function() {
             return;
           }
 
-          passport.removeUser(apiName,req);
+          passport.removeUser(apiName,req, function(success) {
+            res.json({'api' : apiName, removed : success });
+          });
         };
 
         self.routes.get['/auth'] = function(req,res,next) { 
