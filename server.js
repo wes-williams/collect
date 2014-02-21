@@ -166,15 +166,16 @@ var SampleApp = function() {
 
           var apis = passport.apiNames();
           var response = [];
-          var findUserCallback = function(user) {
-            response.push({ 'api' : apiName, enabled : user != undefined });
-            if(apis.length==response.length) {
-              res.json(response);
-            }
-          };
 
           for(var i=0;i<apis.length;i++) {
-            passport.findUser(apis[i],req,findUserCallback);
+            var apiName = apis[i];
+            passport.findUser(apiName,req,function(user) {
+          
+              response.push({ 'api' : apiName, enabled : user != undefined });
+              if(apis.length==response.length) {
+                res.json(response);
+              }
+            });
           }
         };
 
