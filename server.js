@@ -169,8 +169,8 @@ var SampleApp = function() {
 
           for(var i=0;i<apis.length;i++) {
             passport.findUser(apis[i],req,function(user) {
-          
-              response.push({ 'api' : apis[i], enabled : user != undefined });
+              var apiName = apis[i]; 
+              response.push({ 'api' : apiName, enabled : user != undefined });
               if(apis.length==response.length) {
                 res.json(response);
               }
