@@ -79,7 +79,7 @@ passportPlugin.apiDetails=apiDetails;
 var allApiDetails = function() { 
   var apis = [];
   for(var apiName in appConfig) {
-    var api = apiDetails(apiName)
+    var api = apiDetails(apiName);
     if(api) {
       apis.push(api);
     }
@@ -89,6 +89,7 @@ var allApiDetails = function() {
     if(a.id<b.id) return -1;
     else return 1;
   });
+  return apis;
 };
 passportPlugin.allApiDetails=allApiDetails;
 
