@@ -186,7 +186,7 @@ var SampleApp = function() {
           var response = [];
           var findApiUser = function(api) {
             passport.findUser(api.name,req,function(user) {
-              response.push({ 'api' : api.name, 'enabled' : user != undefined , 'authRequired' : api.authRequired });
+              response.push({ 'name' : api.name, 'enabled' : user != undefined , 'authRequired' : api.authRequired });
               if(apis.length==response.length) {
                 // keep these in order by api name
                 response.sort(function(a,b) {

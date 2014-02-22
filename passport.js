@@ -73,7 +73,7 @@ var apiDetails = function() {
   for(var i=0;i<apis.length;i++) {
     var apiName = apis[i];
     var authType = appConfig[apiName].type;
-    var authFlag = authType.match(/^oauth/);
+    var authFlag = authType.match(/^oauth/)?true:false;
     apis[i] = { 'name' : apiName, 'authRequired' : authFlag }; 
   }
   return apis;
