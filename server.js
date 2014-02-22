@@ -188,6 +188,12 @@ var SampleApp = function() {
             passport.findUser(apiName,req,function(user) {
               response.push({ 'api' : apiName, enabled : user != undefined });
               if(apis.length==response.length) {
+                // keep these in order by api name
+                response.sort(function(a,b) {
+                  if(a.api==b.api) return 0;
+                  if(a.api<b.api) return -1;
+                  else return 1;
+                });
                 res.json(response);
               }
             });
