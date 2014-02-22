@@ -6,14 +6,6 @@ function authSetup() {
     success: function(res, status, xhr) { 
       var html='';
       if(Array.isArray(res)) {
-        res.sort(function(a,b) {
-          a = a.name.toLowerCase();
-          b = b.name.toLowerCase();
-          if(a===b) return 0;
-          if(a<b) return -1;
-          else return 1;
-        });
-
         for(var i=0;i<res.length;i++) {
           var apiId = res[i].id;
           var apiName = res[i].name;
@@ -23,7 +15,7 @@ function authSetup() {
           html += '<span class="auth-switch">'
           html += '<form name="'+apiId+'" method="'+method+'" action="/auth/'+apiId+'">';
           var classList= toggle+'-auth';
-          html += '<input type="button" class="'+classList+'" alt="'+altId+'" value="'+apiName+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
+          html += '<input type="button" class="'+classList+'" alt="'+apiName+'" value="'+apiId+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }
       }
