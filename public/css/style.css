@@ -1,2 +1,9 @@
-.auth-switch { margin:10px; padding:10px; }
-input.auth-switch { text-transform:capitalize; }
+.auth-switch { 
+  display: inline; 
+  margin:10px; 
+  padding:10px;
+}
+
+input.auth-switch { 
+  text-transform:capitalize; 
+}
