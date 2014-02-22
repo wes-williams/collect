@@ -12,8 +12,7 @@ function authSetup() {
             var toggle = res[i].enabled ? 'disable' : 'enable';
             html += '<span class="auth-switch">'
             html += '<form name="'+apiName+'" method="'+method+'" action="/auth/'+apiName+'">';
-            html += '<input type="button" value=""+toggle+' '+apiName+'" ';
-            html += 'onclick="'+toggle+'Auth(this.form)" />';
+            html += '<input type="button" value="'+toggle+' '+apiName+'" onclick="'+toggle+'Auth(this.form)" />';
             html += '</form></span>';
           }
         }
