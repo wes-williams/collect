@@ -1,17 +1,24 @@
 #usergreeting {
+  font-size:20px;
   font-weight:bold;
 }
 
 #signout {
-  text-decoration:none
+  text-decoration:none;
   font-weight:bold;
   color: rgb(202, 60, 60); // red
+  border 1px solid black;
+  border-radius: 4px;
+  spacing:2px;
 }
 
 #signin {
-  text-decoration:none
+  text-decoration:none;
   font-weight:bold;
-  background: rgb(28, 184, 65); // green 
+  color: rgb(28, 184, 65); // green 
+  border 1px solid black;
+  border-radius: 4px;
+  spacing:2px;
 }
 
 .auth-switch { 
