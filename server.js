@@ -193,8 +193,8 @@ var SampleApp = function() {
               if(apis.length==response.length) {
                 // keep these in order by api name
                 response.sort(function(a,b) {
-                  a = a.name.toLowerCase();
-                  b = b.name.toLowerCase();
+                  a = a.id;
+                  b = b.id;
                   if(a===b) return 0;
                   if(a<b) return -1;
                   else return 1;
