@@ -34,7 +34,9 @@ body {
 }
 
 .auth-switch input[type=button] { 
+/*
   text-transform:capitalize; 
+*/  
 }
 
 input[type=button].enable-auth { 
