@@ -30,8 +30,8 @@ function enableAuth(form) {
 
 function disableAuth(form) {
   $.ajax({ 
-    type: 'GET',
-    url: , 
+    type: 'DELETE',
+    url: form.action, 
     success: function(res, status, xhr) { 
       authSetup();  
     },
