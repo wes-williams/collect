@@ -182,16 +182,16 @@ var SampleApp = function() {
             return;
           }
 
-          var apis = passport.apiNames();
+          var apis = passport.apiDetails();
           var response = [];
-          var findApiUser = function(apiName) {
-            passport.findUser(apiName,req,function(user) {
-              response.push({ 'api' : apiName, enabled : user != undefined });
+          var findApiUser = function(api) {
+            passport.findUser(api.name,req,function(user) {
+              response.push({ 'api' : api.name, 'enabled' : user != undefined , 'authRequired' : api.authRequired });
               if(apis.length==response.length) {
                 // keep these in order by api name
                 response.sort(function(a,b) {
-                  if(a.api==b.api) return 0;
-                  if(a.api<b.api) return -1;
+                  if(a.name==b.name) return 0;
+                  if(a.name<b.name) return -1;
                   else return 1;
                 });
                 res.json(response);

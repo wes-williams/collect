@@ -7,12 +7,14 @@ function authSetup() {
       var html='';
       if(Array.isArray(res)) {
         for(var i=0;i<res.length;i++) {
-          var apiName = res[i].api;
+          var apiName = res[i].name;
           var method = res[i].enabled ? 'delete' : 'post';
           var toggle = res[i].enabled ? 'disable' : 'enable';
+          var disabled = res[i].authRequired ? '' : 'disabled ';
           html += '<span class="auth-switch">'
           html += '<form name="'+apiName+'" method="'+method+'" action="/auth/'+apiName+'">';
-          html += '<input type="button" class="'+toggle+'-auth" value="'+apiName+'" onclick="'+toggle+'Auth(this.form)" />';
+          var classList= disabled+toggle+'-auth';
+          html += '<input type="button" class="'+classList+'" value="'+apiName+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }
       }

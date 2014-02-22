@@ -62,7 +62,7 @@ var removeUser = function(apiName,req,callback) {
 };
 passportPlugin.removeUser = removeUser; 
 
-var apiNames = function() { 
+var apiDetails = function() { 
   var apis = [];
   for(var apiName in appConfig) {
     if(hasApi(apiName)) {
@@ -70,9 +70,15 @@ var apiNames = function() {
     }
   }
   apis.sort();
+  for(var i=0;i<apis.length;i++) {
+    var apiName = apis[i];
+    var authType = appConfig[apiName].type;
+    var authFlag = authType.match(/^oauth/);
+    apis[i] = { 'name' : apiName, 'authRequired' : authFlag }; 
+  }
   return apis;
 };
-passportPlugin.apiNames=apiNames;
+passportPlugin.apiDetails=apiDetails;
 
 
 var init = function(app, dataStorage) {
