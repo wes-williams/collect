@@ -1,9 +1,12 @@
 .auth-switch { 
-  display: inline; 
   margin:10px; 
   padding:10px;
 }
 
-input.auth-switch { 
+.auth-switch form { 
+  display: inline; 
+}
+
+.auth-switch input[type=button] { 
   text-transform:capitalize; 
 }

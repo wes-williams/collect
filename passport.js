@@ -69,6 +69,7 @@ var apiNames = function() {
       apis.push(apiName);
     }
   }
+  apis.sort();
   return apis;
 };
 passportPlugin.apiNames=apiNames;
