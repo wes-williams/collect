@@ -1,4 +1,4 @@
-#login, #auth {
+#login {
   font-size:25px;
   font-weight:bold;
 }
@@ -29,6 +29,7 @@
 }
 
 input[type=button].enable-auth { 
+  font-size:25px;
   background: rgb(202, 60, 60);
   color: white;
   border-radius: 4px;
@@ -36,6 +37,7 @@ input[type=button].enable-auth {
 }
 
 input[type=button].disable-auth { 
+  font-size:25px;
   background: rgb(28, 184, 65);
   color: white;
   border-radius: 4px;
