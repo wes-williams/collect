@@ -10,3 +10,15 @@
 .auth-switch input[type=button] { 
   text-transform:capitalize; 
 }
+
+input[type=button].enable-auth { 
+  background: rgb(202, 60, 60); // red
+  color: white;
+  border-radius: 4px;
+}
+
+input[type=button].disable-auth { 
+  background: rgb(28, 184, 65); // green 
+  color: white;
+  border-radius: 4px;
+}
