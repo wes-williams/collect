@@ -6,19 +6,13 @@
 #signout {
   text-decoration:none;
   font-weight:bold;
-  color: rgb(202, 60, 60); // red
-  border 1px solid black;
-  border-radius: 4px;
-  spacing:2px;
+  color: rgb(202, 60, 60);
 }
 
 #signin {
   text-decoration:none;
   font-weight:bold;
-  color: rgb(28, 184, 65); // green 
-  border 1px solid black;
-  border-radius: 4px;
-  spacing:2px;
+  color: rgb(28, 184, 65);
 }
 
 .auth-switch { 
@@ -35,13 +29,13 @@
 }
 
 input[type=button].enable-auth { 
-  background: rgb(202, 60, 60); // red
+  background: rgb(202, 60, 60);
   color: white;
   border-radius: 4px;
 }
 
 input[type=button].disable-auth { 
-  background: rgb(28, 184, 65); // green 
+  background: rgb(28, 184, 65);
   color: white;
   border-radius: 4px;
 }
