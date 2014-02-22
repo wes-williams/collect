@@ -69,6 +69,7 @@ appConfig.pearson.isKeyInUrl = true;
 ///////////////
 
 appConfig.opencolorado = {};
+appConfig.opencolorado.name='Open Colorado';
 appConfig.opencolorado.enabled=true;
 appConfig.opencolorado.type='public';
 appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage'; 
@@ -79,6 +80,7 @@ appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage';
 
 
 appConfig.mashup1 = {};
+appConfig.mashup1.name='Book Mashup';
 appConfig.mashup1.enabled=true;
 appConfig.mashup1.type = 'composite';
 appConfig.mashup1.buildComposite = function(access, options, done) {

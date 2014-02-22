@@ -182,11 +182,14 @@ var SampleApp = function() {
             return;
           }
 
-          var apis = passport.apiDetails();
+          var apis = passport.allApiDetails();
           var response = [];
           var findApiUser = function(api) {
             passport.findUser(api.name,req,function(user) {
-              response.push({ 'name' : api.name, 'enabled' : user != undefined , 'authRequired' : api.authRequired });
+              response.push({ 'id' : api.id, 'name' : api.name, 
+                              'enabled' : user != undefined , 
+                              'authRequired' : api.authRequired 
+                            });
               if(apis.length==response.length) {
                 // keep these in order by api name
                 response.sort(function(a,b) {
@@ -212,13 +215,17 @@ var SampleApp = function() {
           }
 
           var apiName = req.param('apiName');
-          if(!passport.hasApi(apiName)) {
+          var api = passport.apiDetails(apiName);
+          if(!apiDetails) {
             res.json({'error' : 'api not found'})
             return;
           }
 
           var findUserCallback = function(user) {
-            res.json({'api' : apiName, enabled : user != undefined });
+            res.json({ 'id' : api.id, 'name' : api.name, 
+                       'enabled' : user != undefined , 
+                              'authRequired' : api.authRequired 
+                     });
           };
           passport.findUser(apiName,req,findUserCallback);
         };
