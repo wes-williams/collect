@@ -48,9 +48,15 @@ var removeUser = function(apiName,req,callback) {
     callback(false);
   }
   else {
-    storage.removeUserAccount({'_login' : req.session.user.id, '_api' : apiName}, function(err){
-      // todo - error handling
-      callback(!err);
+    findUser(apiName,req, function(user) {
+      if(user && user._api) { // these can be deleted
+        storage.removeUserAccount({'_login' : req.session.user.id, '_api' : apiName}, function(err){
+          callback(!err);
+        });
+      }
+      else {
+        callback(false);
+      }
     });
   }
 };
