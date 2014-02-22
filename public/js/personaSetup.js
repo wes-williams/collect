@@ -1,12 +1,18 @@
-function personaSetup() {
+function personaSetup(afterLogin,afterLogout) {
    var signinLink = document.getElementById('signin');
    if (signinLink) {
      signinLink.onclick = function() { navigator.id.request(); };
+     if(afterLogin) {
+       afterLogin();
+     }
    }
 
    var signoutLink = document.getElementById('signout');
    if (signoutLink) {
      signoutLink.onclick = function() { navigator.id.logout(); };
+     if(afterLogout) {
+       afterLogout();
+     }
    }
 
    var toggleLoginLinks = function(email) {

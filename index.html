@@ -4,9 +4,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width">
     <title>Data Up!</title>
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <script>
       function setup() {
-        personaSetup();
+        personaSetup(authSetup,undefined);
       }
     </script>
   </head>
@@ -19,12 +20,7 @@
       </span>
     </div>
     <hr />
-    <div>
-      <form name="test" method="post" target="_blank">
-        <input type="text" name="url" value="/auth/{api}" />
-        <input type="button" value="Auth" 
-          onclick="this.form.action=document.test.url.value;this.form.submit();" />
-      </form>
+    <div id="auth">
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>
