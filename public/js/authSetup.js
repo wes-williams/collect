@@ -15,7 +15,7 @@ function authSetup() {
           html += '<span class="auth-switch">'
           html += '<form name="'+apiId+'" method="'+method+'" action="/auth/'+apiId+'">';
           var classList= toggle+'-auth';
-          html += '<input type="button" class="'+classList+'" alt="'+apiName+'" value="'+apiId+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
+          html += '<input type="button" class="'+classList+'" title="'+apiName+'" value="'+apiId+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }
       }
