@@ -1,3 +1,19 @@
+#usergreeting {
+  font-weight:bold;
+}
+
+#signout {
+  text-decoration:none
+  font-weight:bold;
+  color: rgb(202, 60, 60); // red
+}
+
+#signin {
+  text-decoration:none
+  font-weight:bold;
+  background: rgb(28, 184, 65); // green 
+}
+
 .auth-switch { 
   margin:5px; 
   padding:5px;
