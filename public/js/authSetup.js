@@ -13,7 +13,7 @@ function authSetup() {
           var disabled = res[i].authRequired ? '' : 'disabled ';
           html += '<span class="auth-switch">'
           html += '<form name="'+apiName+'" method="'+method+'" action="/auth/'+apiName+'">';
-          var classList= disabled+toggle+'-auth';
+          var classList= toggle+'-auth';
           html += '<input type="button" class="'+classList+'" value="'+apiName+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }

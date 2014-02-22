@@ -32,14 +32,16 @@ input[type=button].enable-auth {
   background: rgb(202, 60, 60);
   color: white;
   border-radius: 4px;
+  border-style:none;
 }
 
 input[type=button].disable-auth { 
   background: rgb(28, 184, 65);
   color: white;
   border-radius: 4px;
+  border-style:none;
 }
 
-input[type=button].disabled { 
-
+input[type=button]:disabled { 
+  background: rgba(28, 184, 65, .35);
 }
