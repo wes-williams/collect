@@ -4,7 +4,7 @@ function authSetup() {
       type: 'GET',
       url: '/auth', 
       success: function(res, status, xhr) { 
-        var html;
+        var html='';
         if(Array.isArray(res)) {
           for(var i=0;i<res.length;i++) {
             var apiName = res[i].api;
@@ -22,6 +22,11 @@ function authSetup() {
         authArea.innerHTML = ''; 
        }
    });
+}
+
+function authTeardown() {
+  var authArea = document.getElementById('auth');
+  authArea.innerHTML = ''; 
 }
 
 function enableAuth(form) {

@@ -39,6 +39,10 @@ function personaSetup(afterLogin,afterLogout) {
           success: function(res, status, xhr) { 
             //alert('login success : ' + JSON.stringify(res)); 
             toggleLoginLinks(res.email.substring(0,res.email.indexOf('@')));
+
+            if(afterLogin) {
+              afterLogin();
+            }
           },
           error: function(xhr, status, err) {
             //alert("Login failure: " + err);
@@ -54,10 +58,18 @@ function personaSetup(afterLogin,afterLogout) {
          success: function(res, status, xhr) { 
            //alert("Logout success: " + JSON.stringify(res)); 
            toggleLoginLinks(null);
+
+           if(afterLogout) {
+             afterLogout();
+           }
          },
          error: function(xhr, status, err) { 
            //alert("Logout failure: " + err); 
            toggleLoginLinks(null);
+
+           if(afterLogout) {
+             afterLogout();
+           }
          }
        });
      }
