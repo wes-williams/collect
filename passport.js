@@ -85,8 +85,6 @@ var allApiDetails = function() {
     }
   }
   apis.sort(function(a,b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
     if(a.id==b.id) return 0;
     if(a.id<b.id) return -1;
     else return 1;
