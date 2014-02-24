@@ -35,15 +35,15 @@
     <div id="demo" style="display:none">
       <div id="demo-action">
         <form id="demo-form" name="demo-form" scrolling="auto" width="75%">
-          <select id="demo-route" onchange="demoRouteChange()">
+          <select class="demo-action" id="demo-route" onchange="demoRouteChange()">
             <option value="">--?--</option>
             <option value="/api">/api</option>
             <option value="/data">/data</option>
           </select>
-          <select id="demo-api" name="demo-api" style="display:none"></select>
-          <input id="demo-url" name="demo-url" placeholder="/your/url/here" style="display:none" />
-          <input id="demo-read" name="demo-read" type="button" value="GET" onclick="doDemo(this.value)" style="display:none" />
-          <input id="demo-create" name="demo-create" type="button" value="POST" onclick="doDemo(this.value)" style="display:none" />
+          <select class="demo-action" id="demo-api" name="demo-api" style="display:none"></select>
+          <input class="demo-action" id="demo-url" name="demo-url" placeholder="/your/url/here" style="display:none" />
+          <input class="demo-action" id="demo-read" name="demo-read" type="button" value="GET" onclick="doDemo(this.value)" style="display:none" />
+          <input class="demo-action" id="demo-create" name="demo-create" type="button" value="POST" onclick="doDemo(this.value)" style="display:none" />
         </form>
       </div>
       <iframe id="demo-results" name="demo-results" width="75%" style="display:none"></iframe>
