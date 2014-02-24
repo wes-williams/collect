@@ -185,7 +185,7 @@ var SampleApp = function() {
           var apis = passport.allApiDetails();
           var response = [];
           var findApiUser = function(api) {
-            passport.findUser(api.name,req,function(user) {
+            passport.findUser(api.id,req,function(user) {
               response.push({ 'id' : api.id, 'name' : api.name, 
                               'enabled' : user != undefined , 
                               'authRequired' : api.authRequired 
