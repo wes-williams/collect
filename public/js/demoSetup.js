@@ -61,7 +61,13 @@ function doDemo(demoMethod) {
   $('#demo-results').empty();
 
   if(demoMethod === 'GET') {
-    $('#demo-results').location = fullUrl;
+    var demoResults = $('#demo-results');
+    demoResults.src = fullUrl;
+
+    var frameContent = demoResults.document.body.innerHTML;
+    if(!frameContent || frameContent.length===0) {
+      demoResults.contentWindow.location.reload();
+    }
   }
   else {
     var demoForm = document.createElement('form');
