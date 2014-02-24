@@ -51,7 +51,7 @@ function doDemo(demoMethod) {
         console.log(demoMethod + ' method not supported for ' + demoRoute);
         return; // not supported
       }
-      fullUrl = demoRoute + '/' + demoApi + demoUrl;
+      fullUrl = demoRoute + demoUrl;
       break;
     default:
       console.log(demoMethod + ' method not supported');
@@ -70,5 +70,14 @@ function doDemo(demoMethod) {
     demoForm.action = fullUrl;
     demoForm.target = 'demo-results';
     demoForm.submit();
+  }
+}
+
+function demoRouteChange() {
+  if($('demo-route').val==='/data') {
+    $('demo-api').hide();
+  }
+  else {
+    $('demo-api').hide();
   }
 }

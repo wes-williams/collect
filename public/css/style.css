@@ -24,6 +24,10 @@ body {
   color: rgb(28, 184, 65);
 }
 
+#auth {
+  text-align:center;
+}
+
 .auth-switch { 
   margin:5px; 
   padding:5px;
@@ -57,4 +61,8 @@ input[type=button].disable-auth {
 
 input[type=button]:disabled { 
   background: rgba(28, 184, 65, .35);
+}
+
+#demo {
+  text-align:center;
 }
