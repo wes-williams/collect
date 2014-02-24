@@ -48,6 +48,7 @@ function doDemo(demoMethod) {
       break;
     case 'POST':
       if(demoUrl !== '/data') {
+        console.log(demoMethod + ' method not supported for ' + demoRoute);
         return; // not supported
       }
       fullUrl = demoRoute + '/' + demoApi + demoUrl;
@@ -60,15 +61,9 @@ function doDemo(demoMethod) {
   console.log(demoMethod + ' submitted for ' + fullUrl); 
   $('#demo-results').empty();
 
-  if(demoMethod === 'GET') {
-    var demoResults = $('#demo-results');
-    demoResults.location.href = fullUrl;
-  }
-  else {
-    var demoForm = document.createElement('form');
-    demoForm.method = demoMethod;
-    demoForm.action = fullUrl;
-    demoForm.target = 'demo-results';
-    demoForm.submit();
-  }
+  var demoForm = document.createElement('form');
+  demoForm.method = demoMethod;
+  demoForm.action = fullUrl;
+  demoForm.target = 'demo-results';
+  demoForm.submit();
 }
