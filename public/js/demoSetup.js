@@ -33,7 +33,11 @@ function doDemo(demoMethod) {
       return; // not supported
   }
 
-  switch(demoMethod.toUpperCase()) {
+  if(demoMethod) {
+    demoMethod = demoMethod.toUpperCase();
+  }
+
+  switch(demoMethod) {
     case 'GET':
       if(demoUrl === '/data') {
         fullUrl = demoRoute + demoUrl;
@@ -56,9 +60,14 @@ function doDemo(demoMethod) {
   console.log(demoMethod + ' submitted for ' + fullUrl); 
   $('#demo-results').empty();
 
-  var demoForm = document.createElement('form');
-  demoForm.method = demoMethod;
-  demoForm.action = fullUrl;
-  demoForm.target = 'demo-results';
-  demoForm.submit();
+  if(demoMethod === 'GET') {
+    $('#demo-results').src = fullUrl;
+  }
+  else {
+    var demoForm = document.createElement('form');
+    demoForm.method = demoMethod;
+    demoForm.action = fullUrl;
+    demoForm.target = 'demo-results';
+    demoForm.submit();
+  }
 }
