@@ -25,6 +25,9 @@ function doDemo(demoMethod) {
   if(demoUrl.length===0) {
     demoUrl = '/';
   }
+  else if(demoUrl.charAt(0) !== '/') {
+    demoUrl = '/' + demoUrl;
+  }
 
   switch(demoRoute) {
     case '/api':
