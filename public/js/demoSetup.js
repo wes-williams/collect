@@ -71,6 +71,8 @@ function doDemo(demoMethod) {
     demoForm.target = 'demo-results';
     demoForm.submit();
   }
+
+  $('#demo-results').show();
 }
 
 function demoRouteChange() {
@@ -81,20 +83,19 @@ function demoRouteChange() {
     $('#demo-create').show();
     $('#demo-read').show();
     $('#demo-url').show();
-    $('#demo-results').show();
   }
   else if(demoRoute === '/api') {
     $('#demo-api').show();
     $('#demo-create').hide();
     $('#demo-read').show();
     $('#demo-url').show();
-    $('#demo-results').show();
   }
   else {
     $('#demo-api').hide();
     $('#demo-create').hide();
     $('#demo-read').hide();
     $('#demo-url').hide();
-    $('#demo-results').hide();
   }
+
+  $('#demo-results').hide();
 }

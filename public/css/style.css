@@ -67,6 +67,19 @@ input[type=button]:disabled {
   text-align:center;
 }
 
+#demo-action {
+  font-size:25px;
+}
+
+#demo-action input[type=button] { 
+  font-size:25px;
+  font-weight:bold;
+  background: black;
+  color: white;
+  border-radius: 4px;
+  border-style:none;
+}
+
 #demo-results {
   text-align:center;
 }
