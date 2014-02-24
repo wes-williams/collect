@@ -1,4 +1,14 @@
+var otherSetupCallback, otherTeardownCallback;
+
 function authSetup(otherSetup) {
+  
+  if(otherSetup) {
+    otherSetupCallback = otherSetup;
+  }
+  else {
+    otherSetup = otherSetupCallback;
+  }
+
   var authArea = document.getElementById('auth');
   $.ajax({ 
     type: 'GET',
@@ -29,6 +39,14 @@ function authSetup(otherSetup) {
 }
 
 function authTeardown(otherTeardown) {
+
+  if(otherTeardown) {
+    otherTeardownCallback = otherTeardown;
+  }
+  else {
+    otherTeardown = otherTeardownCallback;
+  }
+
   var authArea = document.getElementById('auth');
   authArea.innerHTML = ''; 
   otherTeardown(undefined);

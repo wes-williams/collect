@@ -39,7 +39,7 @@ function doDemo(demoMethod) {
 
   switch(demoMethod) {
     case 'GET':
-      if(demoUrl === '/data') {
+      if(demoRoute === '/data') {
         fullUrl = demoRoute + demoUrl;
       }
       else {
