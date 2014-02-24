@@ -64,7 +64,11 @@ function doDemo(demoMethod) {
     var demoResults = $('#demo-results');
     demoResults.src = fullUrl;
 
-    var frameContent = demoResults.contentDocument.body.innerHTML;
+    var frameContent = demoResults.contentDocument;
+    if(frameContent) {
+      frameContent = frameContent.body.innerHTML;
+    }  
+
     if(!frameContent || frameContent.length===0) {
       demoResults.contentWindow.location.reload();
     }
