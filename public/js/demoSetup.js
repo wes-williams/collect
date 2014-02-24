@@ -53,6 +53,7 @@ function doDemo(demoMethod) {
       return; // not supported
   }
 
+  console.log(demoMethod + ' submitted for ' + fullUrl); 
   $('#demo-results').empty();
 
   var demoForm = $('#demo-form');
