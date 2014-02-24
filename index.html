@@ -22,6 +22,19 @@
     <br />
     <div id="auth">
     </div>
+    <div id="demo">
+      <form target="demo-results">
+        <select id="demo-route">
+          <option value="/api">/api</option>
+          <option value="/data">/data</option>
+        </select>
+        <select id="demo-api"></select>
+        <input id="demo-url" name="url" placeholder="/your/url/here" />
+        <input id="demo-read" name="read" type="button" value="GET" onclick="doDemo(this.value) />
+        <input id="demo-create" name="create" type="button" value="POST" onclick="doDemo(this.value)" />
+      </form>
+      <iframe id="demo-results" name="demoresults"></iframe>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>
     <script src="js/personaSetup.js"></script>

@@ -18,6 +18,7 @@ function authSetup() {
           html += '<input type="button" class="'+classList+'" title="'+apiName+'" value="'+apiId+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }
+        demoSetup(res);
       }
       authArea.innerHTML = html; 
     },
@@ -30,6 +31,7 @@ function authSetup() {
 function authTeardown() {
   var authArea = document.getElementById('auth');
   authArea.innerHTML = ''; 
+  demoTeardown();
 }
 
 function enableAuth(form) {
