@@ -61,7 +61,7 @@ function doDemo(demoMethod) {
   $('#demo-results').empty();
 
   if(demoMethod === 'GET') {
-    $('#demo-results').location.href = fullUrl;
+    $('#demo-results').location = fullUrl;
   }
   else {
     var demoForm = document.createElement('form');
