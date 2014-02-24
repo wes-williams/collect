@@ -1,7 +1,7 @@
 function demoSetup(apis) {
 
   var apiOptions = $('#demo-api');
-  apiOption.empty();
+  apiOptions.empty();
   $.each(apis, function() {
     apiOptions.append($("<option />").val(this.id).text(this.id));
   });
