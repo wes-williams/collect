@@ -47,7 +47,7 @@ function doDemo(demoMethod) {
       }
       fullUrl = demoRoute + '/' + demoApi + demoUrl;
       break;
-    case default;
+    case default:
       return; // not supported
   }
 
