@@ -66,3 +66,7 @@ input[type=button]:disabled {
 #demo {
   text-align:center;
 }
+
+#demo-results {
+  text-align:center;
+}
