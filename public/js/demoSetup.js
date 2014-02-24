@@ -56,7 +56,7 @@ function doDemo(demoMethod) {
   console.log(demoMethod + ' submitted for ' + fullUrl); 
   $('#demo-results').empty();
 
-  var demoForm = document.getElementbyId('demo-form');
+  var demoForm = document.getElementById('demo-form');
   demoForm.method = demoMethod;
   demoForm.action = fullUrl;
   demoForm.submit();
