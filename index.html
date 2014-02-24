@@ -32,14 +32,14 @@
     <div id="auth">
     </div>
     <div id="demo" style="display:none">
-      <form id="demo-form" target="demo-results">
+      <form id="demo-form" name="demo-form" target="demo-results">
         <select id="demo-route">
           <option value="/api">/api</option>
           <option value="/data">/data</option>
         </select>
-        <select id="demo-api"></select>
+        <select id="demo-api name="demo-api"></select>
         <input id="demo-url" name="demo-url" placeholder="/your/url/here" />
-        <input id="demo-read" name="deemo-read" type="button" value="GET" onclick="doDemo(this.value)" />
+        <input id="demo-read" name="demo-read" type="button" value="GET" onclick="doDemo(this.value)" />
         <input id="demo-create" name="demo-create" type="button" value="POST" onclick="doDemo(this.value)" />
       </form>
       <iframe id="demo-results" name="demo-results"></iframe>
