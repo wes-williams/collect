@@ -29,6 +29,7 @@ function doDemo(demoMethod) {
     case '/data':
       break;
     default:
+      console.log(demoRoute + ' route not supported');
       return; // not supported
   }
 
@@ -48,6 +49,7 @@ function doDemo(demoMethod) {
       fullUrl = demoRoute + '/' + demoApi + demoUrl;
       break;
     default:
+      console.log(demoMethod + ' method not supported');
       return; // not supported
   }
 
