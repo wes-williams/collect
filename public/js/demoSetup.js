@@ -6,12 +6,12 @@ function demoSetup(apis) {
     apiOptions.append($("<option />").val(this.id).text(this.id));
   });
 
-  $(#demo).show();
+  $('#demo').show();
 }
 
 function demoTeadown() {
   $('#demo-results').empty();
-  $(#demo).hide();
+  $('#demo').hide();
 }
 
 function doDemo(demoMethod) {
