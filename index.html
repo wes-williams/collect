@@ -7,7 +7,16 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script>
       function setup() {
-        personaSetup(authSetup,authTeardown);
+        personaSetup(function() {
+                       authSetup(function(data) {
+                         demoSetup(data);
+                       });
+                     },
+                     function() {
+                       authTeardown(function(data) { 
+                         demoTeardown(); 
+                       });
+                     });
       }
     </script>
   </head>

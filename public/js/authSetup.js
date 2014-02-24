@@ -1,4 +1,4 @@
-function authSetup() {
+function authSetup(otherSetup) {
   var authArea = document.getElementById('auth');
   $.ajax({ 
     type: 'GET',
@@ -18,7 +18,7 @@ function authSetup() {
           html += '<input type="button" class="'+classList+'" title="'+apiName+'" value="'+apiId+'" onclick="'+toggle+'Auth(this.form)" '+disabled+'/>';
           html += '</form></span>';
         }
-        demoSetup(res);
+        otherSetup(res);
       }
       authArea.innerHTML = html; 
     },
@@ -28,10 +28,10 @@ function authSetup() {
   });
 }
 
-function authTeardown() {
+function authTeardown(otherTeardown) {
   var authArea = document.getElementById('auth');
   authArea.innerHTML = ''; 
-  demoTeardown();
+  otherTeardown(undefined);
 }
 
 function enableAuth(form) {
