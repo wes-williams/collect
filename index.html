@@ -34,15 +34,16 @@
     <div id="demo" style="display:none">
       <form id="demo-form" name="demo-form" scrolling="auto" width="75%">
         <select id="demo-route" onchange="demoRouteChange()">
+          <option value="">--?--</option>
           <option value="/api">/api</option>
           <option value="/data">/data</option>
         </select>
-        <select id="demo-api" name="demo-api"></select>
-        <input id="demo-url" name="demo-url" placeholder="/your/url/here" />
-        <input id="demo-read" name="demo-read" type="button" value="GET" onclick="doDemo(this.value)" />
-        <input id="demo-create" name="demo-create" type="button" value="POST" onclick="doDemo(this.value)" />
+        <select id="demo-api" name="demo-api" style="display:none"></select>
+        <input id="demo-url" name="demo-url" placeholder="/your/url/here" style="display:none" />
+        <input id="demo-read" name="demo-read" type="button" value="GET" onclick="doDemo(this.value)" style="display:none" />
+        <input id="demo-create" name="demo-create" type="button" value="POST" onclick="doDemo(this.value)" style="display:none" />
       </form>
-      <iframe id="demo-results" name="demo-results"></iframe>
+      <iframe id="demo-results" name="demo-results" style="display:none"></iframe>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://login.persona.org/include.js"></script>

@@ -74,10 +74,24 @@ function doDemo(demoMethod) {
 }
 
 function demoRouteChange() {
-  if($('demo-route').val==='/data') {
+  var demoRoute = $('demo-route').val();
+
+  if(demoRoute === '/data') {
     $('demo-api').hide();
+    $('demo-create').show();
+    $('demo-read').show();
+    $('demo-url').show();
+  }
+  else if(demoRoute === '/api') {
+    $('demo-api').show();
+    $('demo-create').hide();
+    $('demo-read').show();
+    $('demo-url').show();
   }
   else {
     $('demo-api').hide();
+    $('demo-create').hide();
+    $('demo-read').hide();
+    $('demo-url').hide();
   }
 }
