@@ -9,7 +9,7 @@ function demoSetup(apis) {
   $('#demo').show();
 }
 
-function demoTeadown() {
+function demoTeardown() {
   $('#demo-results').empty();
   $('#demo').hide();
 }
