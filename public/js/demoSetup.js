@@ -3,7 +3,9 @@ function demoSetup(apis) {
   var apiOptions = $('#demo-api');
   apiOptions.empty();
   $.each(apis, function() {
-    apiOptions.append($("<option />").val(this.id).text(this.id));
+    if(this.enabled) {
+      apiOptions.append($("<option />").val(this.id).text(this.id));
+    }
   });
 
   $('#demo').show();
