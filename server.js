@@ -149,7 +149,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'})
+            res.json(501, {'error' : 'api not found'})
             return;
           }
 
@@ -166,7 +166,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'})
+            res.json(501, {'error' : 'api not found'})
             return;
           }
 
@@ -219,7 +219,7 @@ var SampleApp = function() {
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api) {
-            res.json({'error' : 'api not found'})
+            res.json(501, {'error' : 'api not found'})
             return;
           }
 
@@ -241,7 +241,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'})
+            res.json(501, {'error' : 'api not found'})
             return;
           }
 
@@ -261,7 +261,7 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(403, {'error' : 'no auth found'})
+              res.json(409, {'error' : 'no auth found'})
               return;
             }
 
@@ -329,7 +329,7 @@ var SampleApp = function() {
               res.json({ 'count' : docs.length, 'data' : docs}); 
             }
             else {
-              res.json({'error' : 'failed to query data'});
+              res.json(500, {'error' : 'failed to query data'});
             }
           });
         };
@@ -345,7 +345,7 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(403, {'error' : 'no auth found'});
+              res.json(409, {'error' : 'no auth found'});
               return;
             }
 
@@ -355,7 +355,7 @@ var SampleApp = function() {
 
             var ingestionCallback = function(data) {
               if(!data) {
-                res.json({'error' : 'failed to find data'});
+                res.json(500, {'error' : 'failed to find data'});
                 return;
               }
 
@@ -371,7 +371,7 @@ var SampleApp = function() {
                   res.json({ 'refs' : docs}); 
                 }
                 else {
-                  res.json({'error' : 'failed to save data'});
+                  res.json(500, {'error' : 'failed to save data'});
                 }
               });
             };
