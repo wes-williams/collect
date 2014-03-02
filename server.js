@@ -143,13 +143,13 @@ var SampleApp = function() {
         self.routes.post['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
@@ -160,13 +160,13 @@ var SampleApp = function() {
         self.routes.del['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
@@ -212,14 +212,14 @@ var SampleApp = function() {
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
@@ -235,13 +235,13 @@ var SampleApp = function() {
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
@@ -253,19 +253,19 @@ var SampleApp = function() {
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(409, {'error' : 'no auth found'})
+              res.json({'error' : 'no auth found'}, 409);
               return;
             }
 
@@ -320,7 +320,7 @@ var SampleApp = function() {
         self.routes.get['/data'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
@@ -333,7 +333,7 @@ var SampleApp = function() {
               res.json({ 'count' : docs.length, 'data' : docs}); 
             }
             else {
-              res.json(500, {'error' : 'failed to query data'});
+              res.json({'error' : 'failed to query data'}, 500);
             }
           });
         };
@@ -341,19 +341,19 @@ var SampleApp = function() {
         self.routes.post['/data/:apiName/*'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json(501, {'error' : 'api not found'})
+            res.json({'error' : 'api not found'}, 501);
             return;
           }
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(409, {'error' : 'no auth found'});
+              res.json({'error' : 'no auth found'}, 409);
               return;
             }
 
@@ -363,7 +363,7 @@ var SampleApp = function() {
 
             var ingestionCallback = function(data) {
               if(!data) {
-                res.json(500, {'error' : 'failed to find data'});
+                res.json({'error' : 'failed to find data'}, 500);
                 return;
               }
 
@@ -379,7 +379,7 @@ var SampleApp = function() {
                   res.json({ 'refs' : docs}); 
                 }
                 else {
-                  res.json(500, {'error' : 'failed to save data'});
+                  res.json({'error' : 'failed to save data'}, 500);
                 }
               });
             };
