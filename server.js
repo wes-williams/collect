@@ -143,7 +143,7 @@ var SampleApp = function() {
         self.routes.post['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -160,7 +160,7 @@ var SampleApp = function() {
         self.routes.del['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -178,7 +178,7 @@ var SampleApp = function() {
         self.routes.get['/auth'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -212,7 +212,7 @@ var SampleApp = function() {
         self.routes.get['/auth/:apiName'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -235,7 +235,7 @@ var SampleApp = function() {
         self.routes.get['/auth/:apiName/callback'] = function(req,res,next) {
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -256,7 +256,7 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json({'error' : 'no auth found'})
+              res.json(401, {'error' : 'no auth found'})
               return;
             }
 
@@ -311,7 +311,7 @@ var SampleApp = function() {
         self.routes.get['/data'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json({'error' : 'user not found'})
+            res.json(401, {'error' : 'user not found'})
             return;
           }
 
@@ -335,7 +335,7 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json({'error' : 'no auth found'});
+              res.json(401, {'error' : 'no auth found'});
               return;
             }
 
