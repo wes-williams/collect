@@ -90,18 +90,18 @@ function demoRouteChange() {
     $('#demo-method').append($("<option />").val('GET').text('GET'));
     $('#demo-method').append($("<option />").val('POST').text('POST'));
 
-    $('#demo-api').hide();
-    $('#demo-method').hide();
+    $('#demo-api').show();
+    $('#demo-method').show();
     $('#demo-url').show();
     $('#demo-submit').show();
   }
   else if(demoRoute === '/api') {
-    $('#demo-method').append($("<option />").val('POST').text('POST'));
+    $('#demo-method').append($("<option />").val('GET').text('GET'));
 
     $('#demo-api').show();
     $('#demo-method').show();
     $('#demo-url').show();
-    $('#demo-submit').hide();
+    $('#demo-submit').show();
   }
   else {
     $('#demo-api').hide();
@@ -111,4 +111,16 @@ function demoRouteChange() {
   }
 
   $('#demo-results').hide();
+}
+
+function demoMethodChange() {
+  var demoRoute = $('#demo-route').val();
+  var demoMethod = $('#demo-method').val();
+
+  if(demoRoute == '/data' && demoMethod === 'GET') {
+    $('#demo-api').hide();
+  }
+  else {
+    $('#demo-api').show();
+  }
 }
