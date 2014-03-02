@@ -252,11 +252,16 @@ var SampleApp = function() {
                                                                      
         self.routes.get['/api/:apiName/*'] = function(req,res,next) { 
 
+          if(req.session.user == undefined) {
+            res.json(401, {'error' : 'user not found'})
+            return;
+          }
+
           var apiName = req.param('apiName');
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(401, {'error' : 'no auth found'})
+              res.json(403, {'error' : 'no auth found'})
               return;
             }
 
@@ -331,11 +336,16 @@ var SampleApp = function() {
 
         self.routes.post['/data/:apiName/*'] = function(req,res,next) { 
 
+          if(req.session.user == undefined) {
+            res.json(401, {'error' : 'user not found'})
+            return;
+          }
+
           var apiName = req.param('apiName');
 
           var findUserCallback = function(user) {
             if(user==undefined) {
-              res.json(401, {'error' : 'no auth found'});
+              res.json(403, {'error' : 'no auth found'});
               return;
             }
 
