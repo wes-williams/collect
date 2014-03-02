@@ -78,6 +78,17 @@ function doDemo() {
     demoForm.submit();
   }
 
+  // if json content, make it pretty
+  try {
+    var demoResults = $('#demo-results').contents().find('body').html(); 
+    demoResults = JSON.stringify(JSON.parse(demoResults), undefined, 2);
+    
+    $('#demo-results').contents().find('body').html(demoResults); 
+  }
+  catch {
+
+  }
+
   $('#demo-results').show();
 }
 
@@ -91,7 +102,7 @@ function demoRouteChange() {
     $('#demo-method').append($("<option />").val('POST').text('POST'));
 
     $('#demo-api').show();
-    $('#demo-method').show();
+    $('#demo-method').hide();
     $('#demo-url').show();
     $('#demo-submit').show();
   }
