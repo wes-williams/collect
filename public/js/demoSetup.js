@@ -92,8 +92,8 @@ function demoRouteChange() {
     $('#demo-method').append($("<option />").val('GET').text('GET'));
     $('#demo-method').append($("<option />").val('POST').text('POST'));
 
-    $('#demo-api').show();
-    $('#demo-method').hide();
+    $('#demo-api').hide();
+    $('#demo-method').show();
     $('#demo-url').show();
     $('#demo-submit').show();
   }
