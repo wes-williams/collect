@@ -90,26 +90,24 @@ function demoRouteChange() {
     $('#demo-method').append($("<option />").val('GET').text('GET'));
     $('#demo-method').append($("<option />").val('POST').text('POST'));
 
-    $('#demo-method').hide();
     $('#demo-api').hide();
-    $('#demo-create').show();
-    $('#demo-read').show();
+    $('#demo-method').hide();
     $('#demo-url').show();
+    $('#demo-submit').show();
   }
   else if(demoRoute === '/api') {
     $('#demo-method').append($("<option />").val('POST').text('POST'));
 
     $('#demo-api').show();
-    $('#demo-create').hide();
-    $('#demo-read').show();
+    $('#demo-method').show();
     $('#demo-url').show();
+    $('#demo-submit').hide();
   }
   else {
     $('#demo-api').hide();
     $('#demo-method').hide();
-    $('#demo-create').hide();
-    $('#demo-read').hide();
     $('#demo-url').hide();
+    $('#demo-submit').hide();
   }
 
   $('#demo-results').hide();
