@@ -11,7 +11,7 @@
         {
           "method" : "POST",
           "nickname" : "createSession",
-          "type" : "NewSession",
+          "type" : "MySession",
           "parameters" : [],
           "summary" : "Establishes identity of user",
           "notes" : "Utilizes Apache Persona",
@@ -46,8 +46,8 @@
     }
   ],
   "models" : {
-    "NewSession" : {
-      "id" : "NewSession",
+    "MySession" : {
+      "id" : "MySession",
       "properties" : {
         "id" : {
           "type" : "string",
@@ -61,15 +61,6 @@
         "status" : {
           "type" : "boolean",
           "description" : "Indicates whether logout succeeded. Always will if response was 200...."
-        }
-      }
-    },
-    "MySession" : {
-      "id" : "MySession",
-      "properties" : {
-        "user" : {
-          "type" : "string",
-          "description" : "The id of the user with a session. Missing if no session"
         }
       }
     }

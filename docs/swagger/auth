@@ -5,6 +5,27 @@
   "resourcePath" : "/auth",
   "apis" : [
     {
+      "path" : "/auth",
+      "description" : "Retrieve all auth details",
+      "operations" : [
+        {
+          "method" : "GET",
+          "nickname" : "getAllAuthDetails",
+          "type" : "AllAuth",
+          "parameters" : [
+          ],
+          "summary" : "Retrieves all auth details for user",
+          "notes" : "Redirects to user. Expect 'e' parameter in redirect on failure",
+          "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path" : "/auth/{api}",
       "description" : "Initiates authentication",
       "operations" : [
@@ -23,6 +44,32 @@
           ],
           "summary" : "Initiates auth with api by redirecting to api provider for auth",
           "notes" : "Expect redirect to /auth/{api}/callback by api provider",
+          "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            },
+            {
+              "code" : 501,
+              "message" : "Api not found"
+            }
+          ]
+        },
+        {
+          "method" : "GET",
+          "nickname" : "getAutDetailshByApi",
+          "type" : "MyAuth",
+          "parameters" : [
+            {
+              "paramType" : "path",
+              "name"  : "api",
+              "description" : "Identifer of the api for auth",
+              "dataType" : "string",
+              "required" : true
+            }
+          ],
+          "summary" : "Retrieves auth details by api",
+          "notes" : "Provides api list and user auth details",
           "errorResponses" : [
             {
               "code" : 401,
@@ -60,5 +107,34 @@
         }
       ]
     }
-  ]
+  ],
+  "models" : {
+    "MyAuth" : {
+      "id" : "MyAuth",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identifier for the api"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Name for the api"
+        },
+        "enabled" : {
+          "type" : "boolean",
+          "description" : "Whether api is enabled and ready for use"
+        },
+        "authRequired" : {
+          "type" : "boolean",
+          "description" : "Whether auth required for api"
+        }
+      }
+    },
+    "AllAuth" : {
+      type : "array",
+      items : {
+        "$ref" : "MyAuth"
+      }
+    }
+  }
 }
