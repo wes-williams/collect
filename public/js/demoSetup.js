@@ -137,6 +137,6 @@ function demoResultsChange() {
     }
   }
   catch(e) {
-    console.log('pretty json error:', e);
+    //console.log('pretty json error:', e);
   }
 }
