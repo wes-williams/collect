@@ -15,6 +15,7 @@ function demoSetup(apis) {
 
 function demoTeardown() {
   $('#demo-results').empty();
+  $('#demo-url').val('');
   $('#demo-route').val('');
   demoRouteChange();
   $('#demo').hide();
