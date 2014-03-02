@@ -78,17 +78,6 @@ function doDemo() {
     demoForm.submit();
   }
 
-  // if json content, make it pretty
-  try {
-    var demoResults = $('#demo-results').contents().find('body').html(); 
-    demoResults = JSON.stringify(JSON.parse(demoResults), undefined, 2);
-    
-    $('#demo-results').contents().find('body').html(demoResults); 
-  }
-  catch(e) {
-
-  }
-
   $('#demo-results').show();
 }
 
@@ -133,5 +122,18 @@ function demoMethodChange() {
   }
   else {
     $('#demo-api').show();
+  }
+}
+
+function demoResultsChanges() {
+  // if json content, make it pretty
+  try {
+    var demoResults = $('#demo-results').contents().find('body').html(); 
+    demoResults = JSON.stringify(JSON.parse(demoResults), undefined, 2);
+    
+    $('#demo-results').contents().find('body').html(demoResults); 
+  }
+  catch(e) {
+    console.log('pretty json error:', e);
   }
 }
