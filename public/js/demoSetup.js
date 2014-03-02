@@ -125,7 +125,7 @@ function demoMethodChange() {
   }
 }
 
-function demoResultsChanges() {
+function demoResultsChange() {
   // if json content, make it pretty
   try {
     var demoResults = $('#demo-results').contents().find('body').html(); 
