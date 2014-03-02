@@ -24,6 +24,14 @@
           "summary" : "Ingest data from api call",
           "notes" : "Errors will have an error parameter",
           "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            },
+            {
+              "code" : 403,
+              "message" : "Api auth not found"
+            }
           ]
         },
         {
@@ -49,6 +57,14 @@
           "summary" : "Ingest data from api call",
           "notes" : "Errors will have an error parameter",
           "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            },
+            {
+              "code" : 403,
+              "message" : "Api auth not found"
+            }
           ]
         }
       ]

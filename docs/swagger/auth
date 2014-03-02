@@ -24,6 +24,10 @@
           "summary" : "Initiates auth with api by redirecting to api provider for auth",
           "notes" : "Expect redirect to /auth/{api}/callback by api provider",
           "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            }
           ]
         }
       ]

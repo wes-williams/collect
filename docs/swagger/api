@@ -38,6 +38,14 @@
           "summary" : "Performs call to API as requested",
           "notes" : "Errors will have an error parameter",
           "errorResponses" : [
+            {
+              "code" : 401,
+              "message" : "User session not found"
+            },
+            {
+              "code" : 403,
+              "message" : "Api auth not found"
+            }
           ]
         }
       ]
