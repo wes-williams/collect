@@ -8,6 +8,8 @@ function demoSetup(apis) {
     }
   });
 
+  $('#demo-results').load(demoResultsChange);
+
   $('#demo').show();
 }
 
@@ -128,10 +130,11 @@ function demoMethodChange() {
 function demoResultsChange() {
   // if json content, make it pretty
   try {
-    var demoResults = $('#demo-results').contents().find('body').html(); 
-    demoResults = JSON.stringify(JSON.parse(demoResults), undefined, 2);
-    
-    $('#demo-results').contents().find('body').html(demoResults); 
+    var demoResults = $('#demo-results').contents().find('pre').html(); 
+    if(demoResults) {
+      demoResults = JSON.stringify(JSON.parse(demoResults), undefined, 2);
+      $('#demo-results').contents().find('pre').html(demoResults); 
+    }
   }
   catch(e) {
     console.log('pretty json error:', e);
