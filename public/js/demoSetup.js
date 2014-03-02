@@ -59,7 +59,7 @@ function doDemo() {
         console.log(demoMethod + ' method not supported for ' + demoRoute);
         return; // not supported
       }
-      fullUrl = demoRoute + demoUrl;
+      fullUrl = demoRoute + '/' + demoApi + demoUrl;
       break;
     default:
       console.log(demoMethod + ' method not supported');
