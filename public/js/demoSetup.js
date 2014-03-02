@@ -16,8 +16,9 @@ function demoTeardown() {
   $('#demo').hide();
 }
 
-function doDemo(demoMethod) {
+function doDemo() {
   var fullUrl = '';
+  var demoMethod = $('#demo-method').val();
   var demoRoute = $('#demo-route').val();
   var demoApi = $('#demo-api').val();
   var demoUrl = $('#demo-url').val().trim();
@@ -83,13 +84,21 @@ function doDemo(demoMethod) {
 function demoRouteChange() {
   var demoRoute = $('#demo-route').val();
 
+  $('#demo-method').empty();
+
   if(demoRoute === '/data') {
+    $('#demo-method').append($("<option />").val('GET').text('GET'));
+    $('#demo-method').append($("<option />").val('POST').text('POST'));
+
+    $('#demo-method').hide();
     $('#demo-api').hide();
     $('#demo-create').show();
     $('#demo-read').show();
     $('#demo-url').show();
   }
   else if(demoRoute === '/api') {
+    $('#demo-method').append($("<option />").val('POST').text('POST'));
+
     $('#demo-api').show();
     $('#demo-create').hide();
     $('#demo-read').show();
@@ -97,6 +106,7 @@ function demoRouteChange() {
   }
   else {
     $('#demo-api').hide();
+    $('#demo-method').hide();
     $('#demo-create').hide();
     $('#demo-read').hide();
     $('#demo-url').hide();
