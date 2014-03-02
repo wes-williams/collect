@@ -85,7 +85,7 @@ function doDemo() {
     
     $('#demo-results').contents().find('body').html(demoResults); 
   }
-  catch {
+  catch(e) {
 
   }
 
