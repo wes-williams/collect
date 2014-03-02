@@ -178,7 +178,7 @@ var SampleApp = function() {
         self.routes.get['/auth'] = function(req,res,next) { 
 
           if(req.session.user == undefined) {
-            res.json(401, {'error' : 'user not found'})
+            res.json({'error' : 'user not found'}, 401);
             return;
           }
 
