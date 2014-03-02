@@ -43,8 +43,12 @@
               "message" : "User session not found"
             },
             {
-              "code" : 403,
+              "code" : 409,
               "message" : "Api auth not found"
+            },
+            {
+              "code" : 501,
+              "message" : "Api not found"
             }
           ]
         }

@@ -258,6 +258,10 @@ var SampleApp = function() {
           }
 
           var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json(501, {'error' : 'api not found'})
+            return;
+          }
 
           var findUserCallback = function(user) {
             if(user==undefined) {
@@ -342,6 +346,10 @@ var SampleApp = function() {
           }
 
           var apiName = req.param('apiName');
+          if(!passport.hasApi(apiName)) {
+            res.json(501, {'error' : 'api not found'})
+            return;
+          }
 
           var findUserCallback = function(user) {
             if(user==undefined) {

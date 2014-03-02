@@ -31,6 +31,16 @@
           "notes" : "Doesn't remove auth",
           "errorResponses" : [
           ]
+        },
+        {
+          "method" : "GET",
+          "nickname" : "getSession",
+          "type" : "MySession",
+          "parameters" : [],
+          "summary" : "Checks for user session",
+          "notes" : "contains user if session exist",
+          "errorResponses" : [
+          ]
         }
       ]
     }
@@ -51,6 +61,15 @@
         "status" : {
           "type" : "boolean",
           "description" : "Indicates whether logout succeeded. Always will if response was 200...."
+        }
+      }
+    },
+    "MySession" : {
+      "id" : "MySession",
+      "properties" : {
+        "user" : {
+          "type" : "string",
+          "description" : "The id of the user with a session. Missing if no session"
         }
       }
     }

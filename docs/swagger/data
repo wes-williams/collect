@@ -29,8 +29,8 @@
               "message" : "User session not found"
             },
             {
-              "code" : 403,
-              "message" : "Api auth not found"
+              "code" : 500,
+              "message" : "Query could not be performed"
             }
           ]
         },
@@ -62,8 +62,16 @@
               "message" : "User session not found"
             },
             {
-              "code" : 403,
+              "code" : 409,
               "message" : "Api auth not found"
+            },
+            {
+              "code" : 500,
+              "message" : "Operation could not be performed"
+            },
+            {
+              "code" : 501,
+              "message" : "Api not found"
             }
           ]
         }

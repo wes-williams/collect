@@ -27,6 +27,10 @@
             {
               "code" : 401,
               "message" : "User session not found"
+            },
+            {
+              "code" : 501,
+              "message" : "Api not found"
             }
           ]
         }
