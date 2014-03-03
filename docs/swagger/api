@@ -47,7 +47,7 @@
               "message" : "Api auth not found"
             },
             {
-              "code" : 501,
+              "code" : 404,
               "message" : "Api not found"
             }
           ]

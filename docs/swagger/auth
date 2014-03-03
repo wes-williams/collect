@@ -50,8 +50,12 @@
               "message" : "User session not found"
             },
             {
-              "code" : 501,
+              "code" : 404,
               "message" : "Api not found"
+            },
+            {
+              "code" : 409,
+              "message" : "Api does not require auth"
             }
           ]
         },
@@ -76,7 +80,7 @@
               "message" : "User session not found"
             },
             {
-              "code" : 501,
+              "code" : 404,
               "message" : "Api not found"
             }
           ]

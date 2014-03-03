@@ -149,13 +149,13 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
           var api = passport.apiDetails(apiName);
           if(!api || !api.authRequired) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api does not require auth'}, 409);
             return;
           }
 
@@ -172,7 +172,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
@@ -225,7 +225,7 @@ var SampleApp = function() {
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
@@ -247,7 +247,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
@@ -265,7 +265,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
@@ -353,7 +353,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           if(!passport.hasApi(apiName)) {
-            res.json({'error' : 'api not found'}, 501);
+            res.json({'error' : 'api not found'}, 404);
             return;
           }
 
