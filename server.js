@@ -153,6 +153,12 @@ var SampleApp = function() {
             return;
           }
 
+          var api = passport.apiDetails(apiName);
+          if(!api || !api.authRequired) {
+            res.json({'error' : 'api not found'}, 501);
+            return;
+          }
+
           passport.auth(apiName,
                         { 'req' : req, 'res' : res, 'next' : next }); 
         };
