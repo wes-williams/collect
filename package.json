@@ -26,6 +26,7 @@
 
   "dependencies": {
     "express" : "2.5.8",
+    "basic-auth" : "0.0.1",
     "qs" : "0.4.2",
     "passport" : "0.1.15",
     "passport-oauth" : "0.1.13",

@@ -16,7 +16,8 @@ var hasApi = function(apiName) {
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req,callback) { 
-  if(req.session.user == undefined) {
+  var userId = req.session.user ? req.session.user.id : req.user;
+  if(!user || typeof(userId) !== "string") {
     callback(undefined);
   }
   else if(!hasApi(apiName)) {
@@ -30,8 +31,11 @@ var findUser = function(apiName,req,callback) {
     else if(appConfig[apiName].type == 'composite') {
       callback({ isComposite : true, api : apiName });
     }
+    else if(appConfig[apiName].type == 'webhook') {
+      callback({ isWebhook : true, '_api' : apiName });
+    }
     else {
-      storage.findUserAccount({'_login' : req.session.user.id, '_api' : apiName}, function(err,user){
+      storage.findUserAccount({'_login' : userId, '_api' : apiName}, function(err,user){
         // todo - error handling
         callback(user);
       });
@@ -207,6 +211,9 @@ var register = function(apiName) {
   else if(appConfig[apiName].type == 'composite') {
     // no registration action necessary
   } 
+  else if(appConfig[apiName].type == 'webhook') {
+    // no registration action necessary
+  } 
   else {
     console.log(apiName + " has unknown auth type of " + appConfig[apiName].type);
   }
@@ -270,7 +277,7 @@ var handleRequest = function(apiName, user, options, callback) {
 passportPlugin.handleRequest = handleRequest;
 
 var handleComposite = function(apiName,options,req,done) {
-  var getCallback = function(error, body) {
+  var compositeCallback = function(error, body) {
     if(error) {
       console.log('handle request error ' + JSON.stringify(error));
       done(null);
@@ -295,12 +302,62 @@ var handleComposite = function(apiName,options,req,done) {
         'user' : req.session.user.id
       };
       storage.queryUserData(meta, queryParams,queryCallback);
+    },
+    ingest : function(data, ingestCallback) {
+      var meta = { 
+        'user' : req.session.user.id,
+        'api' : accessApiName,
+        'url' : options.uri
+      };
+      storage.ingestUserData(meta, data, ingestCallback);
     }
   };
 
-  appConfig[apiName].buildComposite(compositeAccess, options, getCallback);
+  appConfig[apiName].buildComposite(compositeAccess, options, compositeCallback);
 };
 passportPlugin.handleComposite = handleComposite;
+
+var handleWebhook = function(apiName,options,req,done) {
+  var webhookCallback = function(error, body) {
+    if(error) {
+      console.log('handle webhook request error ' + JSON.stringify(error));
+      done(null);
+      return;
+    }
+
+    done(body);
+  };
+
+  var webhookAccess = {
+    params : req.query,
+    body : req.body,
+    api : function(accessApiName,accessOptions, accessCallback) {
+      var webhookAccessCallback = function(user) {
+        handleRequest(accessApiName, user, accessOptions, function (user,data) {
+         accessCallback(data); 
+        });
+      };
+      findUser(accessApiName,req,webhookAccessCallback);
+    },
+    query : function(queryParams, queryCallback) {
+      var meta = { 
+        'user' : req.user 
+      };
+      storage.queryUserData(meta, queryParams, queryCallback);
+    },
+    ingest : function(data, ingestCallback) {
+      var meta = { 
+        'user' : req.user,
+        'api' : accessApiName,
+        'url' : options.uri
+      };
+      storage.ingestUserData(meta, data, ingestCallback);
+    }
+  };
+
+  appConfig[apiName].buildWebhook(webhookAccess, options, webhookCallback);
+};
+passportPlugin.handleWebhook = handleWebhook;
 
 var auth = function(apiName,streams) {
   //console.log('auth attempt');

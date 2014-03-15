@@ -1,12 +1,14 @@
 #!/bin/env node
 //  OpenShift sample Node application
 var express = require('express');
+var basicauth = require('basic-auth');
 var fs      = require('fs');
 var mongodb = require('mongodb');
 var persona = require('./persona.js');
 var passport = require('./passport.js');
 var storage = require('./storage.js');
 var commonConfig = require('./common-config.js');
+var crypto = require('crypto');
 
 
 /**
@@ -402,6 +404,180 @@ var SampleApp = function() {
           };
 
           passport.findUser(apiName,req,findUserCallback);
+        };
+
+        self.routes.get['/hook/:apiName'] = function(req,res,next) { 
+
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'}, 401);
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          if(!api || api.type !== 'webhook') {
+            res.json({'error' : 'hook not found'}, 404);
+            return;
+          }
+
+          var hook = {
+            'user' : req.session.user.id,
+            'api' : apiName
+          };
+
+          storage.findUserHook(hook, function(err, hooks) {
+            if(err) {
+              res.json({'error' : 'hook not found'}, 500);
+            }
+            else {
+              res.json(hooks);
+            }
+          });
+        };
+
+        self.routes.post['/hook/:apiName'] = function(req,res,next) { 
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'}, 401);
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          if(!api || api.type !== 'webhook') {
+            res.json({'error' : 'hook not found'}, 404);
+            return;
+          }
+
+          var username = crypto.randomBytes(48).toString('hex');
+          var password = crypto.randomBytes(48).toString('hex');
+          var timestamp = new Date().getTime();
+
+          var hook = {
+            'user' : req.session.user.id,
+            'api' : apiName,
+            'login' : { 'name' : username, 'pass' : password },
+            'createdAt' : timestamp 
+          };
+
+          storage.saveUserHook(hook, function(err, hook) {
+            if(err) {
+              res.json({'error' : 'hook not created'}, 500);
+            }
+            else {
+              res.json(hook);
+            }
+          });
+        };
+
+        self.routes.del['/hook/:apiName/:hookName'] = function(req,res,next) { 
+          if(req.session.user == undefined) {
+            res.json({'error' : 'user not found'}, 401);
+            return;
+          }
+
+          var apiName = req.param('apiName');
+          if(!hookName || !api || api.type !== 'webhook') {
+            res.json({'error' : 'hook not found'}, 404);
+            return;
+          }
+
+          var hook = {
+            '_id' : hookName,
+            'user' : req.session.user.id,
+            'api' : apiName
+          };
+
+          storage.removeUserHook(hook, function(err) {
+            if(err) {
+              res.json({'error' : 'hook not removed'}, 500);
+            }
+            else {
+              res.json({ 'hook' : hookName, 'removed' : true });
+            }
+          });
+        };
+
+
+        // endpoint for testing basic auth on hook
+        self.routes.get['/hook/:apiName/:hookName'] = function(req,res,next) { 
+
+          var hookName = req.param('hookName');
+          var apiName = req.param('apiName');
+          var api = passport.apiDetails(apiName);
+          if(!api || api.type !== 'webhook') {
+            res.send(404);
+            return;
+          }
+
+          var hook = {
+            '_id' : hookName,
+            'api' : apiName
+          };
+
+          storage.findUserHook(hook, function(err, hook) {
+            if(err || !hook) {
+              res.send(404);
+            }
+            else {
+              var authUser = basicauth(req);
+              var hookUser = hook.login;
+              if(!authUser || authUser.name !== hookUser.name 
+                           || authUser.pass !== hookUser.pass ) {
+                res.setHeader('WWW-Authenticate', 'Basic realm="'+apiName +' hook - '+hookName+'"');
+                res.send(401);
+              }
+              else {
+                res.send(200);
+              }
+            }
+          });
+        };
+
+        // basic auth required
+        self.routes.post['/hook/:apiName/:hookName'] = function(req,res,next) { 
+
+          var hookName = req.param('hookName');
+          var apiName = req.param('apiName');
+          var api = passport.apiDetails(apiName);
+          if(!api || api.type !== 'webhook') {
+            res.send(404);
+            return;
+          }
+
+          var hook = {
+            '_id' : hookName,
+            'api' : apiName
+          };
+
+          storage.findUserHook(hook, function(err, hook) {
+            if(err || !hook) {
+              res.send(500);
+              return;
+            }
+
+            var authUser = basicauth(req);
+            var hookUser = hook.login;
+            if(!authUser || authUser.name !== hookUser.name 
+                         || authUser.pass !== hookUser.pass ) {
+              res.setHeader('WWW-Authenticate', 'Basic realm="'+apiName +' hook - '+hookName+'"');
+              res.send(401);
+              return;
+            }
+            else {
+              req.user = { 'id' : hook.user }; 
+            }
+
+            var options = {};
+            options.method = 'POST';
+            options.uri = req.url.substring(6+apiName.length);
+
+            passport.handleWebhook(apiName,options,req, function(data) {
+              if(data) {
+                res.json(data); 
+              }
+              else{
+                res.send(200); // need a way to tell error vs no data
+              }
+            });  
+          });
         };
     };
 

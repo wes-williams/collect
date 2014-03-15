@@ -25,6 +25,21 @@ var removeUserAccount = function(params,done) {
 };
 storagePlugin.removeUserAccount = removeUserAccount;
 
+var findUserHook = function(params,done) {
+  db.collection('userhooks').findOne(params, done); 
+};
+storagePlugin.findUserAccount = findUserAccount;
+
+var saveUserHook = function(hook,done) {
+  db.collection('userhooks').save(hook, {safe:true},done); 
+};
+storagePlugin.saveUserAccount = saveUserAccount;
+
+var removeUserHook = function(params,done) {
+  db.collection('userhooks').remove(params, {single:true},done); 
+};
+storagePlugin.removeUserAccount = removeUserAccount;
+
 var ingestUserData = function(meta,data, done) {
   data._meta = { 
     'user' : meta.user,
