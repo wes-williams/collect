@@ -41,7 +41,7 @@ storagePlugin.saveUserHook = saveUserHook;
 
 var removeUserHook = function(params,done) {
   if(params._id) {
-    params._id = new db.ObjectID(params._id);
+    params._id = new ObjectID(params._id);
   }
   db.collection('userhooks').remove(params, {single:true},done); 
 };
