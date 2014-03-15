@@ -491,12 +491,12 @@ var SampleApp = function() {
             'api' : apiName
           };
 
-          storage.removeUserHook(hook, function(err) {
+          storage.removeUserHook(hook, function(err,deletedCount) {
             if(err) {
               res.json({'error' : 'hook not removed'}, 500);
             }
             else {
-              res.json({ 'hook' : hookName, 'removed' : true });
+              res.json({ 'hook' : hookName, 'removed' : deletedCount !== 0 });
             }
           });
         };
