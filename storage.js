@@ -1,6 +1,6 @@
 var appConfig = require('./storage-config'),
     request = require('request'),
-    mongodb = require('mongodb');
+    ObjectID = require('mongodb').ObjectID;
 
 var storagePlugin = {};
 
@@ -28,7 +28,7 @@ storagePlugin.removeUserAccount = removeUserAccount;
 
 var findUserHook = function(params,done) {
   if(params._id) {
-    params._id = new mongodb.ObjectID(params._id);
+    params._id = new ObjectID(params._id);
   }
   db.collection('userhooks').findOne(params, done); 
 };
@@ -130,7 +130,7 @@ var queryUserData = function(meta,query,done) {
           castValue = parseFloat(castValue); 
         }
         else if(key === '_id') {
-          castValue = new mongodb.ObjectID(castValue);
+          castValue = new ObjectID(castValue);
         }
 
         castValues[v] = castValue;
