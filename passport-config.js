@@ -115,7 +115,7 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
         access.ingest(body.books, function(data) {
           // error, body
           done(null,body);
-        }
+        });
       });
     });
   });
@@ -162,7 +162,7 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
         access.ingest(body.books, function(data) {
           // error, body
           done(null,body);
-        }
+        });
       });
     });
   });
