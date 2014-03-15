@@ -35,9 +35,6 @@ var findUserHook = function(params,done) {
 storagePlugin.findUserHook = findUserHook;
 
 var saveUserHook = function(hook,done) {
-  if(params._id) {
-    params._id = new mongodb.ObjectID(params._id);
-  }
   db.collection('userhooks').save(hook, {safe:true},done); 
 };
 storagePlugin.saveUserHook = saveUserHook;
