@@ -559,8 +559,12 @@ var SampleApp = function() {
           };
 
           storage.findUserHook(params, function(err, hook) {
-            if(err || !hook) {
+            if(err) {
               res.send(500);
+              return;
+            }
+            else if(!hook) {
+              res.send(404);
               return;
             }
 

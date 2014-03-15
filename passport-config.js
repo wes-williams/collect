@@ -112,8 +112,10 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
       access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
         body.books.push(book2);
 
-        // error, body
-        done(null,body);
+        access.ingest(body.books, function(data) {
+          // error, body
+          done(null,body);
+        }
       });
     });
   });
@@ -156,9 +158,11 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
 
       access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
         body.books.push(book2);
-
-        // error, body
-        done(null,body);
+       
+        access.ingest(body.books, function(data) {
+          // error, body
+          done(null,body);
+        }
       });
     });
   });
