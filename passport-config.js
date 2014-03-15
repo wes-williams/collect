@@ -128,7 +128,7 @@ appConfig.webhook1 = {};
 appConfig.webhook1.name='Skeleton Webhook';
 appConfig.webhook1.enabled=true;
 appConfig.webhook1.type = 'webhook';
-appConfig.webhook1.buildWebHook = function(access, options, done) {
+appConfig.webhook1.buildWebhook = function(access, options, done) {
   console.log('execute webhook1 with uri: ' + options.uri);
 };
 
