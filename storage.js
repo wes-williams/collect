@@ -40,11 +40,9 @@ var saveUserHook = function(hook,done) {
 storagePlugin.saveUserHook = saveUserHook;
 
 var removeUserHook = function(params,done) {
-  console.log("DELETE: " + JSON.stringify(params));
   if(params._id) {
     params._id = new ObjectID(params._id);
   }
-  console.log("DELETE2: " + JSON.stringify(params));
   db.collection('userhooks').remove(params, {single:true},done); 
 };
 storagePlugin.removeUserHook = removeUserHook;
