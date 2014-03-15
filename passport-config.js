@@ -91,7 +91,7 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
   body.books = [];
 
   var queryParams = { 
-    '_meta.api' : 'pearson', 
+    '_meta.api~in' : 'pearson~mashup1', 
     'books.title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
   };
 
@@ -138,7 +138,7 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
   body.books = [];
 
   var queryParams = { 
-    '_meta.api' : 'pearson', 
+    '_meta.api~in' : 'pearson~webhook1', 
     'books.title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
   };
 
