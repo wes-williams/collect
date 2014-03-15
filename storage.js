@@ -28,17 +28,17 @@ storagePlugin.removeUserAccount = removeUserAccount;
 var findUserHook = function(params,done) {
   db.collection('userhooks').findOne(params, done); 
 };
-storagePlugin.findUserAccount = findUserAccount;
+storagePlugin.findUserHook = findUserHook;
 
 var saveUserHook = function(hook,done) {
   db.collection('userhooks').save(hook, {safe:true},done); 
 };
-storagePlugin.saveUserAccount = saveUserAccount;
+storagePlugin.saveUserHook = saveUserHook;
 
 var removeUserHook = function(params,done) {
   db.collection('userhooks').remove(params, {single:true},done); 
 };
-storagePlugin.removeUserAccount = removeUserAccount;
+storagePlugin.removeUserHook = removeUserHook;
 
 var ingestUserData = function(meta,data, done) {
   data._meta = { 

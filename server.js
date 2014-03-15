@@ -195,8 +195,9 @@ var SampleApp = function() {
           var findApiUser = function(api) {
             passport.findUser(api.id,req,function(user) {
               response.push({ 'id' : api.id, 'name' : api.name, 
-                              'enabled' : user != undefined , 
-                              'authRequired' : api.authRequired 
+                              'enabled' : user != undefined, 
+                              'authRequired' : api.authRequired,
+                              'isWebhook' : api.isWebhook
                             });
               if(apis.length==response.length) {
                 // keep these in order by api name
@@ -233,8 +234,9 @@ var SampleApp = function() {
 
           var findUserCallback = function(user) {
             res.json({ 'id' : api.id, 'name' : api.name, 
-                       'enabled' : user != undefined , 
-                              'authRequired' : api.authRequired 
+                       'enabled' : user != undefined, 
+                       'authRequired' : api.authRequired, 
+                       'isWebhook' : api.isWebhook
                      });
           };
           passport.findUser(apiName,req,findUserCallback);
