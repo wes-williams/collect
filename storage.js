@@ -22,7 +22,7 @@ var saveUserAccount = function(user,done) {
 storagePlugin.saveUserAccount = saveUserAccount;
 
 var removeUserAccount = function(params,done) {
-  db.collection('useraccounts').remove(params, {single:true},done); 
+  db.collection('useraccounts').remove(params, {single:true, safe:true},done); 
 };
 storagePlugin.removeUserAccount = removeUserAccount;
 
@@ -51,7 +51,7 @@ var removeUserHook = function(params,done) {
   if(params._id) {
     params._id = new ObjectID(params._id);
   }
-  db.collection('userhooks').remove(params, {single:true},done); 
+  db.collection('userhooks').remove(params, {single:true, safe:true},done); 
 };
 storagePlugin.removeUserHook = removeUserHook;
 

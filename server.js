@@ -178,8 +178,13 @@ var SampleApp = function() {
             return;
           }
 
-          passport.removeUser(apiName,req, function(success) {
-            res.json({'api' : apiName, removed : success });
+          passport.removeUser(apiName,req, function(err, count) {
+            if(err) {
+              res.json({'error' : 'failed to remove user'}, 500);
+            }
+            else {
+              res.json({'api' : apiName, removed : count!==0 });
+            }
           });
         };
 
@@ -429,7 +434,7 @@ var SampleApp = function() {
 
           storage.findUserHooks(params, function(err, hooks) {
             if(err) {
-              res.json({'error' : 'hook not found'}, 500);
+              res.json({'error' : 'failed to find hook'}, 500);
             }
             else {
               res.json(hooks);
@@ -463,7 +468,7 @@ var SampleApp = function() {
 
           storage.saveUserHook(hook, function(err, hook) {
             if(err) {
-              res.json({'error' : 'hook not created'}, 500);
+              res.json({'error' : 'failed to create hook'}, 500);
             }
             else {
               res.json(hook);
@@ -491,12 +496,12 @@ var SampleApp = function() {
             'api' : apiName
           };
 
-          storage.removeUserHook(hook, function(err) {
-            if(err) {
-              res.json({'error' : 'hook not removed'}, 500);
+          storage.removeUserHook(hook, function(err,count) {
+            if(err || count>0) {
+              res.json({'error' : 'failed to remove hook'}, 500);
             }
             else {
-              res.json({ 'hook' : hookName, 'removed' : true });
+              res.json({ 'hook' : hookName, 'removed' : count===0 });
             }
           });
         };
