@@ -496,6 +496,7 @@ var SampleApp = function() {
               res.json({'error' : 'hook not removed'}, 500);
             }
             else {
+              console.log("DELETED COUNT" + deletedCount);
               res.json({ 'hook' : hookName, 'removed' : deletedCount !== 0 });
             }
           });
