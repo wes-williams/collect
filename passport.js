@@ -16,8 +16,15 @@ var hasApi = function(apiName) {
 passportPlugin.hasApi = hasApi;
 
 var findUser = function(apiName,req,callback) { 
-  var userId = req.session.user ? req.session.user.id : req.user;
-  if(!user || typeof(userId) !== "string") {
+  var userId = undefined;
+  if(req.session.user) {
+    userId = req.session.user.id;
+  } 
+  else if(req.user) { // web hooks use basic auth
+    userId = req.user.id;
+  }
+
+  if(!userId || typeof(userId) !== "string") {
     callback(undefined);
   }
   else if(!hasApi(apiName)) {
