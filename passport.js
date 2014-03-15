@@ -314,7 +314,7 @@ var handleComposite = function(apiName,options,req,done) {
     ingest : function(data, ingestCallback) {
       var meta = { 
         'user' : req.session.user.id,
-        'api' : accessApiName,
+        'api' : apiName,
         'url' : options.uri
       };
       storage.ingestUserData(meta, data, ingestCallback);
@@ -356,7 +356,7 @@ var handleWebhook = function(apiName,options,req,done) {
     ingest : function(data, ingestCallback) {
       var meta = { 
         'user' : req.user.id,
-        'api' : accessApiName,
+        'api' : apiName,
         'url' : options.uri
       };
       storage.ingestUserData(meta, data, ingestCallback);
