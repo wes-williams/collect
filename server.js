@@ -422,12 +422,12 @@ var SampleApp = function() {
             return;
           }
 
-          var hook = {
+          var params = {
             'user' : req.session.user.id,
             'api' : apiName
           };
 
-          storage.findUserHook(hook, function(err, hooks) {
+          storage.findUserHooks(params, function(err, hooks) {
             if(err) {
               res.json({'error' : 'hook not found'}, 500);
             }
@@ -513,12 +513,12 @@ var SampleApp = function() {
           }
 
           var hookName = req.param('hookName');
-          var hook = {
+          var params = {
             '_id' : hookName,
             'api' : apiName
           };
 
-          storage.findUserHook(hook, function(err, hook) {
+          storage.findUserHook(params, function(err, hook) {
             if(err || !hook) {
               res.send(404);
             }
@@ -548,12 +548,12 @@ var SampleApp = function() {
           }
 
           var hookName = req.param('hookName');
-          var hook = {
+          var params = {
             '_id' : hookName,
             'api' : apiName
           };
 
-          storage.findUserHook(hook, function(err, hook) {
+          storage.findUserHook(params, function(err, hook) {
             if(err || !hook) {
               res.send(500);
               return;

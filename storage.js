@@ -30,9 +30,17 @@ var findUserHook = function(params,done) {
   if(params._id) {
     params._id = new ObjectID(params._id);
   }
-  db.collection('userhooks').find(params).toArray(done); 
+  db.collection('userhooks').findOne(params,done); 
 };
 storagePlugin.findUserHook = findUserHook;
+
+var findUserHooks = function(params,done) {
+  if(params._id) {
+    params._id = new ObjectID(params._id);
+  }
+  db.collection('userhooks').find(params).toArray(done); 
+};
+storagePlugin.findUserHooks = findUserHooks;
 
 var saveUserHook = function(hook,done) {
   db.collection('userhooks').save(hook, {safe:true},done); 
