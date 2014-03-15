@@ -56,12 +56,21 @@ var removeUserHook = function(params,done) {
 storagePlugin.removeUserHook = removeUserHook;
 
 var ingestUserData = function(meta,data, done) {
-  data._meta = { 
+  var metaInstance = { 
     'user' : meta.user,
     'api' : meta.api,
     'url' : meta.url,
     'createTime' : new Date().getTime()
   };
+
+  if(Array.isArray(data)) {
+    for(var i=0;i<data.length;i++) {
+      data[i]._meta = metaInstance;
+    }
+  }
+  else {
+    data._meta = metaInstance;
+  }
                    
   db.collection('temporary').save(data, function(err,doc){
      if(err) {
