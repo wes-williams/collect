@@ -484,6 +484,7 @@ var SampleApp = function() {
             return;
           }
 
+          var hookName = req.param('hookName');
           var hook = {
             '_id' : hookName,
             'user' : req.session.user.id,
@@ -504,7 +505,6 @@ var SampleApp = function() {
         // endpoint for testing basic auth on hook
         self.routes.get['/hook/:apiName/:hookName'] = function(req,res,next) { 
 
-          var hookName = req.param('hookName');
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api || !api.isWebhook) {
@@ -512,6 +512,7 @@ var SampleApp = function() {
             return;
           }
 
+          var hookName = req.param('hookName');
           var hook = {
             '_id' : hookName,
             'api' : apiName
@@ -539,7 +540,6 @@ var SampleApp = function() {
         // basic auth required
         self.routes.post['/hook/:apiName/:hookName'] = function(req,res,next) { 
 
-          var hookName = req.param('hookName');
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api || !api.isWebhook) {
@@ -547,6 +547,7 @@ var SampleApp = function() {
             return;
           }
 
+          var hookName = req.param('hookName');
           var hook = {
             '_id' : hookName,
             'api' : apiName
