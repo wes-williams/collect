@@ -349,13 +349,13 @@ var handleWebhook = function(apiName,options,req,done) {
     },
     query : function(queryParams, queryCallback) {
       var meta = { 
-        'user' : req.user 
+        'user' : req.user.id 
       };
       storage.queryUserData(meta, queryParams, queryCallback);
     },
     ingest : function(data, ingestCallback) {
       var meta = { 
-        'user' : req.user,
+        'user' : req.user.id,
         'api' : accessApiName,
         'url' : options.uri
       };

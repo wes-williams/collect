@@ -130,7 +130,39 @@ appConfig.webhook1.enabled=true;
 appConfig.webhook1.type = 'webhook';
 appConfig.webhook1.buildWebhook = function(access, options, done) {
   console.log('execute webhook1 with uri: ' + options.uri);
-  done(null,{});
+
+  var body = {};
+  body.reader = 'me';
+  body.books = [];
+
+  var queryParams = { 
+    '_meta.api' : 'pearson', 
+    'books.title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
+  };
+
+  access.query(queryParams,function(data) {
+
+    // check to see if these books are already in storage
+    if(Array.isArray(data) && data.length>0) {
+      body.books = data;
+      if(data.length>=2) {
+        done(null,body);
+        return;
+      }
+    }
+
+    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
+      body.books.push(book1);
+
+      access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
+        body.books.push(book2);
+
+        // error, body
+        done(null,body);
+      });
+    });
+  });
+
 };
 
 
