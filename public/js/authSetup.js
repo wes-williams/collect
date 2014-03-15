@@ -17,6 +17,10 @@ function authSetup(otherSetup) {
       var html='';
       if(Array.isArray(res)) {
         for(var i=0;i<res.length;i++) {
+          if(res[i].isWebhook) {
+            continue;
+          }
+
           var apiId = res[i].id;
           var apiName = res[i].name;
           var method = res[i].enabled ? 'delete' : 'post';

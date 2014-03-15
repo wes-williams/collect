@@ -3,7 +3,7 @@ function demoSetup(apis) {
   var apiOptions = $('#demo-api');
   apiOptions.empty();
   $.each(apis, function() {
-    if(this.enabled) {
+    if(this.enabled && !this.isWebhook) {
       apiOptions.append($("<option />").val(this.id).text(this.id));
     }
   });

@@ -415,8 +415,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
-          if(!api || api.type !== 'webhook') {
-            console.log(apiName + ' not found ' + JSON.stringify(api)); 
+          if(!api || !api.isWebhook) {
             res.json({'error' : 'hook not found'}, 404);
             return;
           }
@@ -444,7 +443,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
-          if(!api || api.type !== 'webhook') {
+          if(!api || !api.isWebhook) {
             res.json({'error' : 'hook not found'}, 404);
             return;
           }
@@ -478,7 +477,7 @@ var SampleApp = function() {
 
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
-          if(!hookName || !api || api.type !== 'webhook') {
+          if(!api || !api.isWebhook) {
             res.json({'error' : 'hook not found'}, 404);
             return;
           }
@@ -506,7 +505,7 @@ var SampleApp = function() {
           var hookName = req.param('hookName');
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
-          if(!api || api.type !== 'webhook') {
+          if(!api || !api.isWebhook) {
             res.send(404);
             return;
           }
@@ -541,7 +540,7 @@ var SampleApp = function() {
           var hookName = req.param('hookName');
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
-          if(!api || api.type !== 'webhook') {
+          if(!api || !api.isWebhook) {
             res.send(404);
             return;
           }

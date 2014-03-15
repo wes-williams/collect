@@ -81,7 +81,8 @@ var apiDetails = function(apiId) {
   var apiConfig = appConfig[apiId];
   var apiName = apiConfig.name ? apiConfig.name : apiId;
   var authFlag = apiConfig.type.match(/^oauth/)?true:false;
-  var api = { 'id' : apiId, 'name' : apiName, 'authRequired' : authFlag }; 
+  var hookFlag = apiConfig.type === 'webhook';
+  var api = { 'id' : apiId, 'name' : apiName, 'authRequired' : authFlag, 'isWebhook' : hookFlag }; 
 
   return api;
 };
