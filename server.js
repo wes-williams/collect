@@ -416,6 +416,7 @@ var SampleApp = function() {
           var apiName = req.param('apiName');
           var api = passport.apiDetails(apiName);
           if(!api || api.type !== 'webhook') {
+            console.log(apiName + ' not found ' + api); 
             res.json({'error' : 'hook not found'}, 404);
             return;
           }
