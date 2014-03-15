@@ -179,7 +179,7 @@ var SampleApp = function() {
           }
 
           passport.removeUser(apiName,req, function(err, count) {
-            if(err) {
+            if(err || count>1) {
               res.json({'error' : 'failed to remove user'}, 500);
             }
             else {
@@ -497,11 +497,11 @@ var SampleApp = function() {
           };
 
           storage.removeUserHook(hook, function(err,count) {
-            if(err || count>0) {
+            if(err || count>1) {
               res.json({'error' : 'failed to remove hook'}, 500);
             }
             else {
-              res.json({ 'hook' : hookName, 'removed' : count===0 });
+              res.json({ 'hook' : hookName, 'removed' : count!==0 });
             }
           });
         };
