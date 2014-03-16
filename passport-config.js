@@ -115,12 +115,12 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
     }
 
     access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
-      if(book1) {
+      if(book1 && book1.books && book1.books.length>0) {
         body.books.push(book1);
       }
 
       access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
-        if(book2) {
+        if(book2 && book2.books && book2.books.length>0) {
           body.books.push(book2);
         }
 
@@ -177,12 +177,12 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
     }
 
     access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + book1Param },function(book1) {
-      if(book1) {
+      if(book1 && book1.books && book1.books.length>0) {
         body.books.push(book1);
       }
 
       access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + book2Param },function(book2) {
-        if(book2) {
+        if(book2 && book2.books && book2.books.length>0) {
           body.books.push(book2);
         }
        
