@@ -83,7 +83,7 @@ var saveUserAccount = function(user,done) {
     }
 
     done(err,user);
-  }
+  });
 };
 storagePlugin.saveUserAccount = saveUserAccount;
 
