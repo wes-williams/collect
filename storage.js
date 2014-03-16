@@ -62,14 +62,28 @@ storagePlugin.findUserAccount = findUserAccount;
 
 var saveUserAccount = function(user,done) {
   user = JSON.parse(JSON.stringify(user));
+  var token = null;
+  var tokenSecret = null;
+
   if(user.token) {
+    token = user.token;
     user.token = encrypt(user.token, user.modifiedAt);
   }
   if(user.tokenSecret) {
+    tokenSecret = user.tokenSecret;
     user.tokenSecret = encrypt(user.tokenSecret, user.modifiedAt);
   }
 
-  db.collection('useraccounts').save(user, {safe:true},done); 
+  db.collection('useraccounts').save(user, {safe:true},function(err,user) {
+    if(token) {
+      user.token=token;
+    }
+    if(tokenSecret) {
+      user.tokenSecret=tokenSecret;
+    }
+
+    done(err,user);
+  }
 };
 storagePlugin.saveUserAccount = saveUserAccount;
 
@@ -114,12 +128,21 @@ storagePlugin.findUserHooks = findUserHooks;
 
 var saveUserHook = function(hook,done) {
   hook = JSON.parse(JSON.stringify(hook));
+  var login = null; 
+
   if(hook.login) {
+    login = JSON.parse(JSON.stringify(hook.login));
+
     hook.login.name = encrypt(hook.login.name, hook.createdAt);
     hook.login.pass = encrypt(hook.login.pass, hook.createdAt);
   }
 
-  db.collection('userhooks').save(hook, {safe:true},done); 
+  db.collection('userhooks').save(hook, {safe:true},function(err,hook) {
+    if(login) {
+      hook.login = login;
+    }
+    done(err,hook);
+  });
 };
 storagePlugin.saveUserHook = saveUserHook;
 
