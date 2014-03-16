@@ -136,22 +136,22 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
 
   1. Create a handle to a webhook data source  
   ~~~~~~~~
-  POST /hook/{dataSource}`
+  POST /hook/{dataSource}
   ~~~~~~~~
 
   2. Test the credentials for the webhook (Basic Auth)
   ~~~~~~~~
-  GET /hook/{dataSource}/{_id}`
+  GET /hook/{dataSource}/{_id}
   ~~~~~~~~
 
-  3. Execute the the webhook handle
+  3. Execute the webhook handle
   ~~~~~~~~
-  POST /hook/{dataSource}/{_id}`
+  POST /hook/{dataSource}/{_id}
   ~~~~~~~~
 
-  4. Delete the the webhook handle
+  4. Delete the webhook handle
   ~~~~~~~~
-  DELETE /hook/{dataSource}/{_id}`
+  DELETE /hook/{dataSource}/{_id}
   ~~~~~~~~
 
   5. View all handles for a webhook 
