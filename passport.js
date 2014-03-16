@@ -115,6 +115,8 @@ var init = function(app, dataStorage) {
   passport.serializeUser(function(user, done) {
     //console.log('serialize user ' + user._id);
 
+    user.modifiedAt = new Date().getTime();
+
     storage.saveUserAccount(user, function(err,doc) {
       // todo - error handling
       done(null, user._id);
@@ -175,6 +177,7 @@ var register = function(apiName) {
         fullUser.tokenSecret = fakeUser.tokenSecret;
         fullUser._login = req.session.user.id;
         fullUser._api = apiName;
+        fullUser.createdAt = new Date().getTime();
       } 
       done(null, fullUser);
     };

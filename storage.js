@@ -12,11 +12,29 @@ var init = function(app, dbConn) {
 storagePlugin.init = init;
 
 var findUserAccount = function(params,done) {
-  db.collection('useraccounts').findOne(params, done); 
+  db.collection('useraccounts').findOne(params, function (err,user) {
+    if(!err && user) {
+      if(user.token) {
+        user.token = storage.decrypt(user.token, user.modifiedAt);
+      }
+      if(user.tokenSecret) {
+        user.tokenSecret = storage.decrypt(user.tokenSecret, user.modifiedAt);
+      }
+    }
+    done(err,user);
+  });
 };
 storagePlugin.findUserAccount = findUserAccount;
 
 var saveUserAccount = function(user,done) {
+  user = JSON.parse(JSON.stringify(user));
+  if(user.token) {
+    user.token = storage.encrypt(user.token, user.modifiedAt);
+  }
+  if(user.tokenSecret) {
+    user.tokenSecret = storage.encrypt(user.tokenSecret, user.modifiedAt);
+  }
+
   db.collection('useraccounts').save(user, {safe:true},done); 
 };
 storagePlugin.saveUserAccount = saveUserAccount;
@@ -27,10 +45,17 @@ var removeUserAccount = function(params,done) {
 storagePlugin.removeUserAccount = removeUserAccount;
 
 var findUserHook = function(params,done) {
+  var params = JSON.parse(JSON.stringify(params));
   if(params._id) {
     params._id = new ObjectID(params._id);
   }
-  db.collection('userhooks').findOne(params,done); 
+  db.collection('userhooks').findOne(params,function(err,hook) {
+    if(!err && hook && hook.login) {
+      hook.login.name = storage.decrypt(hook.login.name, hook.createdAt);
+      hook.login.pass = storage.decrypt(hook.login.pass, hook.createdAt);
+    }
+    done(err,hook);
+  });
 };
 storagePlugin.findUserHook = findUserHook;
 
@@ -38,11 +63,28 @@ var findUserHooks = function(params,done) {
   if(params._id) {
     params._id = new ObjectID(params._id);
   }
-  db.collection('userhooks').find(params).toArray(done); 
+  db.collection('userhooks').find(params).toArray(function(err,hooks) { 
+    if(!err && hooks && Array.isArray(hooks)) {
+      for(var i=0;i<hooks.length;i++) {
+        var hook = hooks[i];
+        if(hook && hook.login) {
+          hook.login.name = storage.decrypt(hook.login.name, hook.createdAt);
+          hook.login.pass = storage.decrypt(hook.login.pass, hook.createdAt);
+        }
+      }
+    }
+    done(err,hooks);
+  });
 };
 storagePlugin.findUserHooks = findUserHooks;
 
 var saveUserHook = function(hook,done) {
+  hook = JSON.parse(JSON.stringify(hook));
+  if(hook.login) {
+    hook.login.name = storage.encrypt(hook.login.name, hook.createdAt);
+    hook.login.pass = storage.encrypt(hook.login.pass, hook.createdAt);
+  }
+
   db.collection('userhooks').save(hook, {safe:true},done); 
 };
 storagePlugin.saveUserHook = saveUserHook;
@@ -222,5 +264,38 @@ db.collection('temporary').find(data,options).toArray(function(err,docs){
 
 };
 storagePlugin.queryUserData = queryUserData;
+
+var cryptKey = crypto.createHash('sha256').update(appConfig.secret).digest();
+
+var fixSalt = function(salt) {
+  if(!salt) {
+    throw 'Encryption Fail';
+  }
+
+  salt = salt + '';
+  while(salt.length<16) {
+    salt = salt + salt;
+  }
+
+  return salt.substring(0,16);
+}
+
+var encrypt = function(input, salt) {
+  salt = fixSalt(salt);
+  var encipher = crypto.createCipheriv('aes-256-cbc', cryptKey, salt);
+  var encrypted = encipher.update(input, 'utf8', 'base64');
+  encrypted += encipher.final('base64');
+  return encrypted;
+};
+storagePlugin.encrypt = encrypt;
+
+var decrypt = function(input, salt) {
+  salt = fixSalt(salt);
+  var decipher = crypto.createDecipheriv('aes-256-cbc', cryptKey, salt);
+  var decrypted = decipher.update(input, 'base64', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+};
+storagePlugin.decrypt = decrypt;
 
 module.exports = storagePlugin;
