@@ -235,7 +235,7 @@ passportPlugin.register = register;
 var handleRequest = function(apiName, user, options, callback) {
   console.log('handling ' + options.method + ' request to '  + apiName + ': ' + options.uri);
 
-  if(options.method != 'GET') {
+  if(options.method.toUpperCase() !== 'GET') {
     console.log('Only handling GET request right now');
     callback(user,null);
     return;

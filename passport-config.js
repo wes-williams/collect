@@ -75,7 +75,12 @@ appConfig.opencolorado.type='public';
 appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage'; 
 
 ///////////////
-// composite (mashup) 
+// composite (mashup)
+// 
+//  Usage: GET /api/{name}/*  
+//  Resources: 
+//    access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
+//    options: method, uri 
 ///////////////
 
 
@@ -84,6 +89,9 @@ appConfig.mashup1.name='Book Mashup';
 appConfig.mashup1.enabled=true;
 appConfig.mashup1.type = 'composite';
 appConfig.mashup1.buildComposite = function(access, options, done) {
+  // access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
+  // options: method, uri 
+
   console.log('execute mashup1 with uri: ' + options.uri);
 
   var body = {};
@@ -107,10 +115,14 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
     }
 
     access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
-      body.books.push(book1);
+      if(book1) {
+        body.books.push(book1);
+      }
 
       access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
-        body.books.push(book2);
+        if(book2) {
+          body.books.push(book2);
+        }
 
         access.ingest(body.books, function(data) {
           // error, body
@@ -123,7 +135,14 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
 };
 
 ///////////////
-// webhook
+// webhook - for use by 3rd parties to push data
+// 
+//  Security: Basic Auth
+//  Auth Test: GET  /hook/{name}/{id}  
+//  Execution: POST /hook/{name}/{id}  
+//  Resources: 
+//    access: params, body, api(name,options,callback), query(params,callback), ingest(data,callback)
+//    options: method, uri 
 ///////////////
 
 appConfig.webhook1 = {};
@@ -131,7 +150,11 @@ appConfig.webhook1.name='Skeleton Webhook';
 appConfig.webhook1.enabled=true;
 appConfig.webhook1.type = 'webhook';
 appConfig.webhook1.buildWebhook = function(access, options, done) {
+
   console.log('execute webhook1 with uri: ' + options.uri);
+
+  var book1Param = access.body.book1 ? access.body.book1 : access.params.book1;
+  var book2Param = access.body.book2 ? access.body.book2 : access.params.book2;
 
   var body = {};
   body.reader = 'me';
@@ -139,7 +162,7 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
 
   var queryParams = { 
     '_meta.api~in' : 'pearson~webhook1', 
-    'books.title~rei' : '('+ access.params.book1 +'|'+ access.params.book2 +')' 
+    'books.title~rei' : '('+ book1Param +'|'+ book2Param +')' 
   };
 
   access.query(queryParams,function(data) {
@@ -153,16 +176,22 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
       }
     }
 
-    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book1 },function(book1) {
-      body.books.push(book1);
+    access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + book1Param },function(book1) {
+      if(book1) {
+        body.books.push(book1);
+      }
 
-      access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + access.params.book2 },function(book2) {
-        body.books.push(book2);
+      access.api('pearson',{ method : 'GET', uri : '/penguin/classics/v1/books?title=' + book2Param },function(book2) {
+        if(book2) {
+          body.books.push(book2);
+        }
        
-        access.ingest(body.books, function(data) {
-          // error, body
-          done(null,body);
-        });
+        if(body.books.length > 0) {
+          access.ingest(body.books, function(data) {
+            // error, body
+            done(null,body);
+          });
+        }
       });
     });
   });
