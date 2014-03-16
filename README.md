@@ -10,6 +10,7 @@ Remove barriers to experimenting with new data sources.
     * [**Access**](#how-access) data sources
     * [**Ingest**](#how-ingest) data sources
     * [**Query**](#how-query) ingested data
+    * [**Webhook**](#how-webhook) integration 
 
 __Disclaimer__: This project is MIT licensed. Use at your own risk.
 
@@ -126,3 +127,29 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   | ~in | In list separated by ~ | `name~in=abc~cde~fgh` |
   | ~nin | Not In list separted by ~ | `name~nin=abc~cde~fgh` |
 
+### Webhook integration <a name="how-webhook"></a>
+
+  1. Create a handle to a webhook data source  
+  ~~~~~~~~
+  POST /hook/{dataSource}`
+  ~~~~~~~~
+
+  2. Test the credentials for the webhook (Basic Auth)
+  ~~~~~~~~
+  GET /hook/{dataSource}/{_id}`
+  ~~~~~~~~
+
+  3. Execute the the webhook handle
+  ~~~~~~~~
+  POST /hook/{dataSource}/{_id}`
+  ~~~~~~~~
+
+  4. Delete the the webhook handle
+  ~~~~~~~~
+  DELETE /hook/{dataSource}/{_id}`
+  ~~~~~~~~
+
+  5. View all handles for a webhook 
+  ~~~~~~~~
+  GET /hook/{dataSource}
+  ~~~~~~~~
