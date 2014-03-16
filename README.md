@@ -72,13 +72,18 @@ Personal setup on the [**OpenShift**](https://www.openshift.com) PAAS
   git checkout secret
   ~~~~~~~~~~
 
-  7. Edit config and credentials for your data sources. See how [**here**](#how-configure).
+  7. Edit config of secret for encryption of credentials
+  ~~~~~~~~~~~~~
+  vi storage-config.js
+  ~~~~~~~~~~~~~
+
+  8. Edit config and credentials for your data sources. See how [**here**](#how-configure).
   ~~~~~~~~~~~
   vi passport-config.js
   git commit -am "Edited accounts. KEEP SECRET."
   ~~~~~~~~~~~
 
-  8. Deploy secret branch to openshift
+  9. Deploy secret branch to openshift
   ~~~~~~~~~~~~~
   git push origin secret:master
   ~~~~~~~~~~~~~
