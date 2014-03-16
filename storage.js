@@ -1,5 +1,6 @@
 var appConfig = require('./storage-config'),
     request = require('request'),
+    crypto = require('crypto'),
     ObjectID = require('mongodb').ObjectID;
 
 var storagePlugin = {};
