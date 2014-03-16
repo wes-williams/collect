@@ -124,10 +124,15 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
           body.books.push(book2);
         }
 
-        access.ingest(body.books, function(data) {
-          // error, body
+        if(body.books.length > 0) {
+          access.ingest(body.books, function(data) {
+            // error, body
+            done(null,body);
+          });
+        }
+        else {
           done(null,body);
-        });
+        }
       });
     });
   });
@@ -191,6 +196,9 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
             // error, body
             done(null,body);
           });
+        }
+        else {
+          done(null,body);
         }
       });
     });
