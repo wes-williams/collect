@@ -7,6 +7,7 @@ appConfig._host = commonConfig.host;
 // oauth 1.0
 ///////////////
 
+/*
 // fitbit - https://wiki.fitbit.com/display/API/Fitbit+API
 
 appConfig.fitbit = {};
@@ -34,11 +35,13 @@ appConfig.twitter.defaultLoadUrl = '/account/verify_credentials.json';
 appConfig.twitter.userIdPath = 'screen_name'; 
 appConfig.twitter.clientId = 'KEY_GOES_HERE';
 appConfig.twitter.clientSecret = 'PASS_GOES_HERE';
+*/
 
 ///////////////
 // oauth 2.0  (no request url)
 ///////////////
 
+/*
 // github - http://developer.github.com/
 
 appConfig.github = {};
@@ -51,11 +54,13 @@ appConfig.github.defaultLoadUrl = '/user';
 appConfig.github.userIdPath = 'login'; 
 appConfig.github.clientId = 'KEY_GOES_HERE';
 appConfig.github.clientSecret = 'PASS_GOES_HERE';
+*/
 
 ///////////////
 // api key
 ///////////////
 
+/*
 appConfig.pearson = {};
 appConfig.pearson.enabled=true;
 appConfig.pearson.type='api-key';
@@ -63,16 +68,19 @@ appConfig.pearson.baseUrl = 'https://api.pearson.com';
 appConfig.pearson.keyName = 'apikey'; 
 appConfig.pearson.keyValue = 'KEY_GOES_HERE'; 
 appConfig.pearson.isKeyInUrl = true; 
+*/
 
 ///////////////
 // public 
 ///////////////
 
+/*
 appConfig.opencolorado = {};
 appConfig.opencolorado.name='Open Colorado';
 appConfig.opencolorado.enabled=true;
 appConfig.opencolorado.type='public';
 appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage'; 
+*/
 
 ///////////////
 // composite (mashup)
@@ -84,6 +92,7 @@ appConfig.opencolorado.baseUrl = 'http://data.opencolorado.org/storage';
 ///////////////
 
 
+/*
 appConfig.mashup1 = {};
 appConfig.mashup1.name='Book Mashup';
 appConfig.mashup1.enabled=true;
@@ -138,6 +147,7 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
   });
 
 };
+*/
 
 ///////////////
 // webhook - for use by 3rd parties to push data
@@ -149,6 +159,8 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
 //    access: params, body, api(name,options,callback), query(params,callback), ingest(data,callback)
 //    options: method, uri 
 ///////////////
+
+/*
 
 appConfig.webhook1 = {};
 appConfig.webhook1.name='Skeleton Webhook';
@@ -205,6 +217,8 @@ appConfig.webhook1.buildWebhook = function(access, options, done) {
   });
 
 };
+
+*/
 
 
 module.exports = appConfig;
