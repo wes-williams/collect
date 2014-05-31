@@ -183,6 +183,15 @@ appConfig.twillio.buildWebhook = function(access, options, done) {
   });
 };
 
+appConfig.twillioback = {};
+appConfig.twillioback.name='Twillio';
+appConfig.twillioback.enabled=true;
+appConfig.twillioback.type = 'webhook';
+appConfig.twillioback.buildWebhook = function(access, options, done) {
+ console.log('RECEIVED TWILLIO CALLBACK: ' + JSON.stringify(access.body)); 
+ done(null,{});
+};
+
 ///////////////
 // webhook - for use by 3rd parties to push data
 // 
