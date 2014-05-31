@@ -1,6 +1,6 @@
 var appConfig = {};
 
-appConfig.host = 'https://proxy-dataupco.rhcloud.com';
-appConfig.db = 'proxy';
+appConfig.host = 'https://bigandlittle-dataupco.rhcloud.com';
+appConfig.db = 'bigandlittle';
 
 module.exports = appConfig;
