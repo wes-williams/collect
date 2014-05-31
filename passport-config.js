@@ -154,8 +154,8 @@ appConfig.twillio = {};
 appConfig.twillio.name='Twillio';
 appConfig.twillio.username='<USERNAMEHERE>';
 appConfig.twillio.password='<PASSWORDHERE>';
-appConfig.twillio.phoneNumber'<PHONENUMBERHERE>';
-appConfig.twillio.testPhoneNumber'<PHONENUMBERHERE>';
+appConfig.twillio.phoneNumber='<PHONENUMBERHERE>';
+appConfig.twillio.testPhoneNumber='<PHONENUMBERHERE>';
 appConfig.twillio.enabled=true;
 appConfig.twillio.type = 'composite';
 appConfig.twillio.buildComposite = function(access, options, done) {
