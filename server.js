@@ -600,9 +600,10 @@ var SampleApp = function() {
             });  
           });
         };
+
+        self.routes.get['/hook/:apiName/:hookName'] = self.routes.post['/hook/:apiName/:hookName'];
     };
 
-    self.routes.get['/hook/:apiName/:hookName'] = self.routes.post['/hook/:apiName/:hookName'];
 
     // PERSONA CAN'T SWITCH BETWEEN HTTP AND HTTPS
     // https://www.openshift.com/kb/kb-e1044-how-to-redirect-traffic-to-https
