@@ -190,9 +190,10 @@ appConfig.twillioback.type = 'webhook';
 appConfig.twillioback.buildWebhook = function(access, options, done) {
  console.log('RECEIVED TWILLIO CALLBACK: ' + JSON.stringify(access.body)); 
 
- var ack = '<?xml version="1.0" encoding="UTF-8" ?><Response><Message>Ack</Message></Response>';
-         
- done(null,ack);
+ access.ingest(access.body, function(data) {
+   var ack = '<?xml version="1.0" encoding="UTF-8" ?><Response><Message>Ack</Message></Response>';
+   done(null,ack);
+ });
 };
 
 ///////////////
