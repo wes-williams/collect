@@ -162,7 +162,16 @@ appConfig.twillio.buildWebhook = function(access, options, done) {
   // access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
   // options: method, uri 
 
-  console.log('execute twillio with uri: ' + options.uri);
+  console.log('execute twillio with ' + options.method + ' on uri: ' + options.uri);
+
+  if(options.method==='GET') {
+    var queryParams = access.params;
+    queryParams['_meta.api'] = 'twillioback'; 
+    access.query(queryParams, function(data) {
+      done(null,data);
+    });
+    return;
+  }
 
   var newMessage = {
     'From' : appConfig.twillio.phoneNumber,

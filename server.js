@@ -506,7 +506,7 @@ var SampleApp = function() {
           });
         };
 
-
+/*
         // endpoint for testing basic auth on hook
         self.routes.get['/hook/:apiName/:hookName'] = function(req,res,next) { 
 
@@ -541,6 +541,7 @@ var SampleApp = function() {
             }
           });
         };
+*/
 
         // basic auth required
         self.routes.post['/hook/:apiName/:hookName'] = function(req,res,next) { 
@@ -581,7 +582,7 @@ var SampleApp = function() {
             }
 
             var options = {};
-            options.method = 'POST';
+            options.method = req.method;
             options.uri = req.url.substring(6+apiName.length);
 
             passport.handleWebhook(apiName,options,req, function(data) {
@@ -600,6 +601,8 @@ var SampleApp = function() {
           });
         };
     };
+
+    self.routes.get['/hook/:apiName/:hookName'] = self.routes.post['/hook/:apiName/:hookName'];
 
     // PERSONA CAN'T SWITCH BETWEEN HTTP AND HTTPS
     // https://www.openshift.com/kb/kb-e1044-how-to-redirect-traffic-to-https
