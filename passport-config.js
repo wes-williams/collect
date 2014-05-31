@@ -174,7 +174,7 @@ appConfig.twillio.buildComposite = function(access, options, done) {
     'uri' : 'https://api.twilio.com/2010-04-01/Accounts/'+appConfig.twillio.username+'/Messages.json', 
     'method' : 'POST',
     'headers' : { 
-      'Content-Type' : 'application/json'
+      'Content-Type' : 'application/json',
       'Authorization' : 'Basic ' + new Buffer(appConfig.twillio.username+':'+appConfig.twillio.password).toString('base64') 
     },
     'body' : JSON.stringify(newMessage)
