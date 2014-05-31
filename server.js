@@ -586,7 +586,12 @@ var SampleApp = function() {
 
             passport.handleWebhook(apiName,options,req, function(data) {
               if(data) {
-                res.json(data); 
+                if(typeof(data) === 'string') {
+                  res.send(data); 
+                }
+                else {
+                  res.json(data); 
+                }
               }
               else{
                 res.send(200); // need a way to tell error vs no data
