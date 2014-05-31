@@ -1,4 +1,5 @@
 var commonConfig = require('./common-config.js');
+var request = require('request');
 
 var appConfig = {};
 appConfig._host = commonConfig.host;
@@ -164,11 +165,11 @@ appConfig.twillio.buildComposite = function(access, options, done) {
   var requestOptions = { 
     'uri' : 'https://api.twilio.com/2010-04-01/Accounts/'+appConfig.twillo.username+'/Messages.json', 
     'method' : 'POST',
-    'headers' : { 'Authorization : Basic '+ new Buffer(appConfig.twillio.username+':'+appConfig.twillio.password).toString('base64') }
+    'headers' : { 'Authorization' : 'Basic ' + new Buffer(appConfig.twillio.username+':'+appConfig.twillio.password).toString('base64') }
   };
   request(requestOptions, function (error, body, response) {
     done(body)
-  }
+  });
 };
 
 ///////////////
