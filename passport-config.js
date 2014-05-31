@@ -205,6 +205,41 @@ appConfig.twillioback.buildWebhook = function(access, options, done) {
  });
 };
 
+appConfig.sendgrid = {};
+appConfig.sendgrid.name='Sendgrid';
+appConfig.sendgrid.username='<USERNAMEHERE>';
+appConfig.sendgrid.password='<PASSWORDHERE>';
+appConfig.sendgrid.enabled=true;
+appConfig.sendgrid.type = 'webhook';
+appConfig.sendgrid.buildWebhook = function(access, options, done) {
+  // access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
+  // options: method, uri 
+
+  console.log('execute sendgrid with ' + options.method + ' on uri: ' + options.uri);
+
+  var newMessage = {
+    'api_user' : appConfig.sendgrid.username,
+    'api_key' : appConfig.sendgrid.password,
+    'to' : access.body.to,
+    'toname' : access.body.to_name,
+    'subject' : access.body.subject,
+    'text' : access.body.text,
+    'from' : access.body.from
+  };
+
+  var requestOptions = { 
+    'uri' : 'https://api.sendgrid.com/api/mail.send.json', 
+    'method' : 'POST',
+    'headers' : { 
+    },
+    'form' : newMessage
+  };
+  request(requestOptions, function (error, response, body) {
+    done(null, body)
+  });
+};
+
+
 ///////////////
 // webhook - for use by 3rd parties to push data
 // 
