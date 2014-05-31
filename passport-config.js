@@ -166,8 +166,8 @@ appConfig.twillio.buildWebhook = function(access, options, done) {
 
   var newMessage = {
     'From' : appConfig.twillio.phoneNumber,
-    'To' : access.params.phone,
-    'Body' : access.params.message
+    'To' : access.body.phone,
+    'Body' : access.body.message
   };
 
   var requestOptions = { 
