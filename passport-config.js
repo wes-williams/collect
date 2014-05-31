@@ -149,6 +149,28 @@ appConfig.mashup1.buildComposite = function(access, options, done) {
 };
 */
 
+appConfig.twillio = {};
+appConfig.twillio.name='Twillio';
+appConfig.twillio.username='<USERNAMEHERE>';
+appConfig.twillio.password='<PASSWORDHERE>';
+appConfig.twillio.enabled=true;
+appConfig.twillio.type = 'composite';
+appConfig.twillio.buildComposite = function(access, options, done) {
+  // access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
+  // options: method, uri 
+
+  console.log('execute twillio with uri: ' + options.uri);
+
+  var requestOptions = { 
+    'uri' : 'https://api.twilio.com/2010-04-01/Accounts/'+appConfig.twillo.username+'/Messages.json', 
+    'method' : 'POST',
+    'headers' : { 'Authorization : Basic '+ new Buffer(appConfig.twillio.username+':'+appConfig.twillio.password).toString('base64') }
+  };
+  request(requestOptions, function (error, body, response) {
+    done(body)
+  }
+};
+
 ///////////////
 // webhook - for use by 3rd parties to push data
 // 
