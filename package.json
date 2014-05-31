@@ -11,12 +11,12 @@
   "author": {
     "name": "OpenShift",
     "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "url":  "http://openshift.redhat.com/"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "http://openshift.redhat.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "https://gitub.com/openshift/origin-server"
   },
 
   "engines": {
@@ -25,7 +25,14 @@
   },
 
   "dependencies": {
-    "express": "~3.4.4"
+    "express" : "2.5.8",
+    "basic-auth" : "0.0.1",
+    "qs" : "0.4.2",
+    "passport" : "0.1.15",
+    "passport-oauth" : "0.1.13",
+    "request" : "2.12.0",
+    "mongodb" : "0.9.9-1" 
+
   },
   "devDependencies": {},
   "bundleDependencies": [],
