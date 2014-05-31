@@ -180,7 +180,7 @@ appConfig.twillio.buildComposite = function(access, options, done) {
     'body' : JSON.stringify(newMessage)
   };
   request(requestOptions, function (error, body, response) {
-    done(body)
+    done(null, body)
   });
 };
 
