@@ -157,8 +157,8 @@ appConfig.twillio.password='<PASSWORDHERE>';
 appConfig.twillio.phoneNumber='<PHONENUMBERHERE>';
 appConfig.twillio.testPhoneNumber='<PHONENUMBERHERE>';
 appConfig.twillio.enabled=true;
-appConfig.twillio.type = 'composite';
-appConfig.twillio.buildComposite = function(access, options, done) {
+appConfig.twillio.type = 'webhook';
+appConfig.twillio.buildWebhook = function(access, options, done) {
   // access: params, api(name,options,callback), query(params,callback), ingest(data,callback)
   // options: method, uri 
 
