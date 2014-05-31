@@ -165,8 +165,8 @@ appConfig.twillio.buildComposite = function(access, options, done) {
   console.log('execute twillio with uri: ' + options.uri);
 
   var newMessage = {
-    'From' : appConig.twillio.phoneNumber,
-    'To' : appConig.twillio.testPhoneNumber,
+    'From' : appConfig.twillio.phoneNumber,
+    'To' : appConfig.twillio.testPhoneNumber,
     'Body' : 'This is a test'
   };
 
