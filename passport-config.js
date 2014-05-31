@@ -171,7 +171,7 @@ appConfig.twillio.buildComposite = function(access, options, done) {
   };
 
   var requestOptions = { 
-    'uri' : 'https://api.twilio.com/2010-04-01/Accounts/'+appConfig.twillo.username+'/Messages.json', 
+    'uri' : 'https://api.twilio.com/2010-04-01/Accounts/'+appConfig.twillio.username+'/Messages.json', 
     'method' : 'POST',
     'headers' : { 'Authorization' : 'Basic ' + new Buffer(appConfig.twillio.username+':'+appConfig.twillio.password).toString('base64') },
     'body' : newMessage
