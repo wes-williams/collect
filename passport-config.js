@@ -178,7 +178,7 @@ appConfig.twillio.buildComposite = function(access, options, done) {
     },
     'form' : newMessage
   };
-  request(requestOptions, function (error, body, response) {
+  request(requestOptions, function (error, response, body) {
     done(null, body)
   });
 };
