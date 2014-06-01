@@ -224,7 +224,7 @@ appConfig.sendgrid.buildWebhook = function(access, options, done) {
     'toname' : access.body.to_name,
     'subject' : access.body.subject,
     'text' : access.body.text,
-    'from' : access.body.from
+    'from' : 'noreply@dataup.co'
   };
 
   var requestOptions = { 
