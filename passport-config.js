@@ -217,6 +217,11 @@ appConfig.sendgrid.buildWebhook = function(access, options, done) {
 
   console.log('execute sendgrid with ' + options.method + ' on uri: ' + options.uri);
 
+  if(options.method==='GET') {
+    done(null,{});
+    return;
+  }
+
   var newMessage = {
     'api_user' : appConfig.sendgrid.username,
     'api_key' : appConfig.sendgrid.password,
