@@ -1,4 +1,4 @@
-# Collect
+# Collect - with mods from 2014 hack4co
 
 Remove barriers to experimenting with new data sources.
 
